@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Narendren Kuppusamy — Senior Product Designer Portfolio</title>
+  <meta name="description" content="Senior Product Designer with 4+ years of experience leading end-to-end UX/UI, enterprise SaaS, AI tooling, and cloud platforms. Mechanical engineering background applied to scalable design systems.">
+  <meta name="keywords" content="Narendren Kuppusamy, Product Designer, Enterprise UX, UX UI Lead, Design Systems, SaaS UI, AI Design">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <!-- Noise Overlay & Ambient Lighting -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+  <div class="ambient-glow glow-1" aria-hidden="true"></div>
+  <div class="ambient-glow glow-2" aria-hidden="true"></div>
+
+  <!-- Header / Navigation -->
+  <header class="site-header" id="site-header">
+    <div class="header-container">
+      <a href="#hero" class="brand-logo" aria-label="Narendren Kuppusamy Home">
+        <img src="/images/logo-n.svg" alt="N Mark" class="logo-n-img" width="155" height="106">
+        <img src="/images/logo-naren.svg" alt="Naren Logotype" class="logo-naren-img" width="218" height="64">
+      </a>
+
+      <nav class="main-nav" aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li><a href="#hero" class="nav-link active">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#experience" class="nav-link">Process</a></li>
+          <li><a href="#projects" class="nav-link">Project</a></li>
+        </ul>
+        <button id="contact-btn" class="btn-contact" type="button">Contact me</button>
+      </nav>
+
+      <button id="mobile-menu-btn" class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Navigation -->
+  <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+    <div class="drawer-content">
+      <ul class="mobile-nav-list">
+        <li><a href="#hero" class="mobile-nav-link">Home</a></li>
+        <li><a href="#about" class="mobile-nav-link">About</a></li>
+        <li><a href="#experience" class="mobile-nav-link">Process</a></li>
+        <li><a href="#projects" class="mobile-nav-link">Project</a></li>
+      </ul>
+      <button id="mobile-contact-btn" class="btn-contact btn-mobile-contact" type="button">Contact me</button>
+    </div>
+  </div>
+
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+      <div class="section-container">
+        <!-- Top Bio Paragraph & Quick Info Cards -->
+        <div class="hero-top-grid">
+          <div class="hero-bio-summary">
+            <p class="text-body-lead">
+              I'm <strong class="text-white">Narendren Kuppusamy</strong>, a Senior Product Designer working at the seam between UX strategy and shipped software — enterprise SaaS, AI tooling, and healthcare platforms that started as ambiguous technical problems and ended up as interfaces non-experts could run on their own.
+            </p>
+          </div>
+
+          <div class="hero-meta-badges">
+            <div class="meta-badge">
+              <span class="meta-label">Role</span>
+              <span class="meta-value">Senior Product Designer</span>
+            </div>
+            <div class="meta-badge">
+              <span class="meta-label">Based in</span>
+              <span class="meta-value">Coimbatore, India</span>
+            </div>
+            <div class="meta-badge">
+              <span class="meta-label">Experience</span>
+              <span class="meta-value">4+ years, end-to-end</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider-line" aria-hidden="true"></div>
+
+        <!-- Headline & Subheadline (Uniform White Weight as requested) -->
+        <div class="hero-headline-block">
+          <h1 class="hero-title gsap-reveal">
+            Designing systems<br>
+            for people who build things.
+          </h1>
+          <p class="hero-subtitle gsap-reveal">
+            Trained to build things. Now I design them.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About & Mechanical Background Section -->
+    <section id="about" class="about-section">
+      <div class="section-container">
+        <div class="about-quote-box">
+          <p class="about-statement" id="about-statement-text">
+            My mechanical engineering background shapes how I approach product design. Tolerances, load paths, and precision translation mean treating interfaces like systems under load. Over four years leading end-to-end UX/UI for enterprise SaaS and cloud platforms—currently managing seven designers at Pirai Infotech—I stay hands-on. My strength is converting complex, technical tools into clear, confident experiences users master on day one.
+          </p>
+        </div>
+      </div>
+
+      <!-- Hero Visual Banner Frame -->
+      <div class="hero-banner-wrap gsap-reveal">
+        <img src="/images/hero-bg.png" alt="Narendren Product Design System Workspace" class="hero-bg-img" loading="eager">
+        <div class="banner-gradient-mask" aria-hidden="true"></div>
+
+        <!-- Overlaid Rows (No glass box, label left, content right-aligned one by one) -->
+        <div class="banner-overlay-grid">
+          <div class="grid-card-row">
+            <span class="card-label">Discipline</span>
+            <span class="card-value">UX Strategy, Interaction & Visual Design, Design Systems</span>
+          </div>
+          <div class="grid-card-row">
+            <span class="card-label">Domains</span>
+            <span class="card-value">Enterprise SaaS, AI Product, Healthcare, E-commerce</span>
+          </div>
+          <div class="grid-card-row">
+            <span class="card-label">Leadership</span>
+            <span class="card-value">7-person design team, cross-functional delivery</span>
+          </div>
+          <div class="grid-card-row">
+            <span class="card-label">Foundation</span>
+            <span class="card-value">B.E. Mechanical Engineering, SCAD Institute of Technology</span>
+          </div>
+          <div class="grid-card-row">
+            <span class="card-label">Tools</span>
+            <span class="card-value">Figma, Adobe XD, ProtoPie, Zeplin, Webflow</span>
+          </div>
+          <div class="grid-card-row">
+            <span class="card-label">Method</span>
+            <span class="card-value">Design Thinking, Usability Testing, Data-Driven Iteration</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience-section">
+      <div class="section-container">
+        <div class="section-header-block">
+          <span class="section-eyebrow">— WORK HISTORY</span>
+          <h2 class="section-title">Leadership & Delivery Experience</h2>
+        </div>
+
+        <!-- 3-Column Sticky Stepper Grid Container -->
+        <div class="exp-stepper-3col-grid" id="exp-stepper-container">
+          <!-- Column 1 (Left): Company, Bullets, & Rectangular Chips -->
+          <div class="details-column" id="stepper-content-box">
+            <h4 id="stepper-company" class="company-title-bold-italic">Pirai Infotech, Coimbatore</h4>
+            <div class="divider-line subtle"></div>
+
+            <ul id="stepper-bullets" class="bullet-list">
+              <li><span class="bullet-dash">–</span> <span>Led end-to-end UX/UI and solutioning for enterprise SaaS and cloud platforms across web and mobile</span></li>
+              <li><span class="bullet-dash">–</span> <span>Partnered with sales and pre-sales to turn client requirements into concepts that supported live deal conversations</span></li>
+              <li><span class="bullet-dash">–</span> <span>Managed and mentored a team of 7 designers, raising quality and delivery consistency across projects</span></li>
+              <li><span class="bullet-dash">–</span> <span>Worked with product and engineering to simplify complex workflows into intuitive, user-centric experiences</span></li>
+              <li><span class="bullet-dash">–</span> <span>Delivered design across enterprise systems, audit platforms, healthcare solutions, and e-commerce</span></li>
+            </ul>
+
+            <div class="divider-line subtle"></div>
+
+            <div id="stepper-tags" class="rectangular-chips-row">
+              <span class="rectangular-chip">LEADERSHIP</span>
+              <span class="rectangular-chip">ENTERPRISE UX</span>
+              <span class="rectangular-chip">PRE-SALES</span>
+              <span class="rectangular-chip">DESIGN SYSTEMS</span>
+            </div>
+          </div>
+
+          <!-- Column 2 (Center): Date Counter Reel (Slot Machine Odometer Scroll) -->
+          <div class="date-column">
+            <div class="date-reel-viewport">
+              <div class="date-reel-track" id="date-reel-track">
+                <span class="dates-text">Apr 2023 — Present</span>
+                <span class="dates-text">Jan 2022 — Jan 2023</span>
+                <span class="dates-text">June 2021 — Jan 2022</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 3 (Right): Scrollable Role Title Reel Stack (560px) -->
+          <div class="role-stack-column">
+            <div class="role-stack-track" id="role-stack-track">
+              <button type="button" class="role-stack-btn role-active" data-index="0" aria-label="Team Lead role">Team Lead</button>
+              <button type="button" class="role-stack-btn role-dim-mid" data-index="1" aria-label="UX UI Designer role">UX UI Designer</button>
+              <button type="button" class="role-stack-btn role-dim-low" data-index="2" aria-label="Project Manager role">Project Manager</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects / Featured Case Studies Section (Pinned 3D Paper-Fold Stacked Cards) -->
+    <section id="projects" class="projects-section">
+      <div class="case-studies-pinned-wrapper" id="case-studies-stack-wrapper">
+        
+        <!-- Card 01: Cloud Architecture Builder Platform (White / Off-White Bg) -->
+        <article class="case-study-card cs-card-white" id="cs-1">
+          <div class="section-container">
+            <!-- Top Row: Eyebrow Left / Tag Badge Right -->
+            <div class="cs-card-top-row">
+              <span class="cs-eyebrow">– FEATURED CASE STUDY</span>
+              <span class="cs-tag-badge">SAAS · CLOUD INFRASTRUCTURE</span>
+            </div>
+
+            <!-- Title Row: 2-line Display Heading & Baseline Index Number Right -->
+            <div class="cs-card-title-row">
+              <h3 class="cs-display-heading">Cloud Architecture /<br>Builder Platform</h3>
+              <span class="cs-index-number">01</span>
+            </div>
+
+            <!-- Full-Width Horizontal Rule -->
+            <div class="cs-divider"></div>
+
+            <!-- 3-Column Content Grid Below Rule -->
+            <div class="cs-card-3col-grid">
+              <!-- Column 1: PROBLEM -->
+              <div class="cs-col">
+                <span class="cs-col-label">PROBLEM</span>
+                <p class="cs-col-paragraph">
+                  <span class="bullet-dash">–</span> The builder was a freeform canvas that assumed deep cloud infrastructure knowledge. Non-expert users stalled out or made errors that only surfaced after deployment, creating a dependency on senior DevOps engineers for architectures that should have been routine.
+                </p>
+              </div>
+
+              <!-- Column 2: SOLUTION -->
+              <div class="cs-col">
+                <span class="cs-col-label">SOLUTION</span>
+                <p class="cs-col-paragraph">
+                  <span class="bullet-dash">–</span> Replaced the open canvas with a guided, sequential workflow: plain-language intake, inline validation at each step, then a generated architecture — so the interface caught mistakes before they became deployments instead of after.
+                </p>
+              </div>
+
+              <!-- Column 3: OUTCOME (3 Stacked Stat Blocks) -->
+              <div class="cs-col outcomes-col">
+                <span class="cs-col-label">OUTCOME</span>
+                <div class="cs-stats-stack">
+                  <div class="cs-stat-block">
+                    <span class="stat-value">35%</span>
+                    <span class="stat-label">FASTER ARCHITECTURE CREATION — VIA STREAMLINED, GUIDED WORKFLOWS REPLACING A FREEFORM CANVAS</span>
+                  </div>
+
+                  <div class="cs-stat-block">
+                    <span class="stat-value">20%</span>
+                    <span class="stat-label">FEWER USER ERRORS — CLEARER INFORMATION ARCHITECTURE PLUS INLINE VALIDATION AT EACH STEP</span>
+                  </div>
+
+                  <div class="cs-stat-block">
+                    <span class="stat-value">↓DEV</span>
+                    <span class="stat-label">REDUCED DEPENDENCY ON SENIOR DEVOPS ENGINEERS BY SIMPLIFYING COMPLEX TECHNICAL WORKFLOWS</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 02: Replacing manual with AI matching (Medium Grey Bg #8a8a8a) -->
+        <article class="case-study-card cs-card-grey" id="cs-2">
+          <div class="section-container">
+            <!-- Top Row: Eyebrow Left / Tag Badge Right -->
+            <div class="cs-card-top-row">
+              <span class="cs-eyebrow">– FEATURED CASE STUDY</span>
+              <span class="cs-tag-badge">SAAS · AI HIRING</span>
+            </div>
+
+            <!-- Title Row: 2-line Display Heading & Baseline Index Number Right -->
+            <div class="cs-card-title-row">
+              <h3 class="cs-display-heading">Replacing manual with<br>AI matching</h3>
+              <span class="cs-index-number">02</span>
+            </div>
+
+            <!-- Full-Width Horizontal Rule -->
+            <div class="cs-divider"></div>
+
+            <!-- 3-Column Content Grid Below Rule -->
+            <div class="cs-card-3col-grid">
+              <!-- Column 1: PROBLEM -->
+              <div class="cs-col">
+                <span class="cs-col-label">PROBLEM</span>
+                <p class="cs-col-paragraph">
+                  <span class="bullet-dash">–</span> Every application landed in the same queue, and the HR team manually screened each one before a candidate heard anything back. The wait killed engagement — good candidates dropped off before a human ever got to their profile, and the manual load only grew with volume.
+                </p>
+              </div>
+
+              <!-- Column 2: SOLUTION -->
+              <div class="cs-col">
+                <span class="cs-col-label">SOLUTION</span>
+                <p class="cs-col-paragraph">
+                  <span class="bullet-dash">–</span> Redesigned the flow around an AI matching engine that ranks and shortlists candidates against role criteria automatically, paired with faster status feedback so candidates weren't left guessing. HR moved from screening every application to reviewing a ranked shortlist.
+                </p>
+              </div>
+
+              <!-- Column 3: OUTCOME (3 Stacked Stat Blocks) -->
+              <div class="cs-col outcomes-col">
+                <span class="cs-col-label">OUTCOME</span>
+                <div class="cs-stats-stack">
+                  <div class="cs-stat-block">
+                    <span class="stat-value">300%</span>
+                    <span class="stat-label">HIGHER USER RETENTION POST-REDESIGN, DRIVEN BY FASTER FEEDBACK AND A CLEARER CANDIDATE JOURNEY</span>
+                  </div>
+
+                  <div class="cs-stat-block">
+                    <span class="stat-value">50%</span>
+                    <span class="stat-label">LESS MANUAL LOAD ON THE HR TEAM — AI MATCHING REMOVED FIRST-PASS SCREENING FROM THEIR QUEUE</span>
+                  </div>
+
+                  <div class="cs-stat-block">
+                    <span class="stat-value">AI</span>
+                    <span class="stat-label">MATCHING ENGINE DESIGNED AND SHIPPED END-TO-END, FROM INTAKE THROUGH RANKED SHORTLIST</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 03: Getting ESG reporting out of spreadsheets (Solid Dark Bg #0E0E0E) -->
+        <article class="case-study-card cs-card-charcoal" id="cs-3">
+          <div class="section-container">
+            <!-- Top Row: Eyebrow Left / Tag Badge Right -->
+            <div class="cs-card-top-row">
+              <span class="cs-eyebrow">– FEATURED CASE STUDY</span>
+              <span class="cs-tag-badge">ENTERPRISE · ESG REPORTING</span>
+            </div>
+
+            <!-- Title Row: 2-line Display Heading & Baseline Index Number Right -->
+            <div class="cs-card-title-row">
+              <h3 class="cs-display-heading">Getting ESG reporting<br>out of spreadsheets</h3>
+              <span class="cs-index-number">03</span>
+            </div>
+
+            <!-- Full-Width Horizontal Rule -->
+            <div class="cs-divider"></div>
+
+            <!-- 3-Column Content Grid Below Rule -->
+            <div class="cs-card-3col-grid">
+              <!-- Column 1: PROBLEM -->
+              <div class="cs-col">
+                <span class="cs-col-label">PROBLEM</span>
+                <p class="cs-col-paragraph">
+                  <span class="bullet-dash">–</span> ESG documentation lived across scattered Excel files, manually reconciled by hand every reporting cycle. The process was slow, error-prone, and nobody on the team fully trusted the numbers by the time they reached the final report.
+                </p>
+              </div>
+
+              <!-- Column 2: SOLUTION -->
+              <div class="cs-col">
+                <span class="cs-col-label">SOLUTION</span>
+                <p class="cs-col-paragraph">
+                  <span class="bullet-dash">–</span> Designed a structured collect-to-report pipeline: guided digital forms replaced scattered sheets, data validated and auto-compiled on entry, and a report generated straight from verified data — no manual spreadsheet merge at the end.
+                </p>
+              </div>
+
+              <!-- Column 3: OUTCOME (3 Stacked Stat Blocks) -->
+              <div class="cs-col outcomes-col">
+                <span class="cs-col-label">OUTCOME</span>
+                <div class="cs-stats-stack">
+                  <div class="cs-stat-block">
+                    <span class="stat-value">70%</span>
+                    <span class="stat-label">LESS MANUAL EXCEL WORK — STRUCTURED INTAKE REPLACED SPREADSHEET RECONCILIATION</span>
+                  </div>
+
+                  <div class="cs-stat-block">
+                    <span class="stat-value">40%</span>
+                    <span class="stat-label">HIGHER USER SATISFACTION — REPORTED AFTER THE GUIDED WORKFLOW REPLACED THE OLD PROCESS</span>
+                  </div>
+
+                  <div class="cs-stat-block">
+                    <span class="stat-value">50%</span>
+                    <span class="stat-label">FASTER REPORTING CYCLE — FROM DATA COLLECTION THROUGH TO A SUBMITTABLE ESG DOCUMENT</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Toolkit Section (Exact Match to Reference Screenshot) -->
+    <section id="toolkit" class="toolkit-section">
+      <div class="section-container">
+        <!-- Top Header Row: Title Left, Subtitle Right -->
+        <div class="toolkit-header-row gsap-reveal">
+          <h2 class="toolkit-title">Toolkit</h2>
+          <div class="toolkit-subtitle-wrap">
+            <p class="toolkit-subtitle-text">
+              <span class="bullet-dash">-</span> What I reach for, grouped by what it's actually for — not a skills cloud.
+            </p>
+          </div>
+        </div>
+
+        <!-- Main Body: 2 Columns (Left Column: Large White 'N' Mark; Right Column: 4 Topic Rows) -->
+        <div class="toolkit-body-layout gsap-reveal">
+          <!-- Left Column: Three.js Interactive 3D 'N' Brand Object -->
+          <div class="toolkit-brand-column">
+            <div id="three-n-container" class="three-n-container" title="Drag cursor to rotate 3D logo mark"></div>
+          </div>
+
+          <!-- Right Column: 4 Topic Rows -->
+          <div class="toolkit-topics-column">
+            <!-- Row 1: UX & PRODUCT DESIGN -->
+            <div class="toolkit-topic-row">
+              <div class="toolkit-topic-label">
+                <h3>UX & PRODUCT DESIGN</h3>
+              </div>
+              <div class="toolkit-topic-pills">
+                <span class="tool-tag">User Research</span>
+                <span class="tool-tag">Wireframing</span>
+                <span class="tool-tag">Prototyping</span>
+                <span class="tool-tag">User Flows</span>
+                <span class="tool-tag">Interaction Design</span>
+                <span class="tool-tag">Design Thinking</span>
+                <span class="tool-tag">Usability Testing</span>
+                <span class="tool-tag">Information Architecture</span>
+                <span class="tool-tag">Data-Driven Design</span>
+              </div>
+            </div>
+
+            <!-- Row 2: LEADERSHIP & COLLABORATION -->
+            <div class="toolkit-topic-row">
+              <div class="toolkit-topic-label">
+                <h3>LEADERSHIP &<br>COLLABORATION</h3>
+              </div>
+              <div class="toolkit-topic-pills">
+                <span class="tool-tag">Team Leadership</span>
+                <span class="tool-tag">Agile Workflow</span>
+                <span class="tool-tag">Solution Design</span>
+                <span class="tool-tag">Stakeholder Management</span>
+                <span class="tool-tag">Cross-functional Collaboration</span>
+                <span class="tool-tag">Sales & Pre-Sales Support</span>
+                <span class="tool-tag">Project Management</span>
+              </div>
+            </div>
+
+            <!-- Row 3: SPECIALIZATIONS -->
+            <div class="toolkit-topic-row">
+              <div class="toolkit-topic-label">
+                <h3>SPECIALIZATIONS</h3>
+              </div>
+              <div class="toolkit-topic-pills">
+                <span class="tool-tag">Enterprise UX</span>
+                <span class="tool-tag">AI Product Design</span>
+                <span class="tool-tag">SaaS Platforms</span>
+                <span class="tool-tag">Design Systems</span>
+                <span class="tool-tag">Responsive Design</span>
+              </div>
+            </div>
+
+            <!-- Row 4: TOOLS & TECHNOLOGIES -->
+            <div class="toolkit-topic-row">
+              <div class="toolkit-topic-label">
+                <h3>TOOLS & TECHNOLOGIES</h3>
+              </div>
+              <div class="toolkit-topic-pills">
+                <span class="tool-tag">Figma</span>
+                <span class="tool-tag">Adobe XD</span>
+                <span class="tool-tag">Sketch</span>
+                <span class="tool-tag">ProtoPie</span>
+                <span class="tool-tag">Zeplin</span>
+                <span class="tool-tag">Miro</span>
+                <span class="tool-tag">Maze</span>
+                <span class="tool-tag">Webflow</span>
+                <span class="tool-tag">Wix</span>
+                <span class="tool-tag">Adobe Creative Suite</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer (Rebuilt to match exact reference screenshot layout) -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <!-- Top Grid: 3 Columns (Contact, Navigation, Studio Note) -->
+      <div class="footer-top-grid">
+        <!-- Column 1: Contact -->
+        <div class="footer-col footer-col-contact">
+          <span class="footer-col-label">Contact</span>
+          <a href="mailto:narendren1930@gmail.com" class="footer-email-link">narendren1930@gmail.com</a>
+          <a href="tel:+918825903218" class="footer-phone-link">+91 88259 03218</a>
+
+          <ul class="footer-social-list">
+            <li><a href="https://www.linkedin.com/in/narendren-kuppusamy-39b04225b/?skipRedirect=true" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></li>
+            <li><a href="https://www.behance.net/narenkuppusamy" target="_blank" rel="noopener noreferrer" class="footer-link">Behance</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 2: Navigation -->
+        <div class="footer-col footer-col-nav">
+          <span class="footer-col-label">Navigation</span>
+          <div class="footer-nav-subgrid">
+            <ul class="footer-nav-list">
+              <li><a href="#hero" class="footer-link">Services</a></li>
+              <li><a href="#projects" class="footer-link">Works</a></li>
+              <li><a href="#experience" class="footer-link">Team</a></li>
+            </ul>
+            <ul class="footer-nav-list">
+              <li><a href="#toolkit" class="footer-link">Blog <span class="badge-coming-soon">(Coming Soon)</span></a></li>
+              <li><a href="#about" class="footer-link">Creative Space</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Column 3: Studio Note -->
+        <div class="footer-col footer-col-note">
+          <span class="footer-col-label">Studio Note</span>
+          <p class="footer-note-text">
+            This space brings together work I've done and systems I'm currently building, along with conversations that continue beyond individual projects. If it feels right, this can be the starting point.
+          </p>
+        </div>
+      </div>
+
+      <!-- Bottom Layout: Giant 'Narendren' Display Typography + Photo Thumbnail + Legal Links -->
+      <div class="footer-bottom-flex">
+        <!-- Left: Giant Display Logotype Branding (Naren SVG from top navbar) -->
+        <div class="footer-giant-brand">
+          <img src="/images/logo-naren.svg" alt="Naren Logotype" class="footer-giant-naren-svg">
+        </div>
+
+        <!-- Center/Right: Rectangular Aesthetic B&W Photo Thumbnail -->
+        <div class="footer-thumbnail-wrap">
+          <img src="/images/hero-bg-raw.png" alt="Narendren Creative Workspace" class="footer-thumb-img">
+        </div>
+
+        <!-- Far Right: Legal Links & Copyright -->
+        <div class="footer-legal-col">
+          <ul class="footer-legal-list">
+            <li><a href="#about" class="footer-sublink">Terms & Conditions</a></li>
+            <li><a href="#about" class="footer-sublink">Privacy Policy</a></li>
+            <li><a href="#about" class="footer-sublink">Cookies Policy</a></li>
+          </ul>
+          <p class="footer-copyright-text">@2026 NARENDREN. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Contact Modal -->
+  <div id="contact-modal" class="modal-backdrop" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+    <div class="modal-container">
+      <button class="modal-close-btn" id="modal-close" aria-label="Close modal">&times;</button>
+      
+      <div class="modal-header">
+        <span class="eyebrow-tag">— LET'S CONNECT</span>
+        <h2 id="modal-title" class="modal-title">Start a Conversation</h2>
+        <p class="modal-subtitle">Whether you have an upcoming project, want to discuss enterprise design systems, or explore team leadership opportunities.</p>
+      </div>
+
+      <form id="contact-form" class="contact-form">
+        <div class="form-group">
+          <label for="form-name">Your Name</label>
+          <input type="text" id="form-name" required placeholder="Jane Doe">
+        </div>
+
+        <div class="form-group">
+          <label for="form-email">Work Email</label>
+          <input type="email" id="form-email" required placeholder="jane@company.com">
+        </div>
+
+        <div class="form-group">
+          <label for="form-message">Project / Subject</label>
+          <textarea id="form-message" rows="4" required placeholder="Tell me about your product challenges..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit-form">Send Message</button>
+        <p id="form-status" class="form-status-msg" aria-live="polite"></p>
+      </form>
+
+      <div class="modal-footer-copy">
+        <span>Direct Email: </span>
+        <button type="button" id="copy-email-btn" class="copy-email-trigger" title="Click to copy email">narendren.k@gmail.com</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case Study Interactive Detail Drawer -->
+  <div id="cs-drawer" class="modal-backdrop" aria-hidden="true" role="dialog" aria-labelledby="drawer-title">
+    <div class="modal-container drawer-container">
+      <button class="modal-close-btn" id="drawer-close" aria-label="Close detail drawer">&times;</button>
+      <div id="drawer-body-content" class="drawer-body">
+        <!-- Dynamically injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
