@@ -534,11 +534,11 @@ function initStickyRoleStepper() {
     btn.addEventListener('click', () => updateActiveRole(idx));
   });
 
-  // Single ScrollTrigger instance (pinSpacing true prevents layout jumps)
+  // Single ScrollTrigger instance (pinSpacing true prevents layout jumps, end +=160% for fast responsive stepping)
   const trigger = ScrollTrigger.create({
     trigger: stepperSection,
     start: 'top top',
-    end: '+=300%',
+    end: '+=160%',
     pin: true,
     pinSpacing: true,
     anticipatePin: 1,
