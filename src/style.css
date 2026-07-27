@@ -306,6 +306,7 @@ body {
   justify-content: space-between;
   align-items: flex-end;
   gap: 40px;
+  width: 100%;
   margin-bottom: 40px; /* Increased margin-bottom before horizontal divider (~32–40px) */
 }
 
@@ -343,11 +344,32 @@ body {
   color: #FFFFFF;
 }
 
-.hero-headline-block {
-  margin-top: 40px; /* Increased margin-top after horizontal divider (~32–40px) */
+/* Full-Screen Edge-to-Edge Divider Line */
+.hero-section .divider-line {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  height: 1px;
+  background-color: var(--border-subtle);
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
-/* Hero Title — Increased font size per request */
+/* Right-Positioned Headline Block with Left-Aligned Text */
+.hero-headline-block {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: auto; /* Moves block to the right */
+  width: fit-content;
+  max-width: 100%;
+}
+
+/* Hero Title — 3-Line Widescreen Headline */
 .hero-title {
   font-size: 5.5rem; /* 88px */
   font-weight: 700;
@@ -355,12 +377,14 @@ body {
   letter-spacing: -0.025em;
   color: #FFFFFF;
   margin-bottom: 24px;
+  text-align: left; /* Left-aligned text */
 }
 
 .hero-subtitle {
   font-size: 1.25rem; /* 20px */
   color: var(--text-secondary);
   font-weight: 400;
+  text-align: left;
 }
 
 /* About Section & Word Split Animation — Standalone 85vh Viewport & Generous Spacing */
