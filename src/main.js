@@ -364,7 +364,7 @@ function initScrollAnimations() {
   });
 }
 
-// Scroll-Scrubbed Word-Stacking Animation (Words slide in from outside screen on right)
+// Scroll-Scrubbed Word-Stacking Animation (Invisible before scroll, reveals on scroll)
 function initWordSplitScrollAnimation() {
   const statement = document.getElementById('about-statement-text');
   const container = statement ? statement.parentElement : document.getElementById('about');
@@ -380,7 +380,7 @@ function initWordSplitScrollAnimation() {
 
   const wordSpans = statement.querySelectorAll('.split-word');
 
-  // GSAP ScrollTrigger timeline: every word starts OUTSIDE the screen on the right and slides left into position
+  // GSAP ScrollTrigger timeline: words start invisible (opacity 0) and reveal (opacity 1) only on scroll
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: container,
@@ -393,13 +393,13 @@ function initWordSplitScrollAnimation() {
   tl.fromTo(
     wordSpans,
     {
-      opacity: 1,
-      x: (index) => Math.max(window.innerWidth * 0.75, 700) + (index % 6) * 30
+      opacity: 0, /* Invisible before scroll */
+      x: (index) => 80 + (index % 6) * 15
     },
     {
-      opacity: 1,
+      opacity: 1, /* Becomes visible ONLY when scrolling into view */
       x: 0,
-      stagger: 0.04,
+      stagger: 0.03,
       ease: 'none'
     }
   );
