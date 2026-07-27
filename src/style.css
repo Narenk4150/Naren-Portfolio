@@ -619,8 +619,7 @@ body {
   align-self: center;
   gap: 0;
   box-sizing: border-box;
-  will-change: transform, opacity;
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 1;
 }
 
 .company-title-bold-italic {

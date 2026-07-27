@@ -519,10 +519,10 @@ function initStickyRoleStepper() {
         .join('');
     }
 
-    // Quick, solid pulse transition that cannot get stuck
+    // Quick, solid pulse transition that cannot get stuck or go dark
     gsap.fromTo(contentBox,
-      { opacity: 0.6, y: 4 },
-      { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out', overwrite: 'auto' }
+      { opacity: 0.75, y: 3 },
+      { opacity: 1, y: 0, duration: 0.2, ease: 'power2.out', overwrite: 'auto' }
     );
   }
 
