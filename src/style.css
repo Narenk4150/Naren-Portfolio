@@ -128,12 +128,12 @@ body {
   left: 0;
   right: 0;
   z-index: 100;
-  padding: 24px 0;
+  padding: 64px 0 24px 0; /* Added 40px more top padding above navbar */
   transition: padding var(--transition-normal), background-color var(--transition-normal), backdrop-filter var(--transition-normal);
 }
 
 .site-header.scrolled {
-  padding: 14px 0;
+  padding: 20px 0;
   background-color: rgba(10, 10, 10, 0.85);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -156,13 +156,13 @@ body {
 }
 
 .logo-n-img {
-  width: 48px;
+  width: 82px; /* Increased ~1.7x per Figma spec */
   height: auto;
   transition: transform var(--transition-fast);
 }
 
 .logo-naren-img {
-  width: 110px;
+  width: 187px; /* Increased ~1.7x per Figma spec */
   height: auto;
 }
 
@@ -183,11 +183,12 @@ body {
 }
 
 .nav-link {
-  color: var(--text-main);
+  color: #FFFFFF;
   text-decoration: none;
   font-size: 1.125rem; /* 18px */
   font-weight: 400;
-  opacity: 0.7;
+  opacity: 1 !important; /* Full white opacity per Figma spec */
+  letter-spacing: 0.02em;
   transition: opacity var(--transition-fast);
   position: relative;
   padding: 4px 0;
@@ -198,18 +199,7 @@ body {
 }
 
 .nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0%;
-  height: 2px;
-  background-color: #FFFFFF;
-  transition: width var(--transition-fast);
-}
-
-.nav-link:hover::after, .nav-link.active::after {
-  width: 100%;
+  display: none !important; /* Removed underline animation line per Figma spec */
 }
 
 .btn-contact {
@@ -301,14 +291,14 @@ body {
   font-weight: 600;
 }
 
-/* Hero Section — Viewport Frame & Generous Vertical Spacing */
+/* Hero Section — Viewport Frame & Generous Vertical Spacing (Figma spec) */
 .hero-section {
   min-height: 85vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: clamp(160px, 18vh, 220px);
-  padding-bottom: clamp(80px, 10vh, 140px);
+  padding-top: clamp(240px, 24vh, 320px); /* Increased vertical top padding for airier rhythm */
+  padding-bottom: clamp(120px, 14vh, 180px);
 }
 
 .hero-top-grid {
@@ -316,6 +306,7 @@ body {
   justify-content: space-between;
   align-items: flex-end;
   gap: 40px;
+  margin-bottom: 40px; /* Increased margin-bottom before horizontal divider (~32–40px) */
 }
 
 .hero-bio-summary {
@@ -340,10 +331,10 @@ body {
 }
 
 .meta-label {
-  font-size: 0.75rem; /* 12px */
+  font-size: 0.85rem;
   color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  text-transform: none; /* Sentence case, no uppercase per Figma spec */
+  letter-spacing: normal;
 }
 
 .meta-value {
@@ -353,7 +344,7 @@ body {
 }
 
 .hero-headline-block {
-  margin-top: 36px;
+  margin-top: 40px; /* Increased margin-top after horizontal divider (~32–40px) */
 }
 
 /* Hero Title — Increased font size per request */
