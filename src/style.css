@@ -414,24 +414,25 @@ body {
 }
 
 .about-statement {
-  font-size: 2rem; /* 32px */
-  line-height: 1.5;
-  font-weight: 600;
+  font-size: clamp(2.2rem, 3.8vw, 3.2rem); /* 40px–52px bold sans-serif */
+  line-height: 1.1; /* Tight leading */
+  font-weight: 700; /* Bold sans-serif */
   color: #FFFFFF;
   text-align: left;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  column-gap: 0.3em;
-  row-gap: 0.3em;
+  column-gap: 0.35em;
+  row-gap: 0.25em;
 }
 
 .split-word {
   display: inline-block;
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
   white-space: nowrap;
-  opacity: 0.25;
-  transition: opacity 0.3s ease;
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateX(40px);
 }
 
 /* Hero Visual Banner Frame — Responsive Widescreen 1680px Frame */
