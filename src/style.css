@@ -301,31 +301,29 @@ body {
   padding-bottom: clamp(120px, 14vh, 180px);
 }
 
+/* Hero Intro Top Grid — 4-Column Layout (Intro + Role + Based in + Experience) */
 .hero-top-grid {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 48px;
+  align-items: flex-end; /* Paragraph and Role/Based in/Experience share common bottom baseline */
+  gap: clamp(24px, 3.5vw, 60px);
   width: 100%;
   margin-bottom: 40px; /* Increased margin-bottom before horizontal divider (~32–40px) */
 }
 
 .hero-bio-summary {
-  max-width: 540px;
-  text-align: left; /* Aligned flush with logo on left side */
+  max-width: 520px;
+  margin: 0;
+  padding: 0;
+  text-align: left; /* Flush left aligned with logo edge */
 }
 
 .text-body-lead {
   font-size: 1rem; /* 16px */
   line-height: 1.7;
   color: var(--text-secondary);
-  text-align: left;
-}
-
-.hero-meta-badges {
-  display: flex;
-  gap: 48px;
-  margin-left: auto; /* Placed flush to the right side of the screen */
+  margin: 0;
+  padding: 0;
   text-align: left;
 }
 
@@ -333,7 +331,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  text-align: left; /* Left-justified text inside right-side badges */
+  text-align: left; /* Left-justified text */
+  flex-shrink: 0;
 }
 
 .meta-label {
