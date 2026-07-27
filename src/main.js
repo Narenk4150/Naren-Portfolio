@@ -364,7 +364,7 @@ function initScrollAnimations() {
   });
 }
 
-// Scroll-Scrubbed Word-Stacking Animation (Pins Section 2 until text reveals, then scrolls to Banner Section)
+// Scroll-Scrubbed Word-Stacking Animation (Pins Section 2 until text reveals, then holds and scrolls to Section 3 Banner Image)
 function initWordSplitScrollAnimation() {
   const aboutSection = document.getElementById('about');
   const statement = document.getElementById('about-statement-text');
@@ -385,7 +385,7 @@ function initWordSplitScrollAnimation() {
     scrollTrigger: {
       trigger: aboutSection,
       start: 'top top',
-      end: '+=150%',
+      end: '+=160%',
       pin: true,
       pinSpacing: true,
       scrub: 0.5,
@@ -393,6 +393,7 @@ function initWordSplitScrollAnimation() {
     }
   });
 
+  // 1. Words fly in from off-screen right and align into sentence formation
   tl.fromTo(
     wordSpans,
     {
@@ -406,6 +407,9 @@ function initWordSplitScrollAnimation() {
       ease: 'power1.out'
     }
   );
+
+  // 2. Hold moment after all text is 100% revealed before unpinning to Section 3 (Banner Image with Disciplines)
+  tl.to({}, { duration: 0.3 });
 }
 
 // Sticky Stepper Role Switcher Data & Controller
