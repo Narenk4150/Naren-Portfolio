@@ -301,10 +301,14 @@ body {
   font-weight: 600;
 }
 
-/* Hero Section */
+/* Hero Section — Viewport Frame & Generous Vertical Spacing */
 .hero-section {
-  padding-top: 180px;
-  padding-bottom: 36px; /* Reduced gap to 36px per request */
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: clamp(160px, 18vh, 220px);
+  padding-bottom: clamp(80px, 10vh, 140px);
 }
 
 .hero-top-grid {
@@ -368,9 +372,9 @@ body {
   font-weight: 400;
 }
 
-/* About Section & Word Split Animation — 36px top gap & Flush Left Corner Alignment */
+/* About Section & Word Split Animation — Viewport Spacing & Flush Left Corner Alignment */
 .about-section {
-  padding: 36px 0 60px; /* 36px top spacing from hero */
+  padding: clamp(100px, 12vh, 180px) 0;
   position: relative;
   min-height: auto;
 }
@@ -506,7 +510,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 60px 0;
+  padding: clamp(120px, 15vh, 200px) 0;
   overflow: hidden;
 }
 
@@ -1435,7 +1439,7 @@ body {
 /* Site Footer (Matching reference screenshot design) */
 .site-footer {
   background-color: #0A0A0A;
-  padding: 120px 0 60px 0;
+  padding: clamp(140px, 16vh, 220px) 0 80px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
   overflow: hidden;
