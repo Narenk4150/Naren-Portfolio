@@ -409,7 +409,7 @@ function initWordSplitScrollAnimation() {
 const expStateData = [
   {
     title: "Team Lead",
-    date: "Apr 2023 — Present",
+    date: "April 2023 - Present",
     company: "Pirai Infotech, Coimbatore",
     bullets: [
       "Led end-to-end UX/UI and solutioning for enterprise SaaS and cloud platforms across web and mobile",
@@ -423,7 +423,7 @@ const expStateData = [
   },
   {
     title: "UX UI Designer",
-    date: "Jan 2022 — Jan 2023",
+    date: "Jan 2022 - Jan 2023",
     company: "KS Smart Solutions Pvt Ltd, Chennai",
     bullets: [
       "Designed user-centric web and mobile applications, translating business requirements into intuitive flows",
@@ -437,7 +437,7 @@ const expStateData = [
   },
   {
     title: "Project Manager",
-    date: "June 2021 — Jan 2022",
+    date: "June 2021 - Jan 2022",
     company: "KS Smart Solutions Pvt Ltd, Chennai",
     bullets: [
       "Designed user-centric web and mobile applications, translating business requirements into intuitive flows",
@@ -474,36 +474,36 @@ function initStickyRoleStepper() {
 
     const data = expStateData[newIndex];
 
-    // 1. Scroll title reel track vertically so active title aligns to exact vertical middle (88px step)
+    // 1. Scroll title reel track vertically like an odometer counter reel and stop right (88px step)
     if (roleStackTrack) {
       gsap.to(roleStackTrack, {
         y: -newIndex * 88,
-        duration: 0.6,
-        ease: 'power3.out'
+        duration: 0.65,
+        ease: 'back.out(1.5)' // Odometer counter spin & snap effect!
       });
     }
 
-    // 2. Update title stack active/dimmed states (Active: 100% white, Inactive: bright muted grey)
+    // 2. Update title stack active/dimmed states
     roleButtons.forEach((btn, idx) => {
       btn.classList.remove('role-active', 'role-dim-mid', 'role-dim-low');
       if (idx === newIndex) {
-        btn.classList.add('role-active'); // 100% white active title
+        btn.classList.add('role-active');
       } else {
         const distance = Math.abs(idx - newIndex);
         if (distance === 1) {
-          btn.classList.add('role-dim-mid'); // Visible muted grey inactive title
+          btn.classList.add('role-dim-mid');
         } else {
-          btn.classList.add('role-dim-low'); // Visible soft grey inactive title
+          btn.classList.add('role-dim-low');
         }
       }
     });
 
-    // 2. Animate Date Range Reel (Slot Machine / Counter Machine Odometer Scroll Effect)
+    // 3. Animate Date Range Reel (Odometer Counter Scroll Effect - spins and stops right)
     if (dateReelTrack) {
       gsap.to(dateReelTrack, {
-        y: -newIndex * 52, // 36px height + 16px gap = 52px step per date item
-        duration: 0.55,
-        ease: 'back.out(1.2)'
+        y: -newIndex * 52, // 52px step per date item
+        duration: 0.65,
+        ease: 'back.out(1.5)' // Counter reel spin and snap!
       });
     }
 
