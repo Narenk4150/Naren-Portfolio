@@ -407,7 +407,7 @@ body {
 .about-quote-box {
   width: 100%;
   max-width: 100%;
-  margin-bottom: clamp(60px, 8vh, 100px); /* Clean spacing before hero banner image */
+  margin-bottom: clamp(40px, 5vh, 80px); /* Tight spacing before hero banner image */
   text-align: left;
   margin-left: 0;
   padding-left: 0;
@@ -440,7 +440,7 @@ body {
   position: relative;
   width: 100%;
   max-width: 100%;
-  margin: clamp(60px, 8vh, 100px) auto 0 auto; /* Clean top spacing after quote box */
+  margin: clamp(40px, 5vh, 80px) auto 0 auto; /* Tight top spacing after quote box */
   min-height: 720px;
   border-radius: var(--radius-md);
   overflow: hidden;
