@@ -534,18 +534,18 @@ function initStickyRoleStepper() {
     btn.addEventListener('click', () => updateActiveRole(idx));
   });
 
-  // Single ScrollTrigger instance (pinSpacing true prevents layout jumps, end +=160% for fast responsive stepping)
+  // Single ScrollTrigger instance (pinSpacing true prevents layout jumps, end +=250% for fluid 3-role stepper)
   const trigger = ScrollTrigger.create({
     trigger: stepperSection,
     start: 'top top',
-    end: '+=160%',
+    end: '+=250%',
     pin: true,
     pinSpacing: true,
     anticipatePin: 1,
     refreshPriority: 1,
     onUpdate: (self) => {
-      // Divide progress into 3 equal segments (0–33%, 33–66%, 66–100%)
-      const segmentIndex = Math.min(2, Math.floor(self.progress * 3));
+      // Divide progress into 3 equal 33.3% scroll segments (Role 0, Role 1, Role 2)
+      const segmentIndex = Math.min(2, Math.floor(self.progress * 2.999));
       updateActiveRole(segmentIndex);
     }
   });
