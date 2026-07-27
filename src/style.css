@@ -460,8 +460,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: calc(100% - 120px);
-  max-width: 1440px;
+  width: calc(100% - 80px);
+  max-width: 580px;
   background: transparent;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
