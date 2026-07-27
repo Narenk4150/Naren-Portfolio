@@ -313,18 +313,19 @@ body {
 
 .hero-bio-summary {
   max-width: 520px;
-  margin: 0;
-  padding: 0;
-  text-align: left; /* Flush left aligned with logo edge */
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: left !important;
 }
 
 .text-body-lead {
   font-size: 1rem; /* 16px */
   line-height: 1.7;
   color: var(--text-secondary);
-  margin: 0;
-  padding: 0;
-  text-align: left;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: left !important;
+  text-indent: 0 !important;
 }
 
 .meta-badge {
