@@ -464,22 +464,21 @@ function initStickyRoleStepper() {
 
   if (!stepperSection || !contentBox || !roleButtons.length) return;
 
-  let currentActiveIndex = 0;
-  let isTransitioning = false;
+  let currentActiveIndex = -1;
 
   function updateActiveRole(newIndex) {
-    if (newIndex === currentActiveIndex || isTransitioning) return;
-    isTransitioning = true;
+    if (newIndex === currentActiveIndex) return;
     currentActiveIndex = newIndex;
 
     const data = expStateData[newIndex];
+    if (!data) return;
 
-    // 1. Scroll title reel track vertically like an odometer counter reel and stop right (88px step)
+    // 1. Scroll title reel track vertically like an odometer counter reel (88px step)
     if (roleStackTrack) {
       gsap.to(roleStackTrack, {
         y: -newIndex * 88,
-        duration: 0.65,
-        ease: 'back.out(1.5)' // Odometer counter spin & snap effect!
+        duration: 0.6,
+        ease: 'back.out(1.4)'
       });
     }
 
@@ -498,23 +497,22 @@ function initStickyRoleStepper() {
       }
     });
 
-    // 3. Animate Date Range Reel (Odometer Counter Scroll Effect - spins and stops right)
+    // 3. Animate Date Range Reel (52px step: April 2023 - Present -> Jan 2022 - Jan 2023 -> June 2021 - Jan 2020)
     if (dateReelTrack) {
       gsap.to(dateReelTrack, {
-        y: -newIndex * 52, // 52px step per date item
-        duration: 0.65,
-        ease: 'back.out(1.5)' // Counter reel spin and snap!
+        y: -newIndex * 52, // 36px height + 16px gap = 52px step per date item
+        duration: 0.6,
+        ease: 'back.out(1.4)'
       });
     }
 
-    // 3. Smooth crossfade out current left content (opacity 1 -> 0, y 0 -> -10px)
+    // 4. Update left column content box
     gsap.to(contentBox, {
       opacity: 0,
-      y: -10,
-      duration: 0.2,
+      y: -8,
+      duration: 0.15,
       ease: 'power2.in',
       onComplete: () => {
-        // Update content
         if (companyEl) companyEl.innerText = data.company;
         if (bulletsEl) {
           bulletsEl.innerHTML = data.bullets
@@ -532,22 +530,18 @@ function initStickyRoleStepper() {
             .join('');
         }
 
-        // Smooth crossfade in next content (opacity 0 -> 1, y 10px -> 0, duration 0.4s)
-        gsap.fromTo(contentBox, 
-          { opacity: 0, y: 10 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.4,
-            ease: 'power3.out',
-            onComplete: () => {
-              isTransitioning = false;
-            }
-          }
-        );
+        gsap.to(contentBox, {
+          opacity: 1,
+          y: 0,
+          duration: 0.3,
+          ease: 'power3.out'
+        });
       }
     });
   }
+
+  // Force initial update to role 0 (Team Lead / April 2023 - Present)
+  updateActiveRole(0);
 
   // Allow clicking roles directly
   roleButtons.forEach((btn, idx) => {
