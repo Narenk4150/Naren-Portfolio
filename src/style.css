@@ -403,16 +403,19 @@ body {
   white-space: nowrap;
 }
 
-/* Hero Visual Banner Frame */
+/* Hero Visual Banner Frame — Full Bleed 1920px Edge-to-Edge */
 .hero-banner-wrap {
   position: relative;
-  width: 100%;
-  max-width: 1440px;
-  margin: 0 auto;
-  min-height: 700px;
-  border-radius: var(--radius-md);
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  max-width: 100vw;
+  min-height: 800px;
   overflow: hidden;
   border: none;
+  border-radius: 0;
 }
 
 .hero-bg-img {
@@ -424,9 +427,9 @@ body {
   top: 0;
   left: 0;
   z-index: 1;
-  filter: brightness(0.85) contrast(1.06);
-  mask-image: radial-gradient(ellipse 95% 90% at 50% 45%, #000 45%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 95% 90% at 50% 45%, #000 45%, transparent 100%);
+  filter: brightness(0.88) contrast(1.06);
+  mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
 }
 
 .banner-gradient-mask {
@@ -438,9 +441,9 @@ body {
   background: linear-gradient(
     180deg,
     #0A0A0A 0%,
-    rgba(10, 10, 10, 0.75) 14%,
-    rgba(10, 10, 10, 0.15) 38%,
-    rgba(10, 10, 10, 0.55) 65%,
+    rgba(10, 10, 10, 0.7) 12%,
+    rgba(10, 10, 10, 0.1) 35%,
+    rgba(10, 10, 10, 0.5) 65%,
     rgba(10, 10, 10, 0.95) 88%,
     #0A0A0A 100%
   );
@@ -457,8 +460,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: calc(100% - 80px);
-  max-width: 580px;
+  width: calc(100% - 120px);
+  max-width: 1440px;
   background: transparent;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
