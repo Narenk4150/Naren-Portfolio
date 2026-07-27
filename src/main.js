@@ -506,38 +506,24 @@ function initStickyRoleStepper() {
       });
     }
 
-    // 4. Update left column content box
-    gsap.to(contentBox, {
-      opacity: 0,
-      y: -8,
-      duration: 0.15,
-      ease: 'power2.in',
-      onComplete: () => {
-        if (companyEl) companyEl.innerText = data.company;
-        if (bulletsEl) {
-          bulletsEl.innerHTML = data.bullets
-            .map(b => `<li><span class="bullet-dash">–</span> <span>${b}</span></li>`)
-            .join('');
-        }
-        if (tagsEl) {
-          tagsEl.innerHTML = data.tags
-            .map(t => `<span class="rectangular-chip">${t}</span>`)
-            .join('');
-        }
-        if (subrolesEl && data.subRoles) {
-          subrolesEl.innerHTML = data.subRoles
-            .map((sr, i) => `<span class="${i === 0 ? 'sub-role-title' : 'sub-role-subtitle'}">${sr}</span>`)
-            .join('');
-        }
+    // 4. Update left column content box instantly (no delayed onComplete that traps opacity at 0)
+    if (companyEl) companyEl.innerText = data.company;
+    if (bulletsEl) {
+      bulletsEl.innerHTML = data.bullets
+        .map(b => `<li><span class="bullet-dash">–</span> <span>${b}</span></li>`)
+        .join('');
+    }
+    if (tagsEl) {
+      tagsEl.innerHTML = data.tags
+        .map(t => `<span class="rectangular-chip">${t}</span>`)
+        .join('');
+    }
 
-        gsap.to(contentBox, {
-          opacity: 1,
-          y: 0,
-          duration: 0.3,
-          ease: 'power3.out'
-        });
-      }
-    });
+    // Quick, solid pulse transition that cannot get stuck
+    gsap.fromTo(contentBox,
+      { opacity: 0.6, y: 4 },
+      { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out', overwrite: 'auto' }
+    );
   }
 
   // Force initial update to role 0 (Team Lead / April 2023 - Present)

@@ -722,6 +722,8 @@ body {
   white-space: nowrap;
   font-weight: 600;
   letter-spacing: 0.04em;
+  padding-top: 14px; /* Optical baseline alignment with 60px role title font */
+  box-sizing: border-box;
 }
 
 /* Column 3 (Right): Scrollable Role Title Reel Stack — Left-Aligned & Active Title Vertically Centered */
