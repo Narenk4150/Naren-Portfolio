@@ -364,7 +364,7 @@ function initScrollAnimations() {
   });
 }
 
-// Scroll-Scrubbed Word-Stacking Animation for Bio Paragraph (No Blur, Clean Word Stack)
+// Scroll-Scrubbed Word-Stacking Animation for Bio Paragraph (Distinct Right-to-Left Slide)
 function initWordSplitScrollAnimation() {
   const statement = document.getElementById('about-statement-text');
   const container = statement ? statement.parentElement : document.getElementById('about');
@@ -380,7 +380,7 @@ function initWordSplitScrollAnimation() {
 
   const wordSpans = statement.querySelectorAll('.split-word');
 
-  // GSAP ScrollTrigger timeline: scrub 1:1 with scroll position, stacking words clean
+  // GSAP ScrollTrigger timeline: every word slides from the right side panel to left (x: 100+ -> 0)
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: container,
@@ -394,12 +394,12 @@ function initWordSplitScrollAnimation() {
     wordSpans,
     {
       opacity: 0,
-      x: (index) => 30 + (index % 5) * 6
+      x: (index) => 100 + (index % 8) * 12 + Math.min(80, index * 2)
     },
     {
       opacity: 1,
       x: 0,
-      stagger: 0.03,
+      stagger: 0.035,
       ease: 'none'
     }
   );

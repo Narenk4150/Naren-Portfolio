@@ -431,7 +431,7 @@ body {
   will-change: transform, opacity;
   white-space: nowrap;
   opacity: 0;
-  transform: translateX(30px);
+  transform: translateX(100px);
 }
 
 /* Hero Visual Banner Frame — Responsive Widescreen 1680px Frame */
