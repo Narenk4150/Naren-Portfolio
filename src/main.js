@@ -543,9 +543,12 @@ function initStickyRoleStepper() {
     pinSpacing: true,
     anticipatePin: 1,
     refreshPriority: 1,
+    invalidateOnRefresh: true,
+    onEnter: () => updateActiveRole(0),
+    onEnterBack: () => updateActiveRole(2),
     onUpdate: (self) => {
       // Divide progress into 3 equal 33.3% scroll segments (Role 0, Role 1, Role 2)
-      const segmentIndex = Math.min(2, Math.floor(self.progress * 2.999));
+      const segmentIndex = Math.min(2, Math.max(0, Math.floor(self.progress * 2.999)));
       updateActiveRole(segmentIndex);
     }
   });
@@ -863,6 +866,11 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     ScrollTrigger.refresh();
   }, 150);
+});
+
+// Also refresh ScrollTrigger on full window load (after image assets load)
+window.addEventListener('load', () => {
+  ScrollTrigger.refresh();
 });
 
 
