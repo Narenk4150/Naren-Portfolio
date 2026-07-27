@@ -407,7 +407,7 @@ body {
 .about-quote-box {
   width: 100%;
   max-width: 100%;
-  margin-bottom: clamp(60px, 8vh, 100px); /* Tightened gap before hero banner */
+  margin-bottom: clamp(140px, 16vh, 220px); /* Increased spacing before hero banner image */
   text-align: left;
   margin-left: 0;
   padding-left: 0;
@@ -440,7 +440,7 @@ body {
   position: relative;
   width: 100%;
   max-width: 100%;
-  margin: clamp(80px, 10vh, 140px) auto 0 auto;
+  margin: clamp(140px, 16vh, 220px) auto 0 auto; /* Increased top spacing between section & image */
   min-height: 720px;
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -456,9 +456,9 @@ body {
   top: 0;
   left: 0;
   z-index: 1;
-  filter: brightness(0.88) contrast(1.06);
-  mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
-  -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+  filter: brightness(0.9) contrast(1.08);
+  mask-image: linear-gradient(180deg, #000 65%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 65%, transparent 100%);
 }
 
 .banner-gradient-mask {
@@ -470,10 +470,10 @@ body {
   background: linear-gradient(
     180deg,
     #0A0A0A 0%,
-    rgba(10, 10, 10, 0.7) 12%,
-    rgba(10, 10, 10, 0.1) 35%,
-    rgba(10, 10, 10, 0.5) 65%,
-    rgba(10, 10, 10, 0.95) 88%,
+    rgba(10, 10, 10, 0.75) 15%,
+    rgba(10, 10, 10, 0.15) 40%,
+    rgba(10, 10, 10, 0.6) 70%,
+    rgba(10, 10, 10, 0.98) 92%,
     #0A0A0A 100%
   );
   z-index: 2;
