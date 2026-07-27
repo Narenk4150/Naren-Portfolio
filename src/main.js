@@ -384,8 +384,8 @@ function initWordSplitScrollAnimation() {
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: section,
-      start: 'top top',
-      end: '+=900',
+      start: 'top 20%',
+      end: '+=750',
       scrub: 0.5,
       pin: true,
       pinSpacing: true

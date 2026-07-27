@@ -293,12 +293,12 @@ body {
 
 /* Hero Section — Viewport Frame & Generous Vertical Spacing (Figma spec) */
 .hero-section {
-  min-height: 85vh;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: clamp(240px, 24vh, 320px); /* Increased vertical top padding for airier rhythm */
-  padding-bottom: clamp(120px, 14vh, 180px);
+  padding-top: clamp(200px, 20vh, 260px);
+  padding-bottom: clamp(40px, 5vh, 80px); /* Reduced bottom padding between hero and about */
 }
 
 /* Hero Intro Top Grid — 4-Column Layout Equally Distributed */
@@ -394,20 +394,20 @@ body {
   text-align: left;
 }
 
-/* About Section & Word Split Animation — Standalone 85vh Viewport & Generous Spacing */
+/* About Section & Word Split Animation — Tightened Section Gaps */
 .about-section {
-  min-height: 85vh;
+  min-height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(140px, 16vh, 220px) 0;
+  padding: clamp(50px, 6vh, 90px) 0; /* Tightened vertical padding */
   position: relative;
 }
 
 .about-quote-box {
   width: 100%;
   max-width: 100%;
-  margin-bottom: clamp(100px, 14vh, 180px);
+  margin-bottom: clamp(60px, 8vh, 100px); /* Tightened gap before hero banner */
   text-align: left;
   margin-left: 0;
   padding-left: 0;
