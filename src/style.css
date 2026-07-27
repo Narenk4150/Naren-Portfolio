@@ -428,10 +428,10 @@ body {
 
 .split-word {
   display: inline-block;
-  will-change: transform, opacity;
+  will-change: transform;
   white-space: nowrap;
-  opacity: 0;
-  transform: translateX(100px);
+  opacity: 1 !important; /* Fully visible from start — NO dissolve/fade */
+  transform: translateX(180px);
 }
 
 /* Hero Visual Banner Frame — Responsive Widescreen 1680px Frame */
