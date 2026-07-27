@@ -850,10 +850,19 @@ function initThreeBrandN() {
 
 // Initialize on DOM Ready
 document.addEventListener('DOMContentLoaded', () => {
+  initMobileMenu();
+  initContactModal();
+  initRoleSwitchers();
+  initScrollAnimations();
+  initWordSplitScrollAnimation();
+  initStickyRoleStepper();
+  initStackedCaseStudies3DPaperFold();
+  initBrandTransitionWipe();
   initThreeBrandN();
+
   setTimeout(() => {
     ScrollTrigger.refresh();
-  }, 100);
+  }, 150);
 });
 
 
