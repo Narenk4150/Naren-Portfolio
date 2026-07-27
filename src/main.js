@@ -364,7 +364,7 @@ function initScrollAnimations() {
   });
 }
 
-// Scroll-Scrubbed Word-Stacking Animation for Bio Paragraph (Starts visible from section entry)
+// Scroll-Scrubbed Word-Stacking Animation for Bio Paragraph (Right to Left Slide)
 function initWordSplitScrollAnimation() {
   const statement = document.getElementById('about-statement-text');
   const section = document.getElementById('about');
@@ -380,25 +380,25 @@ function initWordSplitScrollAnimation() {
 
   const wordSpans = statement.querySelectorAll('.split-word');
 
-  // GSAP ScrollTrigger Timeline: starts immediately upon section entry ('top 90%')
+  // GSAP ScrollTrigger Timeline: words slide one by one from right to left (x: 35 -> 0)
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: section,
-      start: 'top 90%',
-      end: '+=500',
-      scrub: 0.3
+      start: 'top 85%',
+      end: '+=550',
+      scrub: 0.4
     }
   });
 
   tl.fromTo(
     wordSpans,
     {
-      opacity: 0.25,
-      y: 10
+      opacity: 0.15,
+      x: 35
     },
     {
       opacity: 1,
-      y: 0,
+      x: 0,
       stagger: 0.02,
       ease: 'power2.out'
     }
