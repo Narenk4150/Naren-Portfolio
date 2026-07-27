@@ -394,13 +394,13 @@ body {
   text-align: left;
 }
 
-/* About Section & Word Split Animation — Full Viewport Frame with Generous Spacing */
+/* About Section & Word Split Animation — Clean Flow with Generous Spacing */
 .about-section {
-  min-height: 100vh;
+  min-height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(140px, 15vh, 200px) 0; /* Increased generous vertical padding */
+  padding: clamp(100px, 12vh, 160px) 0;
   position: relative;
 }
 

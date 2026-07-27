@@ -364,12 +364,11 @@ function initScrollAnimations() {
   });
 }
 
-// Scroll-Scrubbed Word-Stacking Animation (Sticky Pin on Arrival until all words stack)
+// Scroll-Scrubbed Word-Stacking Animation (Sticky Pin on Quote Box until all words stack)
 function initWordSplitScrollAnimation() {
-  const aboutSection = document.getElementById('about');
   const statement = document.getElementById('about-statement-text');
   const quoteBox = statement ? statement.parentElement : null;
-  if (!aboutSection || !statement || !quoteBox) return;
+  if (!statement || !quoteBox) return;
 
   // Split paragraph into individual word spans while preserving flex-wrap layout
   const originalText = statement.innerText.trim();
@@ -381,13 +380,13 @@ function initWordSplitScrollAnimation() {
 
   const wordSpans = statement.querySelectorAll('.split-word');
 
-  // Sticky ScrollTrigger scrub timeline: Pins #about at top top until all words arrive from right and stack
+  // Sticky ScrollTrigger scrub timeline: Pins quoteBox directly until all words arrive from right and stack
   const tl = gsap.timeline({
     scrollTrigger: {
-      trigger: aboutSection,
-      start: 'top top',
-      end: '+=200%',
-      pin: true,
+      trigger: quoteBox,
+      start: 'top 15%',
+      end: '+=180%',
+      pin: quoteBox,
       pinSpacing: true,
       scrub: 0.5,
       anticipatePin: 1
