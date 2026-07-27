@@ -301,14 +301,14 @@ body {
   padding-bottom: clamp(120px, 14vh, 180px);
 }
 
-/* Hero Intro Top Grid — 4-Column Layout (Intro + Role + Based in + Experience) */
+/* Hero Intro Top Grid — 4-Column Layout Equally Distributed */
 .hero-top-grid {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(320px, 1.8fr) repeat(3, minmax(140px, 1fr));
   align-items: flex-end; /* Paragraph and Role/Based in/Experience share common bottom baseline */
-  gap: clamp(24px, 3.5vw, 60px);
+  column-gap: clamp(32px, 4vw, 80px); /* Equally distributed gap across all 4 columns */
   width: 100%;
-  margin-bottom: 40px; /* Increased margin-bottom before horizontal divider (~32–40px) */
+  margin-bottom: 40px;
 }
 
 .hero-bio-summary {
