@@ -304,31 +304,36 @@ body {
 .hero-top-grid {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  gap: 40px;
+  align-items: flex-start;
+  gap: 48px;
   width: 100%;
   margin-bottom: 40px; /* Increased margin-bottom before horizontal divider (~32–40px) */
 }
 
 .hero-bio-summary {
-  max-width: 520px;
+  max-width: 540px;
+  text-align: left; /* Aligned flush with logo on left side */
 }
 
 .text-body-lead {
   font-size: 1rem; /* 16px */
   line-height: 1.7;
   color: var(--text-secondary);
+  text-align: left;
 }
 
 .hero-meta-badges {
   display: flex;
-  gap: 44px;
+  gap: 48px;
+  margin-left: auto; /* Placed flush to the right side of the screen */
+  text-align: left;
 }
 
 .meta-badge {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  text-align: left; /* Left-justified text inside right-side badges */
 }
 
 .meta-label {
@@ -336,12 +341,14 @@ body {
   color: var(--text-muted);
   text-transform: none; /* Sentence case, no uppercase per Figma spec */
   letter-spacing: normal;
+  text-align: left;
 }
 
 .meta-value {
   font-size: 1rem; /* 16px */
   font-weight: 600;
   color: #FFFFFF;
+  text-align: left;
 }
 
 /* Full-Screen Edge-to-Edge Divider Line */
