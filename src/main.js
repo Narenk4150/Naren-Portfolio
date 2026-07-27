@@ -364,11 +364,11 @@ function initScrollAnimations() {
   });
 }
 
-// Scroll-Scrubbed Word-Stacking Animation with Pinning (Sticks section in viewport until all words settle)
+// Scroll-Scrubbed Word-Stacking Animation (Smooth Scrubbed Reveal, No Glitch)
 function initWordSplitScrollAnimation() {
   const statement = document.getElementById('about-statement-text');
-  const section = document.getElementById('about');
-  if (!statement || !section) return;
+  const quoteBox = statement ? statement.parentElement : null;
+  if (!statement || !quoteBox) return;
 
   // Split paragraph into individual word spans while preserving flex-wrap layout
   const originalText = statement.innerText.trim();
@@ -380,15 +380,13 @@ function initWordSplitScrollAnimation() {
 
   const wordSpans = statement.querySelectorAll('.split-word');
 
-  // GSAP ScrollTrigger timeline with PINNING: holds section steady in viewport until all words align!
+  // Smooth ScrollTrigger scrub timeline without layout jumps
   const tl = gsap.timeline({
     scrollTrigger: {
-      trigger: section,
-      start: 'top 20%',
-      end: '+=750',
-      scrub: 0.5,
-      pin: true,
-      pinSpacing: true
+      trigger: quoteBox,
+      start: 'top 75%',
+      end: '+=550',
+      scrub: 0.4
     }
   });
 
@@ -396,12 +394,12 @@ function initWordSplitScrollAnimation() {
     wordSpans,
     {
       opacity: 0, /* Invisible before scroll */
-      x: (index) => Math.max(window.innerWidth * 0.65, 600) + (index % 6) * 25 /* Starts outside the screen on right */
+      x: (index) => Math.max(window.innerWidth * 0.5, 450) + (index % 6) * 20 /* Starts outside screen right */
     },
     {
-      opacity: 1, /* Reveals and aligns into paragraph layout */
+      opacity: 1, /* Reveals & aligns as you scroll */
       x: 0,
-      stagger: 0.04,
+      stagger: 0.03,
       ease: 'none'
     }
   );
@@ -873,6 +871,9 @@ function initThreeBrandN() {
 // Initialize on DOM Ready
 document.addEventListener('DOMContentLoaded', () => {
   initThreeBrandN();
+  setTimeout(() => {
+    ScrollTrigger.refresh();
+  }, 100);
 });
 
 
