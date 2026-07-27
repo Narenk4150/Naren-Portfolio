@@ -430,6 +430,8 @@ body {
   display: inline-block;
   will-change: transform, opacity;
   white-space: nowrap;
+  opacity: 0.25;
+  transition: opacity 0.3s ease;
 }
 
 /* Hero Visual Banner Frame — Responsive Widescreen 1680px Frame */
