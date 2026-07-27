@@ -364,7 +364,7 @@ function initScrollAnimations() {
   });
 }
 
-// Scroll-Scrubbed Word-Stacking Animation (Sticky Pin on Quote Box until all words stack + hold moment)
+// Scroll-Scrubbed Word-Stacking Animation (Smooth Natural Scroll Reveal, Hero Banner & Discipline 100% Visible)
 function initWordSplitScrollAnimation() {
   const statement = document.getElementById('about-statement-text');
   const quoteBox = statement ? statement.parentElement : null;
@@ -380,36 +380,29 @@ function initWordSplitScrollAnimation() {
 
   const wordSpans = statement.querySelectorAll('.split-word');
 
-  // Sticky ScrollTrigger scrub timeline: Pins quoteBox until all words arrive from right AND holds for a moment
+  // Smooth ScrollTrigger scrub timeline: Words reveal & align naturally as you scroll down
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: quoteBox,
-      start: 'top 20%',
-      end: '+=150%',
-      pin: quoteBox,
-      pinSpacing: true,
-      scrub: 0.5,
-      anticipatePin: 1
+      start: 'top 75%',
+      end: 'bottom 25%',
+      scrub: 0.4
     }
   });
 
-  // 1. Reveal and align words from off-screen right
   tl.fromTo(
     wordSpans,
     {
       opacity: 0, /* Invisible before scroll */
-      x: (index) => Math.max(window.innerWidth * 0.55, 500) + (index % 6) * 15 /* Starts outside screen right */
+      x: (index) => Math.max(window.innerWidth * 0.5, 450) + (index % 6) * 20 /* Starts outside screen right */
     },
     {
-      opacity: 1, /* Reveals & aligns into sentence as you scroll */
+      opacity: 1, /* Reveals & aligns as you scroll */
       x: 0,
-      stagger: 0.04,
-      ease: 'power1.out'
+      stagger: 0.03,
+      ease: 'none'
     }
   );
-
-  // 2. Stay / Hold pinned for a moment after all content is 100% visible before unpinning
-  tl.to({}, { duration: 0.4 });
 }
 
 // Sticky Stepper Role Switcher Data & Controller
