@@ -439,15 +439,15 @@ body {
 
 .banner-overlay-grid {
   position: absolute;
-  bottom: 50px;
+  bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: calc(100% - 96px);
-  max-width: 100%;
+  width: calc(100% - 80px);
+  max-width: 580px;
   background: transparent;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
@@ -469,7 +469,7 @@ body {
   font-size: 0.875rem; /* 14px */
   color: rgba(255, 255, 255, 0.75);
   font-weight: 400;
-  width: 120px;
+  width: 100px;
   flex-shrink: 0;
   text-align: left;
   letter-spacing: 0.02em;
@@ -481,8 +481,7 @@ body {
   font-weight: 600;
   color: #FFFFFF;
   text-align: right;
-  flex: 1;
-  max-width: 100%;
+  max-width: 340px;
   line-height: 1.48;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.98), 0 0 6px rgba(0, 0, 0, 0.9);
 }
