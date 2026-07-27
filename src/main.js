@@ -364,11 +364,12 @@ function initScrollAnimations() {
   });
 }
 
-// Scroll-Scrubbed Word-Stacking Animation (Smooth Scrubbed Reveal, No Glitch)
+// Scroll-Scrubbed Word-Stacking Animation (Sticky Pin on Arrival until all words stack)
 function initWordSplitScrollAnimation() {
+  const aboutSection = document.getElementById('about');
   const statement = document.getElementById('about-statement-text');
   const quoteBox = statement ? statement.parentElement : null;
-  if (!statement || !quoteBox) return;
+  if (!aboutSection || !statement || !quoteBox) return;
 
   // Split paragraph into individual word spans while preserving flex-wrap layout
   const originalText = statement.innerText.trim();
@@ -380,13 +381,16 @@ function initWordSplitScrollAnimation() {
 
   const wordSpans = statement.querySelectorAll('.split-word');
 
-  // Smooth ScrollTrigger scrub timeline without layout jumps
+  // Sticky ScrollTrigger scrub timeline: Pins #about at top top until all words arrive from right and stack
   const tl = gsap.timeline({
     scrollTrigger: {
-      trigger: quoteBox,
-      start: 'top 75%',
-      end: '+=550',
-      scrub: 0.4
+      trigger: aboutSection,
+      start: 'top top',
+      end: '+=200%',
+      pin: true,
+      pinSpacing: true,
+      scrub: 0.5,
+      anticipatePin: 1
     }
   });
 
@@ -394,13 +398,13 @@ function initWordSplitScrollAnimation() {
     wordSpans,
     {
       opacity: 0, /* Invisible before scroll */
-      x: (index) => Math.max(window.innerWidth * 0.5, 450) + (index % 6) * 20 /* Starts outside screen right */
+      x: (index) => Math.max(window.innerWidth * 0.55, 500) + (index % 6) * 15 /* Starts outside screen right */
     },
     {
-      opacity: 1, /* Reveals & aligns as you scroll */
+      opacity: 1, /* Reveals & aligns into sentence as you scroll */
       x: 0,
-      stagger: 0.03,
-      ease: 'none'
+      stagger: 0.04,
+      ease: 'power1.out'
     }
   );
 }
