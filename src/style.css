@@ -394,14 +394,14 @@ body {
   text-align: left;
 }
 
-/* About Section (Section 2) — Pinned Full Viewport Frame */
+/* About Section (Section 2) — Continuous Smooth Scroll Reveal */
 .about-section {
-  min-height: 100vh;
+  min-height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: clamp(100px, 12vh, 160px) 0;
+  padding: clamp(100px, 12vh, 160px) 0 clamp(40px, 6vh, 80px) 0;
   position: relative;
 }
 
@@ -415,11 +415,11 @@ body {
   overflow: hidden; /* Prevents horizontal scrollbar when words start off-screen */
 }
 
-/* Banner Section (Section 2.5 — Inserted between Section 2 & Work History) */
+/* Banner Section (Section 3 — Follows continuously right after content section) */
 .banner-section {
   position: relative;
   width: 100%;
-  padding: clamp(60px, 8vh, 120px) 0;
+  padding: clamp(40px, 6vh, 80px) 0 clamp(100px, 12vh, 160px) 0;
 }
 
 .about-statement {
