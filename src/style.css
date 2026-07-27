@@ -372,17 +372,20 @@ body {
   font-weight: 400;
 }
 
-/* About Section & Word Split Animation — Viewport Spacing & Flush Left Corner Alignment */
+/* About Section & Word Split Animation — Standalone 85vh Viewport & Generous Spacing */
 .about-section {
-  padding: clamp(100px, 12vh, 180px) 0;
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(140px, 16vh, 220px) 0;
   position: relative;
-  min-height: auto;
 }
 
 .about-quote-box {
   width: 100%;
   max-width: 100%;
-  margin-bottom: 40px;
+  margin-bottom: clamp(100px, 14vh, 180px);
   text-align: left;
   margin-left: 0;
   padding-left: 0;
@@ -412,7 +415,7 @@ body {
   position: relative;
   width: 100%;
   max-width: 100%;
-  margin: 0 auto;
+  margin: clamp(80px, 10vh, 140px) auto 0 auto;
   min-height: 720px;
   border-radius: var(--radius-md);
   overflow: hidden;
