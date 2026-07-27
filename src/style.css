@@ -677,6 +677,7 @@ body {
 }
 
 /* Column 2 (Center): Date Column — Slot Machine Odometer Counter Machine Reel */
+/* Column 2 (Center): Date Column — Synchronized 88px Step Counter Reel */
 .date-column {
   padding: 0 16px;
   display: flex;
@@ -684,35 +685,42 @@ body {
   justify-content: center;
   align-self: center;
   text-align: center;
+  height: 280px; /* Same 280px viewport height as role stack column */
+  overflow: hidden;
+  position: relative;
 }
 
 .date-reel-viewport {
-  height: 36px;
+  height: 280px; /* Matching 280px viewport */
   overflow: hidden;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .date-reel-track {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  position: relative;
-  top: 0;
+  gap: 24px; /* Matching 24px gap between date items */
+  position: absolute;
+  top: 108px; /* Matching 108px top baseline alignment */
+  left: 0;
+  width: 100%;
+  align-items: center;
   will-change: transform;
 }
 
 .dates-text {
-  height: 36px;
+  height: 64px; /* Matching 64px item height as role buttons */
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.85); /* Bright 100% visible white text */
   white-space: nowrap;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.04em;
 }
 

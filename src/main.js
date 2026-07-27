@@ -473,12 +473,12 @@ function initStickyRoleStepper() {
     const data = expStateData[newIndex];
     if (!data) return;
 
-    // 1. Scroll title reel track vertically like an odometer counter reel (88px step)
+    // 1. Scroll title reel track with slot machine odometer spin (88px step)
     if (roleStackTrack) {
       gsap.to(roleStackTrack, {
         y: -newIndex * 88,
-        duration: 0.6,
-        ease: 'back.out(1.4)'
+        duration: 0.65,
+        ease: 'back.out(1.5)' // Slot machine counter reel spin & snap!
       });
     }
 
@@ -497,12 +497,12 @@ function initStickyRoleStepper() {
       }
     });
 
-    // 3. Animate Date Range Reel (52px step: April 2023 - Present -> Jan 2022 - Jan 2023 -> June 2021 - Jan 2020)
+    // 3. Animate Date Range Reel with matching slot machine odometer spin (88px step)
     if (dateReelTrack) {
       gsap.to(dateReelTrack, {
-        y: -newIndex * 52, // 36px height + 16px gap = 52px step per date item
-        duration: 0.6,
-        ease: 'back.out(1.4)'
+        y: -newIndex * 88, // Exact matching 88px step as role titles!
+        duration: 0.65,
+        ease: 'back.out(1.5)' // Slot machine counter reel spin & snap!
       });
     }
 
