@@ -431,8 +431,8 @@ body {
   display: inline-block;
   will-change: transform, opacity;
   white-space: nowrap;
-  opacity: 0; /* Invisible before scroll into view */
-  transform: translateX(60px);
+  opacity: 0; /* Invisible before scroll */
+  transform: translateX(80vw); /* Outside the screen on the right */
 }
 
 /* Hero Visual Banner Frame — Responsive Widescreen 1680px Frame */
