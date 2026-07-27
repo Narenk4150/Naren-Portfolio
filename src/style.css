@@ -30,8 +30,8 @@
   --radius-lg: 24px;
   --radius-pill: 9999px;
 
-  --max-width: 1440px;
-  --container-padding: 60px;
+  --max-width: 1680px;
+  --container-padding: clamp(32px, 5.5vw, 96px);
 }
 
 /* Reset & Base Setup */
@@ -403,19 +403,16 @@ body {
   white-space: nowrap;
 }
 
-/* Hero Visual Banner Frame — Full Bleed 1920px Edge-to-Edge */
+/* Hero Visual Banner Frame — Responsive Widescreen 1680px Frame */
 .hero-banner-wrap {
   position: relative;
-  width: 100vw;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  max-width: 100vw;
-  min-height: 800px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  min-height: 720px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   border: none;
-  border-radius: 0;
 }
 
 .hero-bg-img {
