@@ -437,7 +437,7 @@ const expStateData = [
   },
   {
     title: "Project Manager",
-    date: "June 2021 - Jan 2022",
+    date: "June 2021 - Jan 2020",
     company: "KS Smart Solutions Pvt Ltd, Chennai",
     bullets: [
       "Designed user-centric web and mobile applications, translating business requirements into intuitive flows",
