@@ -394,20 +394,35 @@ body {
   text-align: left;
 }
 
-/* About Section & Word Split Animation — Clean Flow with Generous Spacing */
+/* About Section & Dual Container Architecture */
 .about-section {
   min-height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: clamp(100px, 12vh, 160px) 0;
+  justify-content: flex-start;
+  padding: clamp(80px, 10vh, 140px) 0;
   position: relative;
+}
+
+.about-quote-pinned-container {
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.about-banner-container {
+  width: 100%;
+  position: relative;
+  margin-top: 40px;
 }
 
 .about-quote-box {
   width: 100%;
   max-width: 100%;
-  margin-bottom: clamp(40px, 5vh, 80px); /* Tight spacing before hero banner image */
+  margin-bottom: 0;
   text-align: left;
   margin-left: 0;
   padding-left: 0;

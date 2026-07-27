@@ -364,11 +364,11 @@ function initScrollAnimations() {
   });
 }
 
-// Scroll-Scrubbed Word-Stacking Animation (Fixed Quote Box until all text reveals, then smooth scroll to image)
+// Scroll-Scrubbed Word-Stacking Animation (Fixed Quote Container until text reveals, then smooth scroll to image)
 function initWordSplitScrollAnimation() {
+  const quoteContainer = document.getElementById('about-quote-container');
   const statement = document.getElementById('about-statement-text');
-  const quoteBox = statement ? statement.parentElement : null;
-  if (!statement || !quoteBox) return;
+  if (!quoteContainer || !statement) return;
 
   // Split paragraph into individual word spans while preserving flex-wrap layout
   const originalText = statement.innerText.trim();
@@ -380,13 +380,13 @@ function initWordSplitScrollAnimation() {
 
   const wordSpans = statement.querySelectorAll('.split-word');
 
-  // Sticky ScrollTrigger scrub timeline: Pins quoteBox fixed until text reveals, then smooth scrolls to image section
+  // Sticky ScrollTrigger scrub timeline: Pins quoteContainer until all words arrive from right and stack
   const tl = gsap.timeline({
     scrollTrigger: {
-      trigger: quoteBox,
-      start: 'top 18%',
+      trigger: quoteContainer,
+      start: 'top top',
       end: '+=120%',
-      pin: quoteBox,
+      pin: true,
       pinSpacing: true,
       scrub: 0.5,
       anticipatePin: 1
