@@ -419,12 +419,14 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center 25%;
   position: absolute;
   top: 0;
   left: 0;
   z-index: 1;
-  filter: brightness(0.88) contrast(1.08);
+  filter: brightness(0.85) contrast(1.06);
+  mask-image: radial-gradient(ellipse 95% 90% at 50% 45%, #000 45%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 95% 90% at 50% 45%, #000 45%, transparent 100%);
 }
 
 .banner-gradient-mask {
@@ -433,8 +435,17 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0) 30%, rgba(10, 10, 10, 0.75) 55%, rgba(10, 10, 10, 0.98) 100%);
+  background: linear-gradient(
+    180deg,
+    #0A0A0A 0%,
+    rgba(10, 10, 10, 0.75) 14%,
+    rgba(10, 10, 10, 0.15) 38%,
+    rgba(10, 10, 10, 0.55) 65%,
+    rgba(10, 10, 10, 0.95) 88%,
+    #0A0A0A 100%
+  );
   z-index: 2;
+  pointer-events: none;
 }
 
 .banner-overlay-grid {
