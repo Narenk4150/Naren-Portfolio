@@ -394,29 +394,15 @@ body {
   text-align: left;
 }
 
-/* About Section & Dual Container Architecture */
+/* About Section (Section 2) — Pinned Full Viewport Frame */
 .about-section {
-  min-height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: clamp(80px, 10vh, 140px) 0;
-  position: relative;
-}
-
-.about-quote-pinned-container {
-  width: 100%;
-  min-height: 70vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  padding: clamp(100px, 12vh, 160px) 0;
   position: relative;
-}
-
-.about-banner-container {
-  width: 100%;
-  position: relative;
-  margin-top: 40px;
 }
 
 .about-quote-box {
@@ -427,6 +413,13 @@ body {
   margin-left: 0;
   padding-left: 0;
   overflow: hidden; /* Prevents horizontal scrollbar when words start off-screen */
+}
+
+/* Banner Section (Section 2.5 — Inserted between Section 2 & Work History) */
+.banner-section {
+  position: relative;
+  width: 100%;
+  padding: clamp(60px, 8vh, 120px) 0;
 }
 
 .about-statement {
