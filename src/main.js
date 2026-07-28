@@ -713,6 +713,9 @@ function initThreeBrandN() {
   const domElement = renderer.domElement;
   domElement.style.cursor = 'grab';
 
+  let mouseTargetX = 0;
+  let mouseTargetY = 0;
+
   const onPointerDown = (e) => {
     isDragging = true;
     domElement.style.cursor = 'grabbing';
@@ -720,7 +723,14 @@ function initThreeBrandN() {
   };
 
   const onPointerMove = (e) => {
+    const rect = domElement.getBoundingClientRect();
+    const mouseX = (e.clientX - rect.left) / rect.width - 0.5;
+    const mouseY = (e.clientY - rect.top) / rect.height - 0.5;
+    mouseTargetX = mouseX * 0.8;
+    mouseTargetY = mouseY * 0.8;
+
     if (!isDragging) return;
+
     const deltaX = e.clientX - previousMousePosition.x;
     const deltaY = e.clientY - previousMousePosition.y;
 
@@ -778,7 +788,7 @@ function initThreeBrandN() {
     if (!isDragging) {
       // Continuous smooth 360 rotation & gentle organic float
       group.rotation.y += velocityY;
-      group.rotation.x += velocityX;
+      group.rotation.x += (mouseTargetY - group.rotation.x) * 0.05 + velocityX;
 
       group.position.y = Math.sin(elapsedTime * 1.2) * 2.5;
 
