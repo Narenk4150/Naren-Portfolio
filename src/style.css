@@ -542,12 +542,14 @@ body {
   background-color: #0A0A0A;
   position: relative;
   min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: clamp(60px, 8vh, 100px) 0;
+  padding: 0;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .panel-columns-bg {

@@ -531,21 +531,21 @@ function initStickyRoleStepper() {
   // Force initial update to role 0 (Team Lead / April 2023 - Present)
   updateActiveRole(0, true);
 
-  // Single ScrollTrigger instance
+  // Single ScrollTrigger instance (Pins #experience to viewport top immediately after photo section scroll)
   let trigger = null;
   trigger = ScrollTrigger.create({
     trigger: stepperSection,
     start: 'top top',
-    end: '+=250%',
+    end: '+=300%', // 3 full viewport scrolls to lock & step through all 3 roles completely before unpinning
     pin: true,
     pinSpacing: true,
     anticipatePin: 1,
-    refreshPriority: 1,
+    refreshPriority: 5,
     invalidateOnRefresh: true,
     onEnter: () => updateActiveRole(0, true),
     onEnterBack: () => updateActiveRole(2, true),
     onUpdate: (self) => {
-      // Divide progress into 3 equal scroll segments (Role 0, Role 1, Role 2)
+      // Divide progress into 3 equal 33.3% scroll segments (Role 0, Role 1, Role 2)
       const segmentIndex = Math.min(2, Math.max(0, Math.floor(self.progress * 2.999)));
       updateActiveRole(segmentIndex);
     }
