@@ -941,17 +941,45 @@ function initAppPreloader() {
 
   mainTl.add(blockTl, 0.1);
 
-  // 2. Count-up from 0 to 100 in sync over ~1.5s using GSAP numeric snap
+  // 2. Slower count-up from 0 to 100 with 3 distinct milestone stops (34% -> 68% -> 100%)
   const counterObj = { val: 0 };
-  mainTl.to(counterObj, {
-    val: 100,
-    duration: 1.5,
+  const updateCounter = () => {
+    if (counterEl) counterEl.textContent = Math.round(counterObj.val);
+  };
+
+  const countTl = gsap.timeline();
+
+  // Stop 1: 0% -> 34%
+  countTl.to(counterObj, {
+    val: 34,
+    duration: 0.75,
+    ease: 'power2.out',
+    snap: { val: 1 },
+    onUpdate: updateCounter
+  });
+  countTl.to({}, { duration: 0.22 }); // Pause at 34%
+
+  // Stop 2: 34% -> 68%
+  countTl.to(counterObj, {
+    val: 68,
+    duration: 0.85,
     ease: 'power2.inOut',
     snap: { val: 1 },
-    onUpdate: () => {
-      if (counterEl) counterEl.textContent = Math.round(counterObj.val);
-    }
-  }, 0);
+    onUpdate: updateCounter
+  });
+  countTl.to({}, { duration: 0.22 }); // Pause at 68%
+
+  // Stop 3: 68% -> 100%
+  countTl.to(counterObj, {
+    val: 100,
+    duration: 0.9,
+    ease: 'power2.inOut',
+    snap: { val: 1 },
+    onUpdate: updateCounter
+  });
+  countTl.to({}, { duration: 0.35 }); // Hold at 100% before zoom expansion
+
+  mainTl.add(countTl, 0);
 
   // Hold at 100% briefly before exit wipe
   mainTl.to({}, { duration: 0.25 });
