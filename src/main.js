@@ -466,8 +466,8 @@ function initStickyRoleStepper() {
 
   let currentActiveIndex = -1;
 
-  function updateActiveRole(newIndex) {
-    if (newIndex === currentActiveIndex) return;
+  function updateActiveRole(newIndex, force = false) {
+    if (!force && newIndex === currentActiveIndex) return;
     currentActiveIndex = newIndex;
 
     const data = expStateData[newIndex];
@@ -478,7 +478,8 @@ function initStickyRoleStepper() {
       gsap.to(roleStackTrack, {
         y: -newIndex * 88,
         duration: 0.65,
-        ease: 'back.out(1.5)' // Slot machine counter reel spin & snap!
+        ease: 'back.out(1.5)', // Slot machine counter reel spin & snap!
+        overwrite: 'auto'
       });
     }
 
@@ -502,11 +503,12 @@ function initStickyRoleStepper() {
       gsap.to(dateReelTrack, {
         y: -newIndex * 88, // Exact matching 88px step as role titles!
         duration: 0.65,
-        ease: 'back.out(1.5)' // Slot machine counter reel spin & snap!
+        ease: 'back.out(1.5)',
+        overwrite: 'auto'
       });
     }
 
-    // 4. Update left column content box instantly (no delayed onComplete that traps opacity at 0)
+    // 4. Update left column content box instantly (no trapped opacity)
     if (companyEl) companyEl.innerText = data.company;
     if (bulletsEl) {
       bulletsEl.innerHTML = data.bullets
@@ -519,23 +521,19 @@ function initStickyRoleStepper() {
         .join('');
     }
 
-    // Quick, solid pulse transition that cannot get stuck or go dark
+    // Quick, solid pulse transition
     gsap.fromTo(contentBox,
-      { opacity: 0.75, y: 3 },
+      { opacity: 0.85, y: 3 },
       { opacity: 1, y: 0, duration: 0.2, ease: 'power2.out', overwrite: 'auto' }
     );
   }
 
   // Force initial update to role 0 (Team Lead / April 2023 - Present)
-  updateActiveRole(0);
+  updateActiveRole(0, true);
 
-  // Allow clicking roles directly
-  roleButtons.forEach((btn, idx) => {
-    btn.addEventListener('click', () => updateActiveRole(idx));
-  });
-
-  // Single ScrollTrigger instance (pinSpacing true prevents layout jumps, end +=250% for fluid 3-role stepper)
-  const trigger = ScrollTrigger.create({
+  // Single ScrollTrigger instance
+  let trigger = null;
+  trigger = ScrollTrigger.create({
     trigger: stepperSection,
     start: 'top top',
     end: '+=250%',
@@ -544,13 +542,26 @@ function initStickyRoleStepper() {
     anticipatePin: 1,
     refreshPriority: 1,
     invalidateOnRefresh: true,
-    onEnter: () => updateActiveRole(0),
-    onEnterBack: () => updateActiveRole(2),
+    onEnter: () => updateActiveRole(0, true),
+    onEnterBack: () => updateActiveRole(2, true),
     onUpdate: (self) => {
-      // Divide progress into 3 equal 33.3% scroll segments (Role 0, Role 1, Role 2)
+      // Divide progress into 3 equal scroll segments (Role 0, Role 1, Role 2)
       const segmentIndex = Math.min(2, Math.max(0, Math.floor(self.progress * 2.999)));
       updateActiveRole(segmentIndex);
     }
+  });
+
+  // Allow clicking roles directly
+  roleButtons.forEach((btn, idx) => {
+    btn.addEventListener('click', () => {
+      updateActiveRole(idx, true);
+      if (trigger && trigger.start) {
+        const start = trigger.start;
+        const total = trigger.end - trigger.start;
+        const targetScroll = start + (total * (idx / 2));
+        gsap.to(window, { scrollTo: targetScroll, duration: 0.8, ease: 'power2.out' });
+      }
+    });
   });
 
   // Return cleanup handle for unmount
