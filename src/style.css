@@ -2278,11 +2278,14 @@ body {
   justify-content: center;
   align-items: center;
   transform: translateY(-20px);
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .preloader-n-logo {
   width: 100%;
   height: auto;
+  transform-origin: center center;
 }
 
 .block-seg-rect {
@@ -2297,29 +2300,31 @@ body {
 /* Bottom-Left Large Bold Counter Numerals */
 .preloader-counter-wrap {
   position: absolute;
-  bottom: clamp(32px, 5vw, 64px);
-  left: clamp(32px, 5vw, 64px);
+  bottom: clamp(24px, 4vw, 48px);
+  left: clamp(24px, 4vw, 48px);
   display: flex;
   align-items: baseline;
   font-family: 'Open Sans', var(--font-primary), sans-serif;
-  font-weight: 800;
+  font-weight: 900;
   color: #0A0A0A;
-  line-height: 0.9;
-  letter-spacing: -0.04em;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
   user-select: none;
+  z-index: 10;
+  will-change: opacity, transform;
 }
 
 .preloader-counter-num {
-  font-size: clamp(4rem, 9vw, 7.5rem);
-  font-weight: 800;
+  font-size: clamp(6rem, 14vw, 13rem);
+  font-weight: 900;
   color: #0A0A0A;
 }
 
 .preloader-counter-symbol {
-  font-size: clamp(2.25rem, 5vw, 4rem);
-  font-weight: 700;
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 800;
   color: #0A0A0A;
-  margin-left: 2px;
+  margin-left: 4px;
 }
 
 .app-preloader.is-hidden {

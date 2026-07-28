@@ -874,20 +874,44 @@ function initAppPreloader() {
   gsap.set(clipRects, { scaleX: 0, scaleY: 0, opacity: 0, transformOrigin: 'center center' });
   gsap.set(segments, { opacity: 0 });
 
+  const logoWrap = document.querySelector('.preloader-logo-wrap');
+  const counterWrap = document.querySelector('.preloader-counter-wrap');
+
   const mainTl = gsap.timeline({
     onComplete: () => {
-      // Exit transition: Vertical wipe overlay up (-100%) revealing dark site underneath
-      gsap.to(preloader, {
-        yPercent: -100,
-        duration: 0.75,
-        ease: 'power4.inOut',
-        onComplete: () => {
-          preloader.classList.add('is-hidden');
-          document.body.style.overflow = '';
-          sessionStorage.setItem('naren_portfolio_preloader_seen', 'true');
-          ScrollTrigger.refresh();
-        }
-      });
+      // 1. Fade out bottom-left counter numerals quickly
+      if (counterWrap) {
+        gsap.to(counterWrap, { opacity: 0, y: 15, duration: 0.25, ease: 'power2.in' });
+      }
+
+      // 2. Enlarge black 'N' logo mark massively to fill the screen in black before loading hero section
+      if (logoWrap) {
+        gsap.to(logoWrap, {
+          scale: 45,
+          duration: 0.85,
+          ease: 'expo.inOut',
+          transformOrigin: 'center center',
+          onComplete: () => {
+            // Fade out preloader wrapper & reveal dark hero section underneath
+            gsap.to(preloader, {
+              opacity: 0,
+              duration: 0.35,
+              ease: 'power2.out',
+              onComplete: () => {
+                preloader.classList.add('is-hidden');
+                document.body.style.overflow = '';
+                sessionStorage.setItem('naren_portfolio_preloader_seen', 'true');
+                ScrollTrigger.refresh();
+              }
+            });
+          }
+        });
+      } else {
+        preloader.classList.add('is-hidden');
+        document.body.style.overflow = '';
+        sessionStorage.setItem('naren_portfolio_preloader_seen', 'true');
+        ScrollTrigger.refresh();
+      }
     }
   });
 
