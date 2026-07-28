@@ -851,8 +851,88 @@ function initThreeBrandN() {
   });
 }
 
+// Full-Screen White Preloader (Chunky Geometric Stepped 'N' Reveal + Bottom-Left Counter)
+function initAppPreloader() {
+  const preloader = document.getElementById('app-preloader');
+  const counterEl = document.getElementById('preloader-counter-num');
+  const segments = document.querySelectorAll('.n-seg-path');
+  const clipRects = document.querySelectorAll('.block-seg-rect');
+
+  if (!preloader) return;
+
+  // Session Storage Check: Only show on initial app load in session
+  const hasLoaded = sessionStorage.getItem('naren_portfolio_preloader_seen');
+  if (hasLoaded === 'true') {
+    preloader.classList.add('is-hidden');
+    return;
+  }
+
+  // Lock scrolling during preloader playback
+  document.body.style.overflow = 'hidden';
+
+  // Set initial hidden states for chunky blocky reveal
+  gsap.set(clipRects, { scaleX: 0, scaleY: 0, opacity: 0, transformOrigin: 'center center' });
+  gsap.set(segments, { opacity: 0 });
+
+  const mainTl = gsap.timeline({
+    onComplete: () => {
+      // Exit transition: Vertical wipe overlay up (-100%) revealing dark site underneath
+      gsap.to(preloader, {
+        yPercent: -100,
+        duration: 0.75,
+        ease: 'power4.inOut',
+        onComplete: () => {
+          preloader.classList.add('is-hidden');
+          document.body.style.overflow = '';
+          sessionStorage.setItem('naren_portfolio_preloader_seen', 'true');
+          ScrollTrigger.refresh();
+        }
+      });
+    }
+  });
+
+  // 1. Chunky, stepped, geometric segment assembly of the 'N' mark
+  const blockTl = gsap.timeline();
+  clipRects.forEach((rect, i) => {
+    const segPath = segments[i];
+    blockTl.to(rect, {
+      scaleX: 1,
+      scaleY: 1,
+      opacity: 1,
+      duration: 0.18,
+      ease: 'steps(3)' // Geometric pixel-block style assembly!
+    }, i * 0.1);
+
+    if (segPath) {
+      blockTl.to(segPath, {
+        opacity: 1,
+        duration: 0.12,
+        ease: 'power1.out'
+      }, i * 0.1);
+    }
+  });
+
+  mainTl.add(blockTl, 0.1);
+
+  // 2. Count-up from 0 to 100 in sync over ~1.5s using GSAP numeric snap
+  const counterObj = { val: 0 };
+  mainTl.to(counterObj, {
+    val: 100,
+    duration: 1.5,
+    ease: 'power2.inOut',
+    snap: { val: 1 },
+    onUpdate: () => {
+      if (counterEl) counterEl.textContent = Math.round(counterObj.val);
+    }
+  }, 0);
+
+  // Hold at 100% briefly before exit wipe
+  mainTl.to({}, { duration: 0.25 });
+}
+
 // Initialize on DOM Ready
 document.addEventListener('DOMContentLoaded', () => {
+  initAppPreloader();
   initMobileMenu();
   initContactModal();
   initRoleSwitchers();

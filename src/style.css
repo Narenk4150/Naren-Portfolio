@@ -2239,3 +2239,90 @@ body {
     padding: 6px 12px;
   }
 }
+
+/* ==========================================================================
+   FULL-SCREEN WHITE PRELOADER (INVERTED DARK LOADER)
+   ========================================================================== */
+.app-preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #FFFFFF;
+  z-index: 999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: all;
+  user-select: none;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.preloader-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.preloader-logo-wrap {
+  position: relative;
+  width: clamp(160px, 15vw, 220px);
+  height: clamp(110px, 10vw, 150px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-20px);
+}
+
+.preloader-n-logo {
+  width: 100%;
+  height: auto;
+}
+
+.block-seg-rect {
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+.n-seg-path {
+  will-change: transform, opacity;
+}
+
+/* Bottom-Left Large Bold Counter Numerals */
+.preloader-counter-wrap {
+  position: absolute;
+  bottom: clamp(32px, 5vw, 64px);
+  left: clamp(32px, 5vw, 64px);
+  display: flex;
+  align-items: baseline;
+  font-family: 'Open Sans', var(--font-primary), sans-serif;
+  font-weight: 800;
+  color: #0A0A0A;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  user-select: none;
+}
+
+.preloader-counter-num {
+  font-size: clamp(4rem, 9vw, 7.5rem);
+  font-weight: 800;
+  color: #0A0A0A;
+}
+
+.preloader-counter-symbol {
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  font-weight: 700;
+  color: #0A0A0A;
+  margin-left: 2px;
+}
+
+.app-preloader.is-hidden {
+  display: none !important;
+  pointer-events: none !important;
+}
