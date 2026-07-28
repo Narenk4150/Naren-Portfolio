@@ -2045,48 +2045,35 @@ body {
   margin-right: 4px;
 }
 
-/* Main Body Layout: 2 Columns */
+/* Main Body Layout: 2 Columns (Left 3D Stage Vertically Centered to Middle of Content) */
 .toolkit-body-layout {
   display: grid;
-  grid-template-columns: minmax(220px, 28%) 1fr;
-  gap: 40px;
-  align-items: center; /* Vertically centers the N SVG against the 4 rows! */
+  grid-template-columns: minmax(260px, 30%) 1fr;
+  gap: 48px;
+  align-items: center; /* Vertically centers the 3D revolving N logo against middle of right-side content */
 }
 
-/* Left Brand Column: Three.js Interactive 3D Canvas Stage & SVG Logo Mark */
+/* Left Brand Column: Three.js Interactive 3D Revolving Canvas Stage */
 .toolkit-brand-column {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  align-self: center;
   width: 100%;
-  min-height: 340px;
-  gap: 16px;
-  padding-right: 20px;
+  height: 100%;
+  min-height: 360px;
+  padding-right: 12px;
 }
 
 .three-n-container {
   width: 100%;
-  max-width: 320px;
-  height: 320px;
+  max-width: 340px;
+  height: 340px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   touch-action: none; /* Prevents page scroll interference during 3D rotation drag */
-}
-
-.toolkit-n-svg-logo {
-  width: 140px;
-  height: auto;
-  opacity: 0.9;
-  filter: drop-shadow(0 4px 20px rgba(0, 229, 255, 0.15));
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.toolkit-n-svg-logo:hover {
-  opacity: 1;
-  transform: translateY(-2px);
 }
 
 .three-n-container canvas {
