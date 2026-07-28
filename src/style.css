@@ -2324,6 +2324,8 @@ body {
   user-select: none;
   z-index: 9999999;
   pointer-events: none;
+  opacity: 1;
+  visibility: visible;
   will-change: opacity, transform;
 }
 
@@ -2341,7 +2343,7 @@ body {
 
 .odometer-window {
   position: relative;
-  height: 1em;
+  height: clamp(5.5rem, 13vw, 11.5rem);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -2357,12 +2359,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 1em;
+  height: clamp(5.5rem, 13vw, 11.5rem);
   font-size: clamp(5.5rem, 13vw, 11.5rem);
   font-weight: 900;
   color: #0A0A0A;
   line-height: 1;
   letter-spacing: -0.04em;
+  box-sizing: border-box;
 }
 
 .app-preloader.is-hidden {

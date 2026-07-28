@@ -877,6 +877,10 @@ function initAppPreloader() {
   const reelTens = document.getElementById('reel-tens');
   const reelUnits = document.getElementById('reel-units');
 
+  if (counterWrap) {
+    gsap.set(counterWrap, { opacity: 1, y: 0 });
+  }
+
   function setOdometerValue(val) {
     const clamped = Math.min(100, Math.max(0, Math.round(val)));
     const h = Math.floor(clamped / 100);
