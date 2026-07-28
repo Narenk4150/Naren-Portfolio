@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initWordSplitScrollAnimation();
   initWorkHistorySwitcher();
-  initStackedCardReveal();
+  initHybridCaseStudiesScroller();
 });
 
 // Scroll Header Effects
@@ -625,77 +625,172 @@ function initBrandTransitionWipe() {
   };
 }
 
-// Pinned, Stacked 3D Paper-Fold Receding Card-Reveal Controller (Exact Reference Motion)
-function initStackedCardReveal() {
+// Interactive Hybrid 3D Display & Client Navigation Stack Controller (#projects)
+function initHybridCaseStudiesScroller() {
   const section = document.getElementById('projects');
-  const cards = document.querySelectorAll('#projects .case-study-card');
+  const buttons = document.querySelectorAll('.client-nav-btn');
+  const track = document.getElementById('client-list-track');
+  const screenImg = document.getElementById('laptop-screen-img');
+  const detailsTable = document.getElementById('project-details-table');
+  const overviewVal = document.getElementById('proj-overview-val');
+  const tagsVal = document.getElementById('proj-tags-val');
+  const industryVal = document.getElementById('proj-industry-val');
+  const clientVal = document.getElementById('proj-client-val');
+  const yearText = document.getElementById('proj-timeline-year');
 
-  if (!section || cards.length < 2) return;
+  if (!section || !buttons.length) return;
 
-  // Set initial stacked Z-Index & 3D Positions
-  // Card 01: zIndex 1, yPercent 0
-  // Card 02: zIndex 2, yPercent 100
-  // Card 03: zIndex 3, yPercent 100
-  cards.forEach((card, idx) => {
-    gsap.set(card, {
-      zIndex: idx + 1,
-      yPercent: idx === 0 ? 0 : 100,
-      scale: 1,
-      rotationX: 0,
-      opacity: 1,
-      transformOrigin: 'center top',
-      transformPerspective: 1200
+  const caseStudiesData = [
+    {
+      client: "SmartPlan AI",
+      year: "2023",
+      overview: "AI-driven architecture creation platform automating complex DevOps intake and infrastructure deployment workflows.",
+      tags: "SaaS, Cloud Architecture, AI Intake",
+      industry: "DevOps / Artificial Intelligence",
+      image: "/images/image_8.png"
+    },
+    {
+      client: "ALTHEA",
+      year: "2024",
+      overview: "A premium website for ALTHEA delivering user-centric audit workflows and high-concurrency cloud dashboard platforms.",
+      tags: "Web Design, UI/UX, Enterprise Systems",
+      industry: "Healthcare / SaaS",
+      image: "/images/image_9.png"
+    },
+    {
+      client: "Creative HUB",
+      year: "2025",
+      overview: "Next-gen creative collaboration portal with interactive asset management and automated design handoff tools.",
+      tags: "Design Tools, Design Systems, Web App",
+      industry: "Creative Tech / SaaS",
+      image: "/images/image_10.png"
+    },
+    {
+      client: "Mischka",
+      year: "2025",
+      overview: "High-fashion e-commerce experience featuring dynamic motion, interactive product showcases, and friction-free checkout.",
+      tags: "E-Commerce, Motion Design, Branding",
+      industry: "Luxury Fashion & Retail",
+      image: "/images/image_8.png"
+    },
+    {
+      client: "Mayerfeld",
+      year: "2026",
+      overview: "Enterprise financial analytics dashboard transforming multi-source accounting into intuitive real-time metrics.",
+      tags: "FinTech, Data Visualization, Web App",
+      industry: "Financial Services",
+      image: "/images/image_9.png"
+    }
+  ];
+
+  let currentIndex = -1;
+
+  function updateActiveCaseStudy(targetIndex, force = false) {
+    if (!force && targetIndex === currentIndex) return;
+    currentIndex = targetIndex;
+
+    const data = caseStudiesData[targetIndex];
+    if (!data) return;
+
+    // 1. Highlight Fade: Inactive buttons turn dark gray & shrink; Active button grows & becomes pure white
+    buttons.forEach((btn, idx) => {
+      btn.classList.remove('active', 'inactive');
+      if (idx === targetIndex) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.add('inactive');
+      }
     });
-  });
 
-  const numTransitions = cards.length - 1; // 2 transitions for 3 cards
-  const holdDuration = 1.0; // 1 full viewport length of scroll hold on Card 03 before unpinning into Toolkit
-  const totalScrollDistance = numTransitions + holdDuration; // 3.0 total units (300% scroll distance)
+    // 2. List Shift (Vertically): Stack scrolls vertically so active client name snaps into central focus position
+    if (track && track.parentElement) {
+      const activeBtn = buttons[targetIndex];
+      if (activeBtn) {
+        const btnCenter = activeBtn.offsetTop + (activeBtn.offsetHeight / 2);
+        const viewportCenter = track.parentElement.offsetHeight / 2;
+        const targetY = viewportCenter - btnCenter;
+        gsap.to(track, { y: targetY, duration: 0.45, ease: 'power2.out', overwrite: 'auto' });
+      }
+    }
 
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: section,
-      start: 'top top',
-      end: `+=${totalScrollDistance * 100}%`,
-      pin: true,
-      scrub: 1,
-      anticipatePin: 1,
-      refreshPriority: 1
+    // 3. Laptop Screen Swap: Dissolves out old image and dissolves in new project image
+    if (screenImg) {
+      gsap.to(screenImg, {
+        opacity: 0,
+        scale: 0.96,
+        duration: 0.2,
+        onComplete: () => {
+          screenImg.src = data.image;
+          gsap.to(screenImg, { opacity: 1, scale: 1, duration: 0.35, ease: 'power2.out' });
+        }
+      });
+    }
+
+    // 4. Content Refresh: Details table rapidly dissolves out and fades in with 20px Y-offset slide
+    if (detailsTable) {
+      gsap.to(detailsTable, {
+        opacity: 0,
+        y: 20,
+        duration: 0.18,
+        onComplete: () => {
+          if (overviewVal) overviewVal.innerText = data.overview;
+          if (tagsVal) tagsVal.innerText = data.tags;
+          if (industryVal) industryVal.innerText = data.industry;
+          if (clientVal) clientVal.innerText = data.client;
+          gsap.to(detailsTable, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' });
+        }
+      });
+    }
+
+    // 5. Timeline Update: Timeline marker dissolves and updates to new year
+    if (yearText) {
+      gsap.to(yearText, {
+        opacity: 0,
+        duration: 0.15,
+        onComplete: () => {
+          yearText.innerText = data.year;
+          gsap.to(yearText, { opacity: 1, duration: 0.25 });
+        }
+      });
+    }
+  }
+
+  // Set initial state to ALTHEA (index 1) as described in prompt
+  setTimeout(() => updateActiveCaseStudy(1, true), 50);
+
+  // GSAP ScrollTrigger pinning & scroll-driven step sequence
+  const numProjects = caseStudiesData.length;
+  let trigger = null;
+
+  trigger = ScrollTrigger.create({
+    trigger: section,
+    start: 'top top',
+    end: `+=${numProjects * 75}%`,
+    pin: true,
+    pinSpacing: true,
+    anticipatePin: 1,
+    refreshPriority: 1,
+    onUpdate: (self) => {
+      const step = Math.min(numProjects - 1, Math.max(0, Math.floor(self.progress * (numProjects - 0.001))));
+      updateActiveCaseStudy(step);
     }
   });
 
-  // Loop over transitions
-  for (let i = 0; i < numTransitions; i++) {
-    const outgoingCard = cards[i];
-    const incomingCard = cards[i + 1];
+  // Direct click navigation on client list buttons
+  buttons.forEach((btn, idx) => {
+    btn.addEventListener('click', () => {
+      updateActiveCaseStudy(idx);
+      if (trigger && trigger.start) {
+        const start = trigger.start;
+        const total = trigger.end - trigger.start;
+        const targetScroll = start + (total * (idx / (numProjects - 1)));
+        gsap.to(window, { scrollTo: targetScroll, duration: 0.6, ease: 'power2.out' });
+      }
+    });
+  });
 
-    // Incoming card slides up flat from bottom (yPercent 100 -> 0)
-    tl.to(incomingCard, {
-      yPercent: 0,
-      ease: 'none'
-    }, i);
-
-    // Outgoing card tilts backward in 3D (rotationX 0 -> -14deg), scales down (1 -> 0.92), and shifts up (-6%)
-    // so its top title header strip stays peeking above the incoming card at a receding tilt!
-    tl.to(outgoingCard, {
-      scale: 0.92,
-      rotationX: -14,
-      yPercent: -6,
-      ease: 'none'
-    }, i);
-  }
-
-  // Hold Card 03 in full view for 1 unit of scroll hold before unpinning into Toolkit
-  tl.to(cards[cards.length - 1], {
-    yPercent: 0,
-    duration: holdDuration,
-    ease: 'none'
-  }, numTransitions);
-
-  // Return cleanup handle on unmount / refresh
   return () => {
-    if (tl.scrollTrigger) tl.scrollTrigger.kill();
-    tl.kill();
+    if (trigger) trigger.kill();
   };
 }
 
@@ -1025,7 +1120,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initWordSplitScrollAnimation();
   initWorkHistorySwitcher();
-  initStackedCaseStudies3DPaperFold();
+  initHybridCaseStudiesScroller();
   initBrandTransitionWipe();
   initThreeBrandN();
 

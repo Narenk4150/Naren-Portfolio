@@ -250,189 +250,68 @@
       </div>
     </section>
 
-    <!-- Projects / Featured Case Studies Section (Pinned 3D Paper-Fold Stacked Cards) -->
+    <!-- Projects / Featured Case Studies Section (Interactive Hybrid 3D Display & Client Navigation Stack) -->
     <section id="projects" class="projects-section">
-      <div class="case-studies-pinned-wrapper" id="case-studies-stack-wrapper">
+      <div class="projects-pinned-container" id="projects-pinned-container">
         
-        <!-- Card 01: Cloud Architecture Builder Platform (White / Off-White Bg) -->
-        <article class="case-study-card cs-card-white" id="cs-1">
-          <div class="section-container">
-            <!-- Top Row: Eyebrow Left / Tag Badge Right -->
-            <div class="cs-card-top-row">
-              <span class="cs-eyebrow">– FEATURED CASE STUDY</span>
-              <span class="cs-tag-badge">SAAS · CLOUD INFRASTRUCTURE</span>
+        <div class="section-container projects-layout-grid">
+          <!-- Left Column (Visuals & Info): 3D Laptop Display + Nested 2-Column Details Table -->
+          <div class="projects-left-visuals">
+            
+            <!-- 3D Laptop Mockup Frame Display -->
+            <div class="laptop-mockup-frame">
+              <div class="laptop-screen-display">
+                <img id="laptop-screen-img" src="/images/image_8.png" alt="Project Case Study Preview" class="laptop-screen-media" />
+              </div>
+              <div class="laptop-base-stand"></div>
             </div>
 
-            <!-- Title Row: 2-line Display Heading & Baseline Index Number Right -->
-            <div class="cs-card-title-row">
-              <h3 class="cs-display-heading">Cloud Architecture /<br>Builder Platform</h3>
-              <span class="cs-index-number">01</span>
-            </div>
-
-            <!-- Full-Width Horizontal Rule -->
-            <div class="cs-divider"></div>
-
-            <!-- 3-Column Content Grid Below Rule -->
-            <div class="cs-card-3col-grid">
-              <!-- Column 1: PROBLEM -->
-              <div class="cs-col">
-                <span class="cs-col-label">PROBLEM</span>
-                <p class="cs-col-paragraph">
-                  <span class="bullet-dash">–</span> The builder was a freeform canvas that assumed deep cloud infrastructure knowledge. Non-expert users stalled out or made errors that only surfaced after deployment, creating a dependency on senior DevOps engineers for architectures that should have been routine.
-                </p>
+            <!-- Nested 2-Column Details Table -->
+            <div class="project-details-table" id="project-details-table">
+              <div class="details-row">
+                <span class="details-label">Overview</span>
+                <p id="proj-overview-val" class="details-value">A premium website for ALTHEA delivering user-centric audit workflows and high-concurrency cloud dashboard platforms.</p>
               </div>
 
-              <!-- Column 2: SOLUTION -->
-              <div class="cs-col">
-                <span class="cs-col-label">SOLUTION</span>
-                <p class="cs-col-paragraph">
-                  <span class="bullet-dash">–</span> Replaced the open canvas with a guided, sequential workflow: plain-language intake, inline validation at each step, then a generated architecture — so the interface caught mistakes before they became deployments instead of after.
-                </p>
+              <div class="details-row">
+                <span class="details-label">Tags</span>
+                <p id="proj-tags-val" class="details-value">Web Design, UI/UX, Enterprise Systems</p>
               </div>
 
-              <!-- Column 3: OUTCOME (3 Stacked Stat Blocks) -->
-              <div class="cs-col outcomes-col">
-                <span class="cs-col-label">OUTCOME</span>
-                <div class="cs-stats-stack">
-                  <div class="cs-stat-block">
-                    <span class="stat-value">35%</span>
-                    <span class="stat-label">FASTER ARCHITECTURE CREATION — VIA STREAMLINED, GUIDED WORKFLOWS REPLACING A FREEFORM CANVAS</span>
-                  </div>
+              <div class="details-row">
+                <span class="details-label">Industry</span>
+                <p id="proj-industry-val" class="details-value">Healthcare / SaaS</p>
+              </div>
 
-                  <div class="cs-stat-block">
-                    <span class="stat-value">20%</span>
-                    <span class="stat-label">FEWER USER ERRORS — CLEARER INFORMATION ARCHITECTURE PLUS INLINE VALIDATION AT EACH STEP</span>
-                  </div>
-
-                  <div class="cs-stat-block">
-                    <span class="stat-value">↓DEV</span>
-                    <span class="stat-label">REDUCED DEPENDENCY ON SENIOR DEVOPS ENGINEERS BY SIMPLIFYING COMPLEX TECHNICAL WORKFLOWS</span>
-                  </div>
-                </div>
+              <div class="details-row">
+                <span class="details-label">Client</span>
+                <p id="proj-client-val" class="details-value">ALTHEA</p>
               </div>
             </div>
+
           </div>
-        </article>
 
-        <!-- Card 02: Replacing manual with AI matching (Medium Grey Bg #8a8a8a) -->
-        <article class="case-study-card cs-card-grey" id="cs-2">
-          <div class="section-container">
-            <!-- Top Row: Eyebrow Left / Tag Badge Right -->
-            <div class="cs-card-top-row">
-              <span class="cs-eyebrow">– FEATURED CASE STUDY</span>
-              <span class="cs-tag-badge">SAAS · AI HIRING</span>
+          <!-- Right Column (List Navigation & Timeline Anchor) -->
+          <div class="projects-right-nav">
+            
+            <!-- Center Timeline Anchor Year -->
+            <div class="projects-timeline-anchor">
+              <span id="proj-timeline-year" class="timeline-year-text">2024</span>
             </div>
 
-            <!-- Title Row: 2-line Display Heading & Baseline Index Number Right -->
-            <div class="cs-card-title-row">
-              <h3 class="cs-display-heading">Replacing manual with<br>AI matching</h3>
-              <span class="cs-index-number">02</span>
-            </div>
-
-            <!-- Full-Width Horizontal Rule -->
-            <div class="cs-divider"></div>
-
-            <!-- 3-Column Content Grid Below Rule -->
-            <div class="cs-card-3col-grid">
-              <!-- Column 1: PROBLEM -->
-              <div class="cs-col">
-                <span class="cs-col-label">PROBLEM</span>
-                <p class="cs-col-paragraph">
-                  <span class="bullet-dash">–</span> Every application landed in the same queue, and the HR team manually screened each one before a candidate heard anything back. The wait killed engagement — good candidates dropped off before a human ever got to their profile, and the manual load only grew with volume.
-                </p>
-              </div>
-
-              <!-- Column 2: SOLUTION -->
-              <div class="cs-col">
-                <span class="cs-col-label">SOLUTION</span>
-                <p class="cs-col-paragraph">
-                  <span class="bullet-dash">–</span> Redesigned the flow around an AI matching engine that ranks and shortlists candidates against role criteria automatically, paired with faster status feedback so candidates weren't left guessing. HR moved from screening every application to reviewing a ranked shortlist.
-                </p>
-              </div>
-
-              <!-- Column 3: OUTCOME (3 Stacked Stat Blocks) -->
-              <div class="cs-col outcomes-col">
-                <span class="cs-col-label">OUTCOME</span>
-                <div class="cs-stats-stack">
-                  <div class="cs-stat-block">
-                    <span class="stat-value">300%</span>
-                    <span class="stat-label">HIGHER USER RETENTION POST-REDESIGN, DRIVEN BY FASTER FEEDBACK AND A CLEARER CANDIDATE JOURNEY</span>
-                  </div>
-
-                  <div class="cs-stat-block">
-                    <span class="stat-value">50%</span>
-                    <span class="stat-label">LESS MANUAL LOAD ON THE HR TEAM — AI MATCHING REMOVED FIRST-PASS SCREENING FROM THEIR QUEUE</span>
-                  </div>
-
-                  <div class="cs-stat-block">
-                    <span class="stat-value">AI</span>
-                    <span class="stat-label">MATCHING ENGINE DESIGNED AND SHIPPED END-TO-END, FROM INTAKE THROUGH RANKED SHORTLIST</span>
-                  </div>
-                </div>
+            <!-- Client Names Vertical Navigation Stack -->
+            <div class="client-list-viewport">
+              <div class="client-list-track" id="client-list-track">
+                <button type="button" class="client-nav-btn inactive" data-index="0" aria-label="SmartPlan AI project">SmartPlan AI</button>
+                <button type="button" class="client-nav-btn active" data-index="1" aria-label="ALTHEA project">ALTHEA</button>
+                <button type="button" class="client-nav-btn inactive" data-index="2" aria-label="Creative HUB project">Creative HUB</button>
+                <button type="button" class="client-nav-btn inactive" data-index="3" aria-label="Mischka project">Mischka</button>
+                <button type="button" class="client-nav-btn inactive" data-index="4" aria-label="Mayerfeld project">Mayerfeld</button>
               </div>
             </div>
+
           </div>
-        </article>
-
-        <!-- Card 03: Getting ESG reporting out of spreadsheets (Solid Dark Bg #0E0E0E) -->
-        <article class="case-study-card cs-card-charcoal" id="cs-3">
-          <div class="section-container">
-            <!-- Top Row: Eyebrow Left / Tag Badge Right -->
-            <div class="cs-card-top-row">
-              <span class="cs-eyebrow">– FEATURED CASE STUDY</span>
-              <span class="cs-tag-badge">ENTERPRISE · ESG REPORTING</span>
-            </div>
-
-            <!-- Title Row: 2-line Display Heading & Baseline Index Number Right -->
-            <div class="cs-card-title-row">
-              <h3 class="cs-display-heading">Getting ESG reporting<br>out of spreadsheets</h3>
-              <span class="cs-index-number">03</span>
-            </div>
-
-            <!-- Full-Width Horizontal Rule -->
-            <div class="cs-divider"></div>
-
-            <!-- 3-Column Content Grid Below Rule -->
-            <div class="cs-card-3col-grid">
-              <!-- Column 1: PROBLEM -->
-              <div class="cs-col">
-                <span class="cs-col-label">PROBLEM</span>
-                <p class="cs-col-paragraph">
-                  <span class="bullet-dash">–</span> ESG documentation lived across scattered Excel files, manually reconciled by hand every reporting cycle. The process was slow, error-prone, and nobody on the team fully trusted the numbers by the time they reached the final report.
-                </p>
-              </div>
-
-              <!-- Column 2: SOLUTION -->
-              <div class="cs-col">
-                <span class="cs-col-label">SOLUTION</span>
-                <p class="cs-col-paragraph">
-                  <span class="bullet-dash">–</span> Designed a structured collect-to-report pipeline: guided digital forms replaced scattered sheets, data validated and auto-compiled on entry, and a report generated straight from verified data — no manual spreadsheet merge at the end.
-                </p>
-              </div>
-
-              <!-- Column 3: OUTCOME (3 Stacked Stat Blocks) -->
-              <div class="cs-col outcomes-col">
-                <span class="cs-col-label">OUTCOME</span>
-                <div class="cs-stats-stack">
-                  <div class="cs-stat-block">
-                    <span class="stat-value">70%</span>
-                    <span class="stat-label">LESS MANUAL EXCEL WORK — STRUCTURED INTAKE REPLACED SPREADSHEET RECONCILIATION</span>
-                  </div>
-
-                  <div class="cs-stat-block">
-                    <span class="stat-value">40%</span>
-                    <span class="stat-label">HIGHER USER SATISFACTION — REPORTED AFTER THE GUIDED WORKFLOW REPLACED THE OLD PROCESS</span>
-                  </div>
-
-                  <div class="cs-stat-block">
-                    <span class="stat-value">50%</span>
-                    <span class="stat-label">FASTER REPORTING CYCLE — FROM DATA COLLECTION THROUGH TO A SUBMITTABLE ESG DOCUMENT</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
+        </div>
 
       </div>
     </section>
