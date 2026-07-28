@@ -1177,8 +1177,28 @@ body {
   justify-content: center;
   position: relative;
   overflow: hidden;
-  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 15%, rgba(0,0,0,1) 35%, rgba(0,0,0,1) 65%, rgba(0,0,0,0.4) 85%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 15%, rgba(0,0,0,1) 35%, rgba(0,0,0,1) 65%, rgba(0,0,0,0.4) 85%, transparent 100%);
+}
+
+/* Subtle top and bottom darkness fade overlays */
+.role-stack-viewport::before,
+.role-stack-viewport::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 38%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.role-stack-viewport::before {
+  top: 0;
+  background: linear-gradient(to bottom, #0A0A0A 0%, rgba(10, 10, 10, 0.85) 45%, rgba(10, 10, 10, 0) 100%);
+}
+
+.role-stack-viewport::after {
+  bottom: 0;
+  background: linear-gradient(to top, #0A0A0A 0%, rgba(10, 10, 10, 0.85) 45%, rgba(10, 10, 10, 0) 100%);
 }
 
 .role-stack-track {
@@ -1208,26 +1228,49 @@ body {
   font-family: var(--font-primary), 'Open Sans', sans-serif;
   letter-spacing: -0.02em;
   white-space: nowrap;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Bright Pure White Active Focal Point */
 .role-title-nav-btn.active {
   font-size: clamp(2.5rem, 4.5vw, 4.25rem);
   font-weight: 700;
   color: #FFFFFF;
+  -webkit-text-fill-color: #FFFFFF;
   opacity: 1;
 }
 
-.role-title-nav-btn.inactive {
-  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.2);
-  opacity: 0.6;
+/* Preceding Role: Fades from soft light gray at top into medium gray as it approaches active title */
+.role-title-nav-btn.prev-role {
+  font-size: clamp(1.5rem, 2.7vw, 2.35rem);
+  font-weight: 600;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0.85;
 }
 
-.role-title-nav-btn.inactive:hover {
-  color: rgba(255, 255, 255, 0.6);
-  opacity: 0.9;
+/* Succeeding Role: Begins in medium gray and gradually dissolves into near-black toward bottom */
+.role-title-nav-btn.next-role {
+  font-size: clamp(1.5rem, 2.7vw, 2.35rem);
+  font-weight: 600;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.12) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0.75;
+}
+
+/* Distant Roles: Dissolved into near-black darkness */
+.role-title-nav-btn.far-role {
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.12);
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.12);
+  opacity: 0.25;
+}
+
+.role-title-nav-btn:hover {
+  opacity: 1;
 }
 
 @media (max-width: 992px) {

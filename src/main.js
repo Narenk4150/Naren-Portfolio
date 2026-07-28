@@ -503,13 +503,17 @@ function initWorkHistoryReferenceScroller() {
     const data = workHistoryData[targetIndex];
     if (!data) return;
 
-    // 1. Highlight states: active pure white & bold, inactive dark gray & smaller
+    // 1. Highlight states: active pure white & bold, preceding soft gray gradient, succeeding dark dissolve gradient
     buttons.forEach((btn, idx) => {
-      btn.classList.remove('active', 'inactive');
+      btn.classList.remove('active', 'inactive', 'prev-role', 'next-role', 'far-role');
       if (idx === targetIndex) {
         btn.classList.add('active');
+      } else if (idx === targetIndex - 1) {
+        btn.classList.add('prev-role');
+      } else if (idx === targetIndex + 1) {
+        btn.classList.add('next-role');
       } else {
-        btn.classList.add('inactive');
+        btn.classList.add('far-role');
       }
     });
 
