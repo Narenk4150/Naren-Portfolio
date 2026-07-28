@@ -536,11 +536,11 @@ function initStickyRoleStepper() {
   trigger = ScrollTrigger.create({
     trigger: stepperSection,
     start: 'top top',
-    end: '+=300%', // 3 full viewport scrolls to lock & step through all 3 roles completely before unpinning
+    end: '+=180%', // Balanced, responsive 3-role stepping distance
     pin: true,
     pinSpacing: true,
     anticipatePin: 1,
-    refreshPriority: 5,
+    refreshPriority: 1,
     invalidateOnRefresh: true,
     onEnter: () => updateActiveRole(0, true),
     onEnterBack: () => updateActiveRole(2, true),
