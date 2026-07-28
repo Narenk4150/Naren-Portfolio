@@ -1229,7 +1229,7 @@ body {
   font-size: clamp(2.5rem, 4.2vw, 3.8rem); /* Identical font size for all titles */
   font-weight: 700;                       /* Identical bold weight for all titles */
   letter-spacing: -0.02em;                /* Identical spacing for all titles */
-  white-space: nowrap;
+  line-height: 1.05;
   transition: opacity 0.4s ease, color 0.4s ease, -webkit-text-fill-color 0.4s ease; /* No font size / scaling animation */
 }
 
