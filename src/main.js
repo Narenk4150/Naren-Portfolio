@@ -610,18 +610,28 @@ function initThreeBrandN() {
 
   container.innerHTML = '';
 
-  const width = container.clientWidth || 280;
-  const height = container.clientHeight || 280;
+  let width = container.clientWidth || 320;
+  let height = container.clientHeight || 320;
 
   // 3D Scene setup
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-  camera.position.set(0, 0, 165);
+  camera.position.set(0, 0, 160);
 
   const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
   renderer.setSize(width, height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   container.appendChild(renderer.domElement);
+
+  // ResizeObserver for dynamic responsiveness
+  const resizeObserver = new ResizeObserver(() => {
+    const w = container.clientWidth || 320;
+    const h = container.clientHeight || 320;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+  });
+  resizeObserver.observe(container);
 
   // Lights for sleek 3D metallic shading
   const ambientLight = new THREE.AmbientLight(0xffffff, 1.6);
