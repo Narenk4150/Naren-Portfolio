@@ -135,7 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initWordSplitScrollAnimation();
   initWorkHistoryHybridScroller();
-  initHybridCaseStudiesScroller();
 });
 
 // Scroll Header Effects
@@ -451,12 +450,11 @@ const expStateData = [
   }
 ];
 
-// Interactive Hybrid 3D Display & Role Navigation Stack Controller (#experience)
+// Interactive Hybrid Display & Role Navigation Stack Controller (#experience)
 function initWorkHistoryHybridScroller() {
   const section = document.getElementById('experience');
   const buttons = document.querySelectorAll('.exp-role-btn');
   const track = document.getElementById('exp-role-list-track');
-  const screenImg = document.getElementById('exp-laptop-img');
   const detailsTable = document.getElementById('exp-details-table');
   const companyVal = document.getElementById('exp-company-val');
   const bulletsVal = document.getElementById('exp-bullets-val');
@@ -470,7 +468,6 @@ function initWorkHistoryHybridScroller() {
       role: "Team Lead",
       tenure: "Apr 2023 — Present",
       company: "Pirai Infotech, Coimbatore",
-      image: "/images/image_8.png",
       bullets: [
         "Led end-to-end UX/UI and solutioning for enterprise SaaS and cloud platforms across web and mobile",
         "Partnered with sales and pre-sales to turn client requirements into concepts that supported live deal conversations",
@@ -484,7 +481,6 @@ function initWorkHistoryHybridScroller() {
       role: "UX UI Designer",
       tenure: "Jan 2022 — Jan 2023",
       company: "KS Smart Solutions Pvt Ltd, Chennai",
-      image: "/images/image_9.png",
       bullets: [
         "Designed user-centric web and mobile applications, translating business requirements into intuitive flows",
         "Built wireframes, prototypes, and high-fidelity UI for cross-functional product teams",
@@ -498,7 +494,6 @@ function initWorkHistoryHybridScroller() {
       role: "Project Manager",
       tenure: "June 2021 — Jan 2020",
       company: "KS Smart Solutions Pvt Ltd, Chennai",
-      image: "/images/image_10.png",
       bullets: [
         "Designed user-centric web and mobile applications, translating business requirements into intuitive flows",
         "Built wireframes, prototypes, and high-fidelity UI for cross-functional product teams",
@@ -540,20 +535,7 @@ function initWorkHistoryHybridScroller() {
       }
     }
 
-    // 3. Laptop Screen Swap: Dissolves out old image and dissolves in new role artwork
-    if (screenImg) {
-      gsap.to(screenImg, {
-        opacity: 0,
-        scale: 0.96,
-        duration: 0.2,
-        onComplete: () => {
-          screenImg.src = data.image;
-          gsap.to(screenImg, { opacity: 1, scale: 1, duration: 0.35, ease: 'power2.out' });
-        }
-      });
-    }
-
-    // 4. Content Refresh: Details table rapidly dissolves out and fades in with 20px Y-offset slide
+    // 3. Content Refresh: Details table rapidly dissolves out and fades in with 20px Y-offset slide
     if (detailsTable) {
       gsap.to(detailsTable, {
         opacity: 0,
@@ -576,7 +558,7 @@ function initWorkHistoryHybridScroller() {
       });
     }
 
-    // 5. Timeline Update: Tenure marker dissolves and updates to new tenure
+    // 4. Timeline Update: Tenure marker dissolves and updates to new tenure
     if (tenureText) {
       gsap.to(tenureText, {
         opacity: 0,
@@ -618,222 +600,6 @@ function initWorkHistoryHybridScroller() {
         const start = trigger.start;
         const total = trigger.end - trigger.start;
         const targetScroll = start + (total * (idx / (numRoles - 1)));
-        gsap.to(window, { scrollTo: targetScroll, duration: 0.6, ease: 'power2.out' });
-      }
-    });
-  });
-
-  return () => {
-    if (trigger) trigger.kill();
-  };
-}
-
-// Full-Viewport Brand Transition Section (Parallax Split Reveal with Navbar Logo SVG)
-function initBrandTransitionWipe() {
-  const section = document.getElementById('brand-transition');
-  const blackBg = document.getElementById('brand-bg-black');
-  const whiteBg = document.getElementById('brand-bg-white');
-  const topPane = document.getElementById('brand-pane-top');
-  const svgMarks = document.querySelectorAll('.brand-n-svg');
-
-  if (!section || !blackBg || !whiteBg) return;
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: section,
-      start: 'top top',
-      end: 'bottom bottom',
-      scrub: 1
-    }
-  });
-
-  // Layer 1: Top Black Background & Top Pane Clip Path shift (drifts boundary smoothly across scroll)
-  tl.fromTo([blackBg, topPane],
-    { clipPath: 'polygon(0% 0%, 100% 0%, 100% 32%, 0% 36%)' },
-    { clipPath: 'polygon(0% 0%, 100% 0%, 100% 64%, 0% 68%)', ease: 'none' },
-    0
-  );
-
-  // Layer 2: Bottom White Background subtle opposite vertical drift
-  tl.fromTo(whiteBg,
-    { yPercent: 6 },
-    { yPercent: -6, ease: 'none' },
-    0
-  );
-
-  // Layer 3: 'N' Logo Mark SVG 3rd distinct parallax rate & scale depth
-  tl.fromTo(svgMarks,
-    { yPercent: -4, scale: 1.12 },
-    { yPercent: 4, scale: 1.22, ease: 'none' },
-    0
-  );
-
-  // Cleanup handle on unmount / refresh
-  return () => {
-    if (tl.scrollTrigger) tl.scrollTrigger.kill();
-    tl.kill();
-  };
-}
-
-// Interactive Hybrid 3D Display & Client Navigation Stack Controller (#projects)
-function initHybridCaseStudiesScroller() {
-  const section = document.getElementById('projects');
-  const buttons = document.querySelectorAll('.client-nav-btn');
-  const track = document.getElementById('client-list-track');
-  const screenImg = document.getElementById('laptop-screen-img');
-  const detailsTable = document.getElementById('project-details-table');
-  const overviewVal = document.getElementById('proj-overview-val');
-  const tagsVal = document.getElementById('proj-tags-val');
-  const industryVal = document.getElementById('proj-industry-val');
-  const clientVal = document.getElementById('proj-client-val');
-  const yearText = document.getElementById('proj-timeline-year');
-
-  if (!section || !buttons.length) return;
-
-  const caseStudiesData = [
-    {
-      client: "SmartPlan AI",
-      year: "2023",
-      overview: "AI-driven architecture creation platform automating complex DevOps intake and infrastructure deployment workflows.",
-      tags: "SaaS, Cloud Architecture, AI Intake",
-      industry: "DevOps / Artificial Intelligence",
-      image: "/images/image_8.png"
-    },
-    {
-      client: "ALTHEA",
-      year: "2024",
-      overview: "A premium website for ALTHEA delivering user-centric audit workflows and high-concurrency cloud dashboard platforms.",
-      tags: "Web Design, UI/UX, Enterprise Systems",
-      industry: "Healthcare / SaaS",
-      image: "/images/image_9.png"
-    },
-    {
-      client: "Creative HUB",
-      year: "2025",
-      overview: "Next-gen creative collaboration portal with interactive asset management and automated design handoff tools.",
-      tags: "Design Tools, Design Systems, Web App",
-      industry: "Creative Tech / SaaS",
-      image: "/images/image_10.png"
-    },
-    {
-      client: "Mischka",
-      year: "2025",
-      overview: "High-fashion e-commerce experience featuring dynamic motion, interactive product showcases, and friction-free checkout.",
-      tags: "E-Commerce, Motion Design, Branding",
-      industry: "Luxury Fashion & Retail",
-      image: "/images/image_8.png"
-    },
-    {
-      client: "Mayerfeld",
-      year: "2026",
-      overview: "Enterprise financial analytics dashboard transforming multi-source accounting into intuitive real-time metrics.",
-      tags: "FinTech, Data Visualization, Web App",
-      industry: "Financial Services",
-      image: "/images/image_9.png"
-    }
-  ];
-
-  let currentIndex = -1;
-
-  function updateActiveCaseStudy(targetIndex, force = false) {
-    if (!force && targetIndex === currentIndex) return;
-    currentIndex = targetIndex;
-
-    const data = caseStudiesData[targetIndex];
-    if (!data) return;
-
-    // 1. Highlight Fade: Inactive buttons turn dark gray & shrink; Active button grows & becomes pure white
-    buttons.forEach((btn, idx) => {
-      btn.classList.remove('active', 'inactive');
-      if (idx === targetIndex) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.add('inactive');
-      }
-    });
-
-    // 2. List Shift (Vertically): Stack scrolls vertically so active client name snaps into central focus position
-    if (track && track.parentElement) {
-      const activeBtn = buttons[targetIndex];
-      if (activeBtn) {
-        const btnCenter = activeBtn.offsetTop + (activeBtn.offsetHeight / 2);
-        const viewportCenter = track.parentElement.offsetHeight / 2;
-        const targetY = viewportCenter - btnCenter;
-        gsap.to(track, { y: targetY, duration: 0.45, ease: 'power2.out', overwrite: 'auto' });
-      }
-    }
-
-    // 3. Laptop Screen Swap: Dissolves out old image and dissolves in new project image
-    if (screenImg) {
-      gsap.to(screenImg, {
-        opacity: 0,
-        scale: 0.96,
-        duration: 0.2,
-        onComplete: () => {
-          screenImg.src = data.image;
-          gsap.to(screenImg, { opacity: 1, scale: 1, duration: 0.35, ease: 'power2.out' });
-        }
-      });
-    }
-
-    // 4. Content Refresh: Details table rapidly dissolves out and fades in with 20px Y-offset slide
-    if (detailsTable) {
-      gsap.to(detailsTable, {
-        opacity: 0,
-        y: 20,
-        duration: 0.18,
-        onComplete: () => {
-          if (overviewVal) overviewVal.innerText = data.overview;
-          if (tagsVal) tagsVal.innerText = data.tags;
-          if (industryVal) industryVal.innerText = data.industry;
-          if (clientVal) clientVal.innerText = data.client;
-          gsap.to(detailsTable, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' });
-        }
-      });
-    }
-
-    // 5. Timeline Update: Timeline marker dissolves and updates to new year
-    if (yearText) {
-      gsap.to(yearText, {
-        opacity: 0,
-        duration: 0.15,
-        onComplete: () => {
-          yearText.innerText = data.year;
-          gsap.to(yearText, { opacity: 1, duration: 0.25 });
-        }
-      });
-    }
-  }
-
-  // Set initial state to ALTHEA (index 1) as described in prompt
-  setTimeout(() => updateActiveCaseStudy(1, true), 50);
-
-  // GSAP ScrollTrigger pinning & scroll-driven step sequence
-  const numProjects = caseStudiesData.length;
-  let trigger = null;
-
-  trigger = ScrollTrigger.create({
-    trigger: section,
-    start: 'top top',
-    end: `+=${numProjects * 75}%`,
-    pin: true,
-    pinSpacing: true,
-    anticipatePin: 1,
-    refreshPriority: 1,
-    onUpdate: (self) => {
-      const step = Math.min(numProjects - 1, Math.max(0, Math.floor(self.progress * (numProjects - 0.001))));
-      updateActiveCaseStudy(step);
-    }
-  });
-
-  // Direct click navigation on client list buttons
-  buttons.forEach((btn, idx) => {
-    btn.addEventListener('click', () => {
-      updateActiveCaseStudy(idx);
-      if (trigger && trigger.start) {
-        const start = trigger.start;
-        const total = trigger.end - trigger.start;
-        const targetScroll = start + (total * (idx / (numProjects - 1)));
         gsap.to(window, { scrollTo: targetScroll, duration: 0.6, ease: 'power2.out' });
       }
     });
@@ -1170,7 +936,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initWordSplitScrollAnimation();
   initWorkHistoryHybridScroller();
-  initHybridCaseStudiesScroller();
   initBrandTransitionWipe();
   initThreeBrandN();
 
