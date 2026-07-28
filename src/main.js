@@ -453,6 +453,7 @@ const expStateData = [
 
 function initWorkHistorySwitcher() {
   const buttons = document.querySelectorAll('.role-title-btn');
+  const track = document.getElementById('role-titles-track');
   const dateEl = document.getElementById('work-history-date');
   const companyEl = document.getElementById('work-history-company');
   const bulletsEl = document.getElementById('work-history-bullets');
@@ -522,7 +523,18 @@ function initWorkHistorySwitcher() {
       }
     });
 
-    // 2. Update center timeline date
+    // 2. Vertically center the active title button relative to center year timeline
+    if (track && track.parentElement) {
+      const activeBtn = buttons[targetIndex];
+      if (activeBtn) {
+        const btnCenter = activeBtn.offsetTop + (activeBtn.offsetHeight / 2);
+        const parentCenter = track.parentElement.offsetHeight / 2;
+        const targetY = parentCenter - btnCenter;
+        gsap.to(track, { y: targetY, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
+      }
+    }
+
+    // 3. Update center timeline date
     if (dateEl) {
       gsap.to(dateEl, {
         opacity: 0,
@@ -535,7 +547,7 @@ function initWorkHistorySwitcher() {
       });
     }
 
-    // 3. Update right content box (Company, Bullets, Tags)
+    // 4. Update right content box (Company, Bullets, Tags)
     gsap.to(contentBox, {
       opacity: 0.35,
       y: 4,
@@ -556,6 +568,9 @@ function initWorkHistorySwitcher() {
       }
     });
   }
+
+  // Set initial active role 0 and alignment
+  setTimeout(() => setActiveRole(0), 50);
 
   // Bind click listeners to role buttons
   buttons.forEach((btn, idx) => {
