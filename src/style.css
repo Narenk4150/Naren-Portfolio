@@ -662,11 +662,12 @@ body {
   opacity: 0.9;
 }
 
-/* Center Column: Minimalist Timeline (Aligned with Active Title Baseline, Glass Effect Removed) */
+/* Center Column: Minimalist Timeline (Vertically Center-Aligned to Active Title) */
 .work-history-center-col {
   display: flex;
-  align-items: flex-start;
-  padding-top: clamp(14px, 1.6vw, 22px); /* Precise alignment with active title baseline */
+  align-items: center;
+  height: clamp(2.5rem, 4vw, 4rem); /* Matches height of top active title */
+  padding-top: 0;
 }
 
 .timeline-date-text {
@@ -680,6 +681,7 @@ body {
   border: none;
   padding: 0;
   border-radius: 0;
+  line-height: 1;
 }
 
 /* Right Column: Company, Bullets & Tags */
@@ -690,11 +692,15 @@ body {
 }
 
 .company-italic-title {
+  display: flex;
+  align-items: center;
+  height: clamp(2.5rem, 4vw, 4rem); /* Matches height of top active title for 100% vertical center alignment */
   font-size: 1.25rem;
   font-style: italic;
   font-weight: 600;
   color: #FFFFFF;
   margin-bottom: 0;
+  line-height: 1.2;
 }
 
 .work-history-right-col .divider-line.subtle {
