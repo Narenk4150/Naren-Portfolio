@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactModal();
   initScrollAnimations();
   initWordSplitScrollAnimation();
-  initWorkHistorySwitcher();
+  initWorkHistoryHybridScroller();
   initHybridCaseStudiesScroller();
 });
 
@@ -451,22 +451,26 @@ const expStateData = [
   }
 ];
 
-function initWorkHistorySwitcher() {
-  const buttons = document.querySelectorAll('.role-title-btn');
-  const track = document.getElementById('role-titles-track');
-  const dateEl = document.getElementById('work-history-date');
-  const companyEl = document.getElementById('work-history-company');
-  const bulletsEl = document.getElementById('work-history-bullets');
-  const tagsEl = document.getElementById('work-history-tags');
-  const contentBox = document.getElementById('work-history-content-box');
+// Interactive Hybrid 3D Display & Role Navigation Stack Controller (#experience)
+function initWorkHistoryHybridScroller() {
+  const section = document.getElementById('experience');
+  const buttons = document.querySelectorAll('.exp-role-btn');
+  const track = document.getElementById('exp-role-list-track');
+  const screenImg = document.getElementById('exp-laptop-img');
+  const detailsTable = document.getElementById('exp-details-table');
+  const companyVal = document.getElementById('exp-company-val');
+  const bulletsVal = document.getElementById('exp-bullets-val');
+  const tagsVal = document.getElementById('exp-tags-val');
+  const tenureText = document.getElementById('exp-timeline-tenure');
 
-  if (!buttons.length || !contentBox) return;
+  if (!section || !buttons.length) return;
 
-  const rolesData = [
+  const expData = [
     {
-      title: "Team Lead",
-      date: "Apr 2023 — Present",
+      role: "Team Lead",
+      tenure: "Apr 2023 — Present",
       company: "Pirai Infotech, Coimbatore",
+      image: "/images/image_8.png",
       bullets: [
         "Led end-to-end UX/UI and solutioning for enterprise SaaS and cloud platforms across web and mobile",
         "Partnered with sales and pre-sales to turn client requirements into concepts that supported live deal conversations",
@@ -477,9 +481,10 @@ function initWorkHistorySwitcher() {
       tags: ["LEADERSHIP", "ENTERPRISE UX", "PRE-SALES", "DESIGN SYSTEMS"]
     },
     {
-      title: "UX UI Designer",
-      date: "Jan 2022 — Jan 2023",
+      role: "UX UI Designer",
+      tenure: "Jan 2022 — Jan 2023",
       company: "KS Smart Solutions Pvt Ltd, Chennai",
+      image: "/images/image_9.png",
       bullets: [
         "Designed user-centric web and mobile applications, translating business requirements into intuitive flows",
         "Built wireframes, prototypes, and high-fidelity UI for cross-functional product teams",
@@ -490,9 +495,10 @@ function initWorkHistorySwitcher() {
       tags: ["WIREFRAMING", "PROTOTYPING", "HANDOFF"]
     },
     {
-      title: "Project Manager",
-      date: "June 2021 — Jan 2020",
+      role: "Project Manager",
+      tenure: "June 2021 — Jan 2020",
       company: "KS Smart Solutions Pvt Ltd, Chennai",
+      image: "/images/image_10.png",
       bullets: [
         "Designed user-centric web and mobile applications, translating business requirements into intuitive flows",
         "Built wireframes, prototypes, and high-fidelity UI for cross-functional product teams",
@@ -504,78 +510,122 @@ function initWorkHistorySwitcher() {
     }
   ];
 
-  function setActiveRole(targetIndex) {
-    const data = rolesData[targetIndex];
+  let currentIndex = -1;
+
+  function updateActiveRole(targetIndex, force = false) {
+    if (!force && targetIndex === currentIndex) return;
+    currentIndex = targetIndex;
+
+    const data = expData[targetIndex];
     if (!data) return;
 
-    // 1. Update title button depth-fade active states
+    // 1. Highlight Fade: Inactive role buttons turn dark gray & shrink; Active role button grows & becomes pure white
     buttons.forEach((btn, idx) => {
-      btn.classList.remove('active', 'dim-mid', 'dim-low');
+      btn.classList.remove('active', 'inactive');
       if (idx === targetIndex) {
         btn.classList.add('active');
       } else {
-        const distance = Math.abs(idx - targetIndex);
-        if (distance === 1) {
-          btn.classList.add('dim-mid');
-        } else {
-          btn.classList.add('dim-low');
-        }
+        btn.classList.add('inactive');
       }
     });
 
-    // 2. Vertically center the active title button relative to center year timeline
+    // 2. List Shift (Vertically): Stack scrolls vertically so active role title snaps into central focus position
     if (track && track.parentElement) {
       const activeBtn = buttons[targetIndex];
       if (activeBtn) {
         const btnCenter = activeBtn.offsetTop + (activeBtn.offsetHeight / 2);
-        const parentCenter = track.parentElement.offsetHeight / 2;
-        const targetY = parentCenter - btnCenter;
-        gsap.to(track, { y: targetY, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
+        const viewportCenter = track.parentElement.offsetHeight / 2;
+        const targetY = viewportCenter - btnCenter;
+        gsap.to(track, { y: targetY, duration: 0.45, ease: 'power2.out', overwrite: 'auto' });
       }
     }
 
-    // 3. Update center timeline date
-    if (dateEl) {
-      gsap.to(dateEl, {
+    // 3. Laptop Screen Swap: Dissolves out old image and dissolves in new role artwork
+    if (screenImg) {
+      gsap.to(screenImg, {
         opacity: 0,
-        y: -4,
-        duration: 0.12,
+        scale: 0.96,
+        duration: 0.2,
         onComplete: () => {
-          dateEl.innerText = data.date;
-          gsap.to(dateEl, { opacity: 1, y: 0, duration: 0.18 });
+          screenImg.src = data.image;
+          gsap.to(screenImg, { opacity: 1, scale: 1, duration: 0.35, ease: 'power2.out' });
         }
       });
     }
 
-    // 4. Update right content box (Company, Bullets, Tags)
-    gsap.to(contentBox, {
-      opacity: 0.35,
-      y: 4,
-      duration: 0.12,
-      onComplete: () => {
-        if (companyEl) companyEl.innerText = data.company;
-        if (bulletsEl) {
-          bulletsEl.innerHTML = data.bullets
-            .map(b => `<li><span class="bullet-dash">–</span> <span>${b}</span></li>`)
-            .join('');
+    // 4. Content Refresh: Details table rapidly dissolves out and fades in with 20px Y-offset slide
+    if (detailsTable) {
+      gsap.to(detailsTable, {
+        opacity: 0,
+        y: 20,
+        duration: 0.18,
+        onComplete: () => {
+          if (companyVal) companyVal.innerText = data.company;
+          if (bulletsVal) {
+            bulletsVal.innerHTML = data.bullets
+              .map(b => `<li><span class="bullet-dash">–</span> <span>${b}</span></li>`)
+              .join('');
+          }
+          if (tagsVal) {
+            tagsVal.innerHTML = data.tags
+              .map(t => `<span class="rectangular-chip">${t}</span>`)
+              .join('');
+          }
+          gsap.to(detailsTable, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' });
         }
-        if (tagsEl) {
-          tagsEl.innerHTML = data.tags
-            .map(t => `<span class="rectangular-chip">${t}</span>`)
-            .join('');
+      });
+    }
+
+    // 5. Timeline Update: Tenure marker dissolves and updates to new tenure
+    if (tenureText) {
+      gsap.to(tenureText, {
+        opacity: 0,
+        duration: 0.15,
+        onComplete: () => {
+          tenureText.innerText = data.tenure;
+          gsap.to(tenureText, { opacity: 1, duration: 0.25 });
         }
-        gsap.to(contentBox, { opacity: 1, y: 0, duration: 0.22, ease: 'power2.out' });
-      }
-    });
+      });
+    }
   }
 
-  // Set initial active role 0 and alignment
-  setTimeout(() => setActiveRole(0), 50);
+  // Set initial state to Team Lead (index 0)
+  setTimeout(() => updateActiveRole(0, true), 50);
 
-  // Bind click listeners to role buttons
-  buttons.forEach((btn, idx) => {
-    btn.addEventListener('click', () => setActiveRole(idx));
+  // GSAP ScrollTrigger pinning & scroll-driven step sequence
+  const numRoles = expData.length;
+  let trigger = null;
+
+  trigger = ScrollTrigger.create({
+    trigger: section,
+    start: 'top top',
+    end: `+=${numRoles * 75}%`,
+    pin: true,
+    pinSpacing: true,
+    anticipatePin: 1,
+    refreshPriority: 1,
+    onUpdate: (self) => {
+      const step = Math.min(numRoles - 1, Math.max(0, Math.floor(self.progress * (numRoles - 0.001))));
+      updateActiveRole(step);
+    }
   });
+
+  // Direct click navigation on role list buttons
+  buttons.forEach((btn, idx) => {
+    btn.addEventListener('click', () => {
+      updateActiveRole(idx);
+      if (trigger && trigger.start) {
+        const start = trigger.start;
+        const total = trigger.end - trigger.start;
+        const targetScroll = start + (total * (idx / (numRoles - 1)));
+        gsap.to(window, { scrollTo: targetScroll, duration: 0.6, ease: 'power2.out' });
+      }
+    });
+  });
+
+  return () => {
+    if (trigger) trigger.kill();
+  };
 }
 
 // Full-Viewport Brand Transition Section (Parallax Split Reveal with Navbar Logo SVG)
@@ -1119,7 +1169,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initRoleSwitchers();
   initScrollAnimations();
   initWordSplitScrollAnimation();
-  initWorkHistorySwitcher();
+  initWorkHistoryHybridScroller();
   initHybridCaseStudiesScroller();
   initBrandTransitionWipe();
   initThreeBrandN();
