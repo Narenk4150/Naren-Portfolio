@@ -876,34 +876,36 @@ function initAppPreloader() {
 
   const logoWrap = document.querySelector('.preloader-logo-wrap');
   const counterWrap = document.querySelector('.preloader-counter-wrap');
+  const blackCurtain = document.querySelector('.preloader-black-curtain');
 
   const mainTl = gsap.timeline({
     onComplete: () => {
       // 1. Fade out bottom-left counter numerals quickly
       if (counterWrap) {
-        gsap.to(counterWrap, { opacity: 0, y: 15, duration: 0.25, ease: 'power2.in' });
+        gsap.to(counterWrap, { opacity: 0, y: 15, duration: 0.2, ease: 'power2.in' });
       }
 
-      // 2. Enlarge black 'N' logo mark massively to fill the screen in black before loading hero section
+      // 2. Transition preloader background into solid dark black (#0A0A0A) via black curtain - ZERO WHITE LEAKING!
+      if (blackCurtain) {
+        gsap.to(blackCurtain, {
+          opacity: 1,
+          duration: 0.45,
+          ease: 'power2.inOut'
+        });
+      }
+
+      // 3. Smooth crisp N logo expansion & subtle lift into dark hero section - ZERO BLUR!
       if (logoWrap) {
         gsap.to(logoWrap, {
-          scale: 45,
-          duration: 0.85,
-          ease: 'expo.inOut',
-          transformOrigin: 'center center',
+          scale: 1.4,
+          opacity: 0,
+          duration: 0.55,
+          ease: 'power2.in',
           onComplete: () => {
-            // Fade out preloader wrapper & reveal dark hero section underneath
-            gsap.to(preloader, {
-              opacity: 0,
-              duration: 0.35,
-              ease: 'power2.out',
-              onComplete: () => {
-                preloader.classList.add('is-hidden');
-                document.body.style.overflow = '';
-                sessionStorage.setItem('naren_portfolio_preloader_seen', 'true');
-                ScrollTrigger.refresh();
-              }
-            });
+            preloader.classList.add('is-hidden');
+            document.body.style.overflow = '';
+            sessionStorage.setItem('naren_portfolio_preloader_seen', 'true');
+            ScrollTrigger.refresh();
           }
         });
       } else {

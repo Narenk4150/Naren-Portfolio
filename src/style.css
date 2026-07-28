@@ -2260,6 +2260,19 @@ body {
   will-change: transform;
 }
 
+.preloader-black-curtain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0A0A0A;
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+  will-change: opacity;
+}
+
 .preloader-content {
   position: relative;
   width: 100%;
@@ -2268,6 +2281,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 }
 
 .preloader-logo-wrap {
