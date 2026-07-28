@@ -2286,20 +2286,23 @@ body {
 
 .preloader-logo-wrap {
   position: relative;
-  width: clamp(160px, 15vw, 220px);
-  height: clamp(110px, 10vw, 150px);
+  width: clamp(180px, 18vw, 260px);
+  height: clamp(120px, 12vw, 175px);
   display: flex;
   justify-content: center;
   align-items: center;
   transform: translateY(-20px);
-  transform-origin: center center;
+  transform-origin: 50% 50%;
   will-change: transform;
 }
 
 .preloader-n-logo {
   width: 100%;
   height: auto;
-  transform-origin: center center;
+  transform-origin: 50% 50%;
+  shape-rendering: geometricPrecision;
+  text-rendering: geometricPrecision;
+  image-rendering: -webkit-optimize-contrast;
 }
 
 .block-seg-rect {

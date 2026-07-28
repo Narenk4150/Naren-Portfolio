@@ -876,32 +876,23 @@ function initAppPreloader() {
 
   const logoWrap = document.querySelector('.preloader-logo-wrap');
   const counterWrap = document.querySelector('.preloader-counter-wrap');
-  const blackCurtain = document.querySelector('.preloader-black-curtain');
 
   const mainTl = gsap.timeline({
     onComplete: () => {
       // 1. Fade out bottom-left counter numerals quickly
       if (counterWrap) {
-        gsap.to(counterWrap, { opacity: 0, y: 15, duration: 0.2, ease: 'power2.in' });
+        gsap.to(counterWrap, { opacity: 0, y: 20, duration: 0.2, ease: 'power2.in' });
       }
 
-      // 2. Transition preloader background into solid dark black (#0A0A0A) via black curtain - ZERO WHITE LEAKING!
-      if (blackCurtain) {
-        gsap.to(blackCurtain, {
-          opacity: 1,
-          duration: 0.45,
-          ease: 'power2.inOut'
-        });
-      }
-
-      // 3. Smooth crisp N logo expansion & subtle lift into dark hero section - ZERO BLUR!
+      // 2. Enlarge black 'N' logo mark massively to zoom fill the entire screen in black
       if (logoWrap) {
         gsap.to(logoWrap, {
-          scale: 1.4,
-          opacity: 0,
-          duration: 0.55,
-          ease: 'power2.in',
+          scale: 65,
+          duration: 0.85,
+          ease: 'expo.inOut',
+          transformOrigin: '50% 50%',
           onComplete: () => {
+            // Unmount preloader overlay & reveal dark hero section underneath
             preloader.classList.add('is-hidden');
             document.body.style.overflow = '';
             sessionStorage.setItem('naren_portfolio_preloader_seen', 'true');
