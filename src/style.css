@@ -2063,8 +2063,8 @@ body {
 
 .three-n-container {
   width: 100%;
-  max-width: 240px;
-  height: 240px;
+  max-width: 280px;
+  height: 280px;
   display: flex;
   align-items: center;
   justify-content: center;

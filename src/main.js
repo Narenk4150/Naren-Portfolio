@@ -610,13 +610,13 @@ function initThreeBrandN() {
 
   container.innerHTML = '';
 
-  const width = container.clientWidth || 240;
-  const height = container.clientHeight || 240;
+  const width = container.clientWidth || 280;
+  const height = container.clientHeight || 280;
 
   // 3D Scene setup
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-  camera.position.set(0, 0, 210);
+  camera.position.set(0, 0, 165);
 
   const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
   renderer.setSize(width, height);
@@ -624,15 +624,15 @@ function initThreeBrandN() {
   container.appendChild(renderer.domElement);
 
   // Lights for sleek 3D metallic shading
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.4);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.6);
   scene.add(ambientLight);
 
-  const dirLight1 = new THREE.DirectionalLight(0xffffff, 2.8);
-  dirLight1.position.set(120, 120, 180);
+  const dirLight1 = new THREE.DirectionalLight(0xffffff, 3.2);
+  dirLight1.position.set(140, 140, 200);
   scene.add(dirLight1);
 
-  const dirLight2 = new THREE.DirectionalLight(0xffffff, 1.2);
-  dirLight2.position.set(-120, -80, -120);
+  const dirLight2 = new THREE.DirectionalLight(0xffffff, 1.4);
+  dirLight2.position.set(-140, -90, -140);
   scene.add(dirLight2);
 
   // SVG Path Data for N Brand Mark
@@ -645,18 +645,18 @@ function initThreeBrandN() {
 
   const material = new THREE.MeshStandardMaterial({
     color: 0xffffff,
-    metalness: 0.35,
-    roughness: 0.15,
+    metalness: 0.45,
+    roughness: 0.12,
     side: THREE.DoubleSide
   });
 
   const extrudeSettings = {
-    depth: 8,
+    depth: 10,
     bevelEnabled: true,
-    bevelSegments: 4,
+    bevelSegments: 5,
     steps: 2,
-    bevelSize: 1.5,
-    bevelThickness: 1.5
+    bevelSize: 1.8,
+    bevelThickness: 1.8
   };
 
   svgData.paths.forEach((path) => {
@@ -670,7 +670,7 @@ function initThreeBrandN() {
   });
 
   // Scale and invert Y because SVGs operate inverted in WebGL
-  group.scale.set(0.9, -0.9, 0.9);
+  group.scale.set(1.15, -1.15, 1.15);
   group.rotation.x = Math.PI * 0.05;
   scene.add(group);
 
