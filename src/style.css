@@ -2333,17 +2333,17 @@ body {
   display: flex;
   align-items: center;
   gap: 0;
-  height: clamp(5.5rem, 13vw, 11.5rem);
+  height: clamp(7.5rem, 17vw, 15.5rem);
   overflow: hidden;
-  font-family: 'Open Sans', var(--font-primary), sans-serif;
-  font-weight: 900;
+  font-family: var(--font-primary), 'Open Sans', sans-serif;
+  font-weight: 400;
   color: #0A0A0A;
   line-height: 1;
 }
 
 .odometer-window {
   position: relative;
-  height: clamp(5.5rem, 13vw, 11.5rem);
+  height: clamp(7.5rem, 17vw, 15.5rem);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -2359,9 +2359,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: clamp(5.5rem, 13vw, 11.5rem);
-  font-size: clamp(5.5rem, 13vw, 11.5rem);
-  font-weight: 900;
+  height: clamp(7.5rem, 17vw, 15.5rem);
+  font-size: clamp(7.5rem, 17vw, 15.5rem);
+  font-weight: 400;
   color: #0A0A0A;
   line-height: 1;
   letter-spacing: -0.04em;
