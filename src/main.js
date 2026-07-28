@@ -134,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactModal();
   initScrollAnimations();
   initWordSplitScrollAnimation();
+  initCareerExperienceScroller();
 });
 
 // Scroll Header Effects
@@ -450,6 +451,184 @@ const expStateData = [
 ];
 
 
+
+// Interactive Premium 50/50 Career Portfolio Scroller (#experience)
+function initCareerExperienceScroller() {
+  const section = document.getElementById('experience');
+  const buttons = document.querySelectorAll('.role-nav-btn');
+  const track = document.getElementById('exp-role-list-track');
+  const screenImg = document.getElementById('exp-laptop-img');
+  const metadataTable = document.getElementById('exp-metadata-table');
+  const companyVal = document.getElementById('exp-company-val');
+  const periodVal = document.getElementById('exp-period-val');
+  const overviewVal = document.getElementById('exp-overview-val');
+  const skillsVal = document.getElementById('exp-skills-val');
+  const yearText = document.getElementById('exp-timeline-year');
+
+  if (!section || !buttons.length) return;
+
+  const careerRolesData = [
+    {
+      role: "TEAM LEAD",
+      year: "2023",
+      company: "Pirai Infotech, Coimbatore",
+      period: "Apr 2023 — Present",
+      image: "/images/image_8.png",
+      overview: [
+        "Led end-to-end UX/UI and solutioning for enterprise SaaS and cloud platforms across web and mobile.",
+        "Partnered with sales and pre-sales to turn client requirements into concepts that supported live deal conversations.",
+        "Managed and mentored a team of 7 designers, raising quality and delivery consistency across projects.",
+        "Worked with product and engineering to simplify complex workflows into intuitive, user-centered experiences.",
+        "Delivered design across enterprise systems, audit platforms, healthcare solutions, and e-commerce."
+      ],
+      skills: "Leadership · Enterprise UX · Pre-Sales · Design Systems"
+    },
+    {
+      role: "UX UI DESIGNER",
+      year: "2024",
+      company: "KS Smart Solutions Pvt Ltd, Chennai",
+      period: "Apr 2023 — Present",
+      image: "/images/image_9.png",
+      overview: [
+        "Designed user-centric web and mobile applications, translating business requirements into intuitive flows.",
+        "Built wireframes, prototypes, and high-fidelity UI for cross-functional product teams.",
+        "Defined user flows and system interactions in close collaboration with engineering.",
+        "Improved developer handoff efficiency with structured, scalable design assets.",
+        "Delivered design across enterprise systems, audit platforms, healthcare solutions, and e-commerce."
+      ],
+      skills: "Wireframing · Prototyping · Handoff"
+    },
+    {
+      role: "PROJECT MANAGER",
+      year: "2025",
+      company: "KS Smart Solutions Pvt Ltd, Chennai",
+      period: "Apr 2023 — Present",
+      image: "/images/image_10.png",
+      overview: [
+        "Designed user-centric web and mobile applications, translating business requirements into intuitive flows.",
+        "Built wireframes, prototypes, and high-fidelity UI for cross-functional product teams.",
+        "Defined user flows and system interactions in close collaboration with engineering.",
+        "Improved developer handoff efficiency with structured, scalable design assets.",
+        "Delivered design across enterprise systems, audit platforms, healthcare solutions, and e-commerce."
+      ],
+      skills: "Wireframing · Prototyping · Handoff"
+    }
+  ];
+
+  let currentIndex = -1;
+
+  function updateActiveRole(targetIndex, force = false) {
+    if (!force && targetIndex === currentIndex) return;
+    currentIndex = targetIndex;
+
+    const data = careerRolesData[targetIndex];
+    if (!data) return;
+
+    // 1 & 2. Active white title shrinks/fades to dark gray; Next title scales up & becomes pure white
+    buttons.forEach((btn, idx) => {
+      btn.classList.remove('active', 'inactive');
+      if (idx === targetIndex) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.add('inactive');
+      }
+    });
+
+    // 3. Right-side role stack shifts upward while next item enters from below
+    if (track && track.parentElement) {
+      const activeBtn = buttons[targetIndex];
+      if (activeBtn) {
+        const btnCenter = activeBtn.offsetTop + (activeBtn.offsetHeight / 2);
+        const viewportCenter = track.parentElement.offsetHeight / 2;
+        const targetY = viewportCenter - btnCenter;
+        gsap.to(track, { y: targetY, duration: 0.45, ease: 'power2.out', overwrite: 'auto' });
+      }
+    }
+
+    // 4. Laptop screen dissolves to visual for newly active role
+    if (screenImg) {
+      gsap.to(screenImg, {
+        opacity: 0,
+        scale: 0.96,
+        duration: 0.2,
+        onComplete: () => {
+          screenImg.src = data.image;
+          gsap.to(screenImg, { opacity: 1, scale: 1, duration: 0.35, ease: 'power2.out' });
+        }
+      });
+    }
+
+    // 5. Metadata table fades out, then cross-fades into updated company, period, overview, skills with 20px upward slide
+    if (metadataTable) {
+      gsap.to(metadataTable, {
+        opacity: 0,
+        y: 20,
+        duration: 0.18,
+        onComplete: () => {
+          if (companyVal) companyVal.innerText = data.company;
+          if (periodVal) periodVal.innerText = data.period;
+          if (overviewVal) {
+            overviewVal.innerHTML = data.overview
+              .map(b => `<li><span class="bullet-dash">–</span> <span>${b}</span></li>`)
+              .join('');
+          }
+          if (skillsVal) skillsVal.innerText = data.skills;
+          gsap.to(metadataTable, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' });
+        }
+      });
+    }
+
+    // 6. Central timeline year fades out, updates from "2023" to "2024" or "2025", then fades back in
+    if (yearText) {
+      gsap.to(yearText, {
+        opacity: 0,
+        duration: 0.15,
+        onComplete: () => {
+          yearText.innerText = data.year;
+          gsap.to(yearText, { opacity: 1, duration: 0.25 });
+        }
+      });
+    }
+  }
+
+  // Set initial state to TEAM LEAD (index 0)
+  setTimeout(() => updateActiveRole(0, true), 50);
+
+  // GSAP ScrollTrigger pinning & scroll-driven step sequence
+  const numRoles = careerRolesData.length;
+  let trigger = null;
+
+  trigger = ScrollTrigger.create({
+    trigger: section,
+    start: 'top top',
+    end: `+=${numRoles * 75}%`,
+    pin: true,
+    pinSpacing: true,
+    anticipatePin: 1,
+    refreshPriority: 1,
+    onUpdate: (self) => {
+      const step = Math.min(numRoles - 1, Math.max(0, Math.floor(self.progress * (numRoles - 0.001))));
+      updateActiveRole(step);
+    }
+  });
+
+  // Direct click navigation on role list buttons
+  buttons.forEach((btn, idx) => {
+    btn.addEventListener('click', () => {
+      updateActiveRole(idx);
+      if (trigger && trigger.start) {
+        const start = trigger.start;
+        const total = trigger.end - trigger.start;
+        const targetScroll = start + (total * (idx / (numRoles - 1)));
+        gsap.to(window, { scrollTo: targetScroll, duration: 0.6, ease: 'power2.out' });
+      }
+    });
+  });
+
+  return () => {
+    if (trigger) trigger.kill();
+  };
+}
 
 import * as THREE from 'three';
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js';
@@ -776,6 +955,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initRoleSwitchers();
   initScrollAnimations();
   initWordSplitScrollAnimation();
+  initCareerExperienceScroller();
   initBrandTransitionWipe();
   initThreeBrandN();
 
