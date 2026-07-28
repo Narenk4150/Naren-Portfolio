@@ -2257,7 +2257,7 @@ body {
   pointer-events: all;
   user-select: none;
   overflow: hidden;
-  will-change: transform;
+  will-change: background-color, transform;
 }
 
 .preloader-black-curtain {
@@ -2292,7 +2292,7 @@ body {
   justify-content: center;
   align-items: center;
   transform: translateY(-20px);
-  transform-origin: 50% 50%;
+  transform-origin: 28% 62%;
   will-change: transform;
 }
 

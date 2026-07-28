@@ -876,6 +876,7 @@ function initAppPreloader() {
 
   const logoWrap = document.querySelector('.preloader-logo-wrap');
   const counterWrap = document.querySelector('.preloader-counter-wrap');
+  const blackCurtain = document.querySelector('.preloader-black-curtain');
 
   const mainTl = gsap.timeline({
     onComplete: () => {
@@ -884,13 +885,22 @@ function initAppPreloader() {
         gsap.to(counterWrap, { opacity: 0, y: 20, duration: 0.2, ease: 'power2.in' });
       }
 
-      // 2. Enlarge black 'N' logo mark massively to zoom fill the entire screen in black
+      // 2. Animate preloader background into solid dark black (#0A0A0A) - ZERO WHITE LEAKING!
+      if (blackCurtain) {
+        gsap.to(blackCurtain, {
+          opacity: 1,
+          duration: 0.5,
+          ease: 'power2.inOut'
+        });
+      }
+
+      // 3. Enlarge black 'N' logo mark from its solid black stroke stem (28% 62%) to fill the screen in black - ZERO BLUR!
       if (logoWrap) {
         gsap.to(logoWrap, {
-          scale: 65,
+          scale: 90,
           duration: 0.85,
           ease: 'expo.inOut',
-          transformOrigin: '50% 50%',
+          transformOrigin: '28% 62%',
           onComplete: () => {
             // Unmount preloader overlay & reveal dark hero section underneath
             preloader.classList.add('is-hidden');
