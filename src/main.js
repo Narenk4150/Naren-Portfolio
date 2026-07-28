@@ -633,17 +633,23 @@ function initThreeBrandN() {
   });
   resizeObserver.observe(container);
 
-  // Lights for sleek 3D metallic shading
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.6);
+  // Lights for sleek 3D liquid glass reflections & icy-blue refraction
+  const ambientLight = new THREE.AmbientLight(0xdcf4ff, 1.2);
   scene.add(ambientLight);
 
-  const dirLight1 = new THREE.DirectionalLight(0xffffff, 3.2);
-  dirLight1.position.set(140, 140, 200);
-  scene.add(dirLight1);
+  const spotLight = new THREE.SpotLight(0xffffff, 4.5);
+  spotLight.position.set(100, 180, 160);
+  spotLight.angle = Math.PI / 4;
+  spotLight.penumbra = 0.8;
+  scene.add(spotLight);
 
-  const dirLight2 = new THREE.DirectionalLight(0xffffff, 1.4);
-  dirLight2.position.set(-140, -90, -140);
-  scene.add(dirLight2);
+  const rimLight = new THREE.DirectionalLight(0x00E5FF, 3.0);
+  rimLight.position.set(-140, -60, -120);
+  scene.add(rimLight);
+
+  const frontHighlight = new THREE.PointLight(0xffffff, 2.0, 300);
+  frontHighlight.position.set(0, 40, 120);
+  scene.add(frontHighlight);
 
   // SVG Path Data for N Brand Mark
   const svgPathData = `M93.9004 106C88.112 106 84.0387 104.389 81.6805 101.167C79.3223 97.7305 78.1432 93.5421 78.1432 88.6018C78.1432 76.1439 82.4308 62.8267 91.0062 48.6505L111.587 15.1429C97.009 25.8825 82.538 39.307 68.1743 55.4164C64.3154 59.7123 59.9205 64.7599 54.9896 70.5593C50.2732 76.3587 45.0207 83.0172 39.2324 90.535C31.5145 100.63 26.9053 105.678 25.4046 105.678C22.4032 105.678 19.9378 104.389 18.0083 101.812C16.0788 99.0192 15.1141 96.5491 15.1141 94.4012C15.1141 92.6829 15.6501 89.5684 16.722 85.0578C17.7939 80.3323 19.0802 76.2513 20.5809 72.8146C22.0816 69.1631 23.5823 65.619 25.083 62.1824C26.7981 58.5309 28.4059 54.9868 29.9066 51.5502L10.612 71.848C10.1833 72.2776 8.89696 73.5664 6.75311 75.7143C4.60927 77.8622 2.89419 78.9362 1.60788 78.9362C0.535961 78.9362 0 78.1844 0 76.6809C0 76.2513 0.214385 75.7143 0.643154 75.0699C0.857538 74.2107 1.50069 73.2442 2.57261 72.1702C5.78838 68.9483 9.11134 65.5117 12.5415 61.8602C15.9716 58.2087 19.509 54.0203 23.1535 49.2948C25.083 46.9321 27.9772 43.388 31.8361 38.6626C35.695 33.7224 39.8755 28.46 44.3776 22.8754C49.0941 17.2908 53.4889 12.1358 57.5622 7.41033C58.6342 5.90679 59.8133 4.94022 61.0996 4.51064C62.3859 3.86626 63.2434 3.54408 63.6722 3.54408C69.4606 3.54408 72.3548 5.79939 72.3548 10.31C72.3548 11.5988 72.0332 12.8875 71.39 14.1763C52.0954 40.8105 40.5187 61.1084 36.6598 75.0699C61.5284 50.154 81.4661 31.4671 96.473 19.0091C111.694 6.33637 122.521 0 128.952 0C132.382 0 134.955 0.53698 136.67 1.61094C138.6 2.68491 139.564 4.72544 139.564 7.73253C139.564 8.80649 139.457 9.66566 139.243 10.31C138.6 11.8136 134.205 17.8278 126.058 28.3526C121.127 34.3668 116.732 39.844 112.873 44.7842C109.229 49.7244 106.228 54.0203 103.869 57.6717C100.01 63.6859 97.1162 69.3779 95.1867 74.7477C93.2573 79.9027 92.2925 84.306 92.2925 87.9575C92.2925 89.461 92.5069 91.2867 93.9357 93.4347C93.3644 95.5826 94.6508 96.6565 96.7946 96.6565C101.725 96.6565 109.443 92.3607 119.948 83.769C124.879 79.4732 129.488 75.1773 133.776 70.8815C138.064 66.3708 142.137 61.9676 145.996 57.6717C146.853 56.8126 148.247 55.2016 150.176 52.8389C152.106 50.2614 153.285 48.9726 153.714 48.9726C154.571 48.9726 155 49.8318 155 51.5502C155 52.4093 154.464 53.9129 153.392 56.0608C152.535 57.9939 151.57 59.4975 150.498 60.5714C148.14 63.3637 144.602 67.23 139.886 72.1702C135.384 77.1104 130.239 82.1581 124.45 87.3131C118.876 92.4681 113.409 96.8713 108.05 100.523C102.69 104.174 97.9737 106 93.9004 106Z`;
@@ -653,20 +659,34 @@ function initThreeBrandN() {
 
   const group = new THREE.Group();
 
-  const material = new THREE.MeshStandardMaterial({
-    color: 0xffffff,
-    metalness: 0.45,
+  // Premium Translucent Liquid Glass Material with Icy-Blue Refraction
+  const glassMaterial = new THREE.MeshPhysicalMaterial({
+    color: 0xE6F7FF,
+    transmission: 0.96,
+    opacity: 1.0,
+    transparent: true,
     roughness: 0.12,
+    metalness: 0.05,
+    ior: 1.52,
+    thickness: 18.0,
+    attenuationColor: 0x00D2FF,
+    attenuationDistance: 35.0,
+    specularIntensity: 2.0,
+    specularColor: 0xffffff,
+    clearcoat: 1.0,
+    clearcoatRoughness: 0.1,
     side: THREE.DoubleSide
   });
 
+  // Smooth, thick, rounded extrusion settings for melted organic glass form
   const extrudeSettings = {
-    depth: 10,
+    depth: 14,
     bevelEnabled: true,
-    bevelSegments: 5,
-    steps: 2,
-    bevelSize: 1.8,
-    bevelThickness: 1.8
+    bevelSegments: 10,
+    steps: 4,
+    bevelSize: 3.5,
+    bevelThickness: 3.5,
+    curveSegments: 24
   };
 
   svgData.paths.forEach((path) => {
@@ -674,20 +694,20 @@ function initThreeBrandN() {
     shapes.forEach((shape) => {
       const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
       geometry.center();
-      const mesh = new THREE.Mesh(geometry, material);
+      const mesh = new THREE.Mesh(geometry, glassMaterial);
       group.add(mesh);
     });
   });
 
-  // Scale and invert Y because SVGs operate inverted in WebGL
-  group.scale.set(1.15, -1.15, 1.15);
-  group.rotation.x = Math.PI * 0.05;
+  // Scale and center 3D N glass sculpture
+  group.scale.set(1.2, -1.2, 1.2);
+  group.rotation.x = Math.PI * 0.04;
   scene.add(group);
 
   // Drag Controller for Cursor Rotation
   let isDragging = false;
   let previousMousePosition = { x: 0, y: 0 };
-  let velocityY = 0.008; // Ambient 3D spin speed
+  let velocityY = 0.005; // Slow continuous 360-degree ambient rotation speed
   let velocityX = 0;
 
   const domElement = renderer.domElement;
@@ -704,8 +724,8 @@ function initThreeBrandN() {
     const deltaX = e.clientX - previousMousePosition.x;
     const deltaY = e.clientY - previousMousePosition.y;
 
-    velocityY = deltaX * 0.012;
-    velocityX = deltaY * 0.012;
+    velocityY = deltaX * 0.01;
+    velocityX = deltaY * 0.01;
 
     group.rotation.y += velocityY;
     group.rotation.x += velocityX;
@@ -748,21 +768,26 @@ function initThreeBrandN() {
     isDragging = false;
   });
 
-  // Render animation loop
+  // Slow continuous 360-degree rotation animation loop with smooth floating motion
+  const clock = new THREE.Clock();
+
   function animate() {
     requestAnimationFrame(animate);
+    const elapsedTime = clock.getElapsedTime();
 
     if (!isDragging) {
-      // Continuous smooth 3D spinning
+      // Continuous smooth 360 rotation & gentle organic float
       group.rotation.y += velocityY;
       group.rotation.x += velocityX;
 
-      // Smooth friction deceleration back to idle rotation speed
-      velocityY *= 0.97;
-      velocityX *= 0.97;
+      group.position.y = Math.sin(elapsedTime * 1.2) * 2.5;
 
-      if (Math.abs(velocityY) < 0.007) {
-        velocityY = 0.007;
+      // Smooth friction deceleration back to base 360 rotation speed
+      velocityY *= 0.97;
+      velocityX *= 0.95;
+
+      if (Math.abs(velocityY) < 0.005) {
+        velocityY = 0.005;
       }
     }
 
