@@ -860,12 +860,8 @@ function initAppPreloader() {
 
   if (!preloader) return;
 
-  // Session Storage Check: Only show on initial app load in session
-  const hasLoaded = sessionStorage.getItem('naren_portfolio_preloader_seen');
-  if (hasLoaded === 'true') {
-    preloader.classList.add('is-hidden');
-    return;
-  }
+  // Make sure preloader is visible and pointer events active
+  preloader.classList.remove('is-hidden');
 
   // Lock scrolling during preloader playback
   document.body.style.overflow = 'hidden';
@@ -923,14 +919,12 @@ function initAppPreloader() {
             // Unmount preloader overlay & reveal dark hero section underneath
             preloader.classList.add('is-hidden');
             document.body.style.overflow = '';
-            sessionStorage.setItem('naren_portfolio_preloader_seen', 'true');
             ScrollTrigger.refresh();
           }
         });
       } else {
         preloader.classList.add('is-hidden');
         document.body.style.overflow = '';
-        sessionStorage.setItem('naren_portfolio_preloader_seen', 'true');
         ScrollTrigger.refresh();
       }
     }
