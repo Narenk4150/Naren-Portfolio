@@ -2053,13 +2053,15 @@ body {
   align-items: center; /* Vertically centers the N SVG against the 4 rows! */
 }
 
-/* Left Brand Column: Three.js Interactive 3D Canvas Stage */
+/* Left Brand Column: Three.js Interactive 3D Canvas Stage & SVG Logo Mark */
 .toolkit-brand-column {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 320px;
+  min-height: 340px;
+  gap: 16px;
   padding-right: 20px;
 }
 
@@ -2072,6 +2074,19 @@ body {
   justify-content: center;
   position: relative;
   touch-action: none; /* Prevents page scroll interference during 3D rotation drag */
+}
+
+.toolkit-n-svg-logo {
+  width: 140px;
+  height: auto;
+  opacity: 0.9;
+  filter: drop-shadow(0 4px 20px rgba(0, 229, 255, 0.15));
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toolkit-n-svg-logo:hover {
+  opacity: 1;
+  transform: translateY(-2px);
 }
 
 .three-n-container canvas {
