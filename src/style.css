@@ -2314,34 +2314,61 @@ body {
   will-change: transform, opacity;
 }
 
-/* Bottom-Left Large Bold Counter Numerals */
+/* Bottom-Left Petrol Pump Mechanical Odometer Counter */
 .preloader-counter-wrap {
   position: absolute;
   bottom: clamp(24px, 4vw, 48px);
   left: clamp(24px, 4vw, 48px);
   display: flex;
   align-items: baseline;
-  font-family: 'Open Sans', var(--font-primary), sans-serif;
-  font-weight: 900;
-  color: #0A0A0A;
-  line-height: 0.85;
-  letter-spacing: -0.05em;
   user-select: none;
   z-index: 10;
   will-change: opacity, transform;
 }
 
-.preloader-counter-num {
-  font-size: clamp(6rem, 14vw, 13rem);
+.odometer-container {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: clamp(5.5rem, 13vw, 11.5rem);
+  overflow: hidden;
+  font-family: 'Open Sans', var(--font-primary), sans-serif;
   font-weight: 900;
   color: #0A0A0A;
+  line-height: 1;
+}
+
+.odometer-window {
+  position: relative;
+  height: 1em;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.odometer-strip {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+
+.odometer-strip span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1em;
+  font-size: clamp(5.5rem, 13vw, 11.5rem);
+  font-weight: 900;
+  color: #0A0A0A;
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 
 .preloader-counter-symbol {
   font-size: clamp(3rem, 7vw, 6rem);
   font-weight: 800;
   color: #0A0A0A;
-  margin-left: 4px;
+  margin-left: 6px;
 }
 
 .app-preloader.is-hidden {

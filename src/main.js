@@ -941,43 +941,58 @@ function initAppPreloader() {
 
   mainTl.add(blockTl, 0.1);
 
-  // 2. Slower count-up from 0 to 100 with 3 distinct milestone stops (34% -> 68% -> 100%)
-  const counterObj = { val: 0 };
-  const updateCounter = () => {
-    if (counterEl) counterEl.textContent = Math.round(counterObj.val);
-  };
+  // 2. Petrol Pump Mechanical Odometer Counter (000% -> 034% -> 068% -> 100%)
+  const reelHundreds = document.getElementById('reel-hundreds');
+  const reelTens = document.getElementById('reel-tens');
+  const reelUnits = document.getElementById('reel-units');
 
+  function setOdometerValue(val) {
+    const clamped = Math.min(100, Math.max(0, Math.round(val)));
+    const h = Math.floor(clamped / 100);
+    const t = Math.floor((clamped % 100) / 10);
+    const u = clamped % 10;
+
+    // Spin 3 vertical digit reels like a mechanical petrol pump odometer!
+    if (reelHundreds) gsap.to(reelHundreds, { yPercent: -h * 50, duration: 0.25, ease: 'power1.out', overwrite: 'auto' });
+    if (reelTens) gsap.to(reelTens, { yPercent: -t * 10, duration: 0.18, ease: 'power1.out', overwrite: 'auto' });
+    if (reelUnits) gsap.to(reelUnits, { yPercent: -u * 10, duration: 0.12, ease: 'power1.out', overwrite: 'auto' });
+  }
+
+  // Force initial 000% state
+  setOdometerValue(0);
+
+  const counterObj = { val: 0 };
   const countTl = gsap.timeline();
 
-  // Stop 1: 0% -> 34%
+  // Stop 1: 000% -> 034%
   countTl.to(counterObj, {
     val: 34,
-    duration: 0.75,
+    duration: 0.85,
     ease: 'power2.out',
     snap: { val: 1 },
-    onUpdate: updateCounter
+    onUpdate: () => setOdometerValue(counterObj.val)
   });
-  countTl.to({}, { duration: 0.22 }); // Pause at 34%
+  countTl.to({}, { duration: 0.25 }); // Pause at 034%
 
-  // Stop 2: 34% -> 68%
+  // Stop 2: 034% -> 068%
   countTl.to(counterObj, {
     val: 68,
-    duration: 0.85,
+    duration: 0.95,
     ease: 'power2.inOut',
     snap: { val: 1 },
-    onUpdate: updateCounter
+    onUpdate: () => setOdometerValue(counterObj.val)
   });
-  countTl.to({}, { duration: 0.22 }); // Pause at 68%
+  countTl.to({}, { duration: 0.25 }); // Pause at 068%
 
-  // Stop 3: 68% -> 100%
+  // Stop 3: 068% -> 100%
   countTl.to(counterObj, {
     val: 100,
-    duration: 0.9,
+    duration: 1.0,
     ease: 'power2.inOut',
     snap: { val: 1 },
-    onUpdate: updateCounter
+    onUpdate: () => setOdometerValue(counterObj.val)
   });
-  countTl.to({}, { duration: 0.35 }); // Hold at 100% before zoom expansion
+  countTl.to({}, { duration: 0.4 }); // Hold at 100% before zoom expansion
 
   mainTl.add(countTl, 0);
 
