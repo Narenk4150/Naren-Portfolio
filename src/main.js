@@ -634,21 +634,19 @@ function initThreeBrandN() {
   resizeObserver.observe(container);
 
   // Lights for sleek 3D liquid glass reflections & icy-blue refraction
-  const ambientLight = new THREE.AmbientLight(0xdcf4ff, 1.2);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 2.2);
   scene.add(ambientLight);
 
-  const spotLight = new THREE.SpotLight(0xffffff, 4.5);
-  spotLight.position.set(100, 180, 160);
-  spotLight.angle = Math.PI / 4;
-  spotLight.penumbra = 0.8;
-  scene.add(spotLight);
+  const keyLight = new THREE.DirectionalLight(0xffffff, 4.0);
+  keyLight.position.set(100, 150, 200);
+  scene.add(keyLight);
 
-  const rimLight = new THREE.DirectionalLight(0x00E5FF, 3.0);
-  rimLight.position.set(-140, -60, -120);
-  scene.add(rimLight);
+  const fillLight = new THREE.DirectionalLight(0x00E5FF, 3.5);
+  fillLight.position.set(-150, -100, -100);
+  scene.add(fillLight);
 
-  const frontHighlight = new THREE.PointLight(0xffffff, 2.0, 300);
-  frontHighlight.position.set(0, 40, 120);
+  const frontHighlight = new THREE.PointLight(0xffffff, 3.0, 400);
+  frontHighlight.position.set(0, 50, 150);
   scene.add(frontHighlight);
 
   // SVG Path Data for N Brand Mark
@@ -659,22 +657,24 @@ function initThreeBrandN() {
 
   const group = new THREE.Group();
 
-  // Premium Translucent Liquid Glass Material with Icy-Blue Refraction
+  // Ultra-vivid 3D Metallic Glass Shader with High Specular Highlights & Luminescent Glow
   const glassMaterial = new THREE.MeshPhysicalMaterial({
-    color: 0xE6F7FF,
-    transmission: 0.96,
-    opacity: 1.0,
+    color: 0xFFFFFF,
+    emissive: 0x004466,
+    emissiveIntensity: 0.45,
+    transmission: 0.35,
+    opacity: 0.95,
     transparent: true,
-    roughness: 0.12,
-    metalness: 0.05,
-    ior: 1.52,
-    thickness: 18.0,
-    attenuationColor: 0x00D2FF,
-    attenuationDistance: 35.0,
-    specularIntensity: 2.0,
+    roughness: 0.15,
+    metalness: 0.35,
+    ior: 1.5,
+    thickness: 15.0,
+    attenuationColor: 0x00E5FF,
+    attenuationDistance: 30.0,
+    specularIntensity: 3.0,
     specularColor: 0xffffff,
     clearcoat: 1.0,
-    clearcoatRoughness: 0.1,
+    clearcoatRoughness: 0.05,
     side: THREE.DoubleSide
   });
 
