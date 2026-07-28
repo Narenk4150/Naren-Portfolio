@@ -2062,6 +2062,7 @@ body {
   width: 100%;
   height: 100%;
   padding-right: 16px;
+  perspective: 1000px; /* Enable 3D perspective for Y-axis revolving spin */
 }
 
 .toolkit-n-shape-logo {
@@ -2069,13 +2070,27 @@ body {
   height: auto;
   opacity: 0.95;
   filter: drop-shadow(0 0 35px rgba(255, 255, 255, 0.25)) drop-shadow(0 0 65px rgba(0, 210, 255, 0.22));
-  transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+  transform-style: preserve-3d;
+  animation: nLogoSpinRevolve 12s linear infinite;
+  transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
 .toolkit-n-shape-logo:hover {
   opacity: 1;
-  transform: translateY(-4px) scale(1.03);
-  filter: drop-shadow(0 0 45px rgba(255, 255, 255, 0.4)) drop-shadow(0 0 85px rgba(0, 210, 255, 0.32));
+  filter: drop-shadow(0 0 50px rgba(255, 255, 255, 0.45)) drop-shadow(0 0 90px rgba(0, 210, 255, 0.38));
+  animation-play-state: paused;
+}
+
+@keyframes nLogoSpinRevolve {
+  0% {
+    transform: rotateY(0deg) rotateX(4deg);
+  }
+  50% {
+    transform: rotateY(180deg) rotateX(-4deg);
+  }
+  100% {
+    transform: rotateY(360deg) rotateX(4deg);
+  }
 }
 
 .three-n-container {
