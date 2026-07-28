@@ -875,14 +875,15 @@ function initAppPreloader() {
   gsap.set(segments, { opacity: 0 });
 
   const logoWrap = document.querySelector('.preloader-logo-wrap');
-  const counterWrap = document.querySelector('.preloader-counter-wrap');
+  const slabWrap = document.querySelector('.preloader-slab-wrap');
+  const progressFill = document.getElementById('preloader-progress-fill');
   const blackCurtain = document.querySelector('.preloader-black-curtain');
 
   const mainTl = gsap.timeline({
     onComplete: () => {
-      // 1. Fade out bottom-left counter numerals quickly
-      if (counterWrap) {
-        gsap.to(counterWrap, { opacity: 0, y: 20, duration: 0.2, ease: 'power2.in' });
+      // 1. Fade out bottom slab loading indicator quickly
+      if (slabWrap) {
+        gsap.to(slabWrap, { opacity: 0, y: 12, duration: 0.2, ease: 'power2.in' });
       }
 
       // 2. Animate preloader background into solid dark black (#0A0A0A) - ZERO WHITE LEAKING!
@@ -894,7 +895,7 @@ function initAppPreloader() {
         });
       }
 
-      // 3. Enlarge black 'N' logo mark from its solid black stroke stem (28% 62%) to fill the screen in black - ZERO BLUR!
+      // 3. Enlarge black 'N' logo mark from solid black stroke stem (28% 62%) to fill screen in black - ZERO BLUR!
       if (logoWrap) {
         gsap.to(logoWrap, {
           scale: 90,
@@ -941,60 +942,38 @@ function initAppPreloader() {
 
   mainTl.add(blockTl, 0.1);
 
-  // 2. Petrol Pump Mechanical Odometer Counter (000% -> 034% -> 068% -> 100%)
-  const reelHundreds = document.getElementById('reel-hundreds');
-  const reelTens = document.getElementById('reel-tens');
-  const reelUnits = document.getElementById('reel-units');
+  // 2. Bottom Slab Progress Bar Fill (3 milestone stops: 34% -> 68% -> 100%)
+  if (progressFill) {
+    gsap.set(progressFill, { scaleX: 0 });
 
-  function setOdometerValue(val) {
-    const clamped = Math.min(100, Math.max(0, Math.round(val)));
-    const h = Math.floor(clamped / 100);
-    const t = Math.floor((clamped % 100) / 10);
-    const u = clamped % 10;
+    const progressTl = gsap.timeline();
 
-    // Spin 3 vertical digit reels like a mechanical petrol pump odometer!
-    if (reelHundreds) gsap.to(reelHundreds, { yPercent: -h * 50, duration: 0.25, ease: 'power1.out', overwrite: 'auto' });
-    if (reelTens) gsap.to(reelTens, { yPercent: -t * 10, duration: 0.18, ease: 'power1.out', overwrite: 'auto' });
-    if (reelUnits) gsap.to(reelUnits, { yPercent: -u * 10, duration: 0.12, ease: 'power1.out', overwrite: 'auto' });
+    // Stop 1: 0 -> 34%
+    progressTl.to(progressFill, {
+      scaleX: 0.34,
+      duration: 0.85,
+      ease: 'power2.out'
+    });
+    progressTl.to({}, { duration: 0.25 }); // Pause at 34%
+
+    // Stop 2: 34% -> 68%
+    progressTl.to(progressFill, {
+      scaleX: 0.68,
+      duration: 0.95,
+      ease: 'power2.inOut'
+    });
+    progressTl.to({}, { duration: 0.25 }); // Pause at 68%
+
+    // Stop 3: 68% -> 100%
+    progressTl.to(progressFill, {
+      scaleX: 1.0,
+      duration: 1.0,
+      ease: 'power2.inOut'
+    });
+    progressTl.to({}, { duration: 0.4 }); // Hold at 100% before zoom expansion
+
+    mainTl.add(progressTl, 0);
   }
-
-  // Force initial 000% state
-  setOdometerValue(0);
-
-  const counterObj = { val: 0 };
-  const countTl = gsap.timeline();
-
-  // Stop 1: 000% -> 034%
-  countTl.to(counterObj, {
-    val: 34,
-    duration: 0.85,
-    ease: 'power2.out',
-    snap: { val: 1 },
-    onUpdate: () => setOdometerValue(counterObj.val)
-  });
-  countTl.to({}, { duration: 0.25 }); // Pause at 034%
-
-  // Stop 2: 034% -> 068%
-  countTl.to(counterObj, {
-    val: 68,
-    duration: 0.95,
-    ease: 'power2.inOut',
-    snap: { val: 1 },
-    onUpdate: () => setOdometerValue(counterObj.val)
-  });
-  countTl.to({}, { duration: 0.25 }); // Pause at 068%
-
-  // Stop 3: 068% -> 100%
-  countTl.to(counterObj, {
-    val: 100,
-    duration: 1.0,
-    ease: 'power2.inOut',
-    snap: { val: 1 },
-    onUpdate: () => setOdometerValue(counterObj.val)
-  });
-  countTl.to({}, { duration: 0.4 }); // Hold at 100% before zoom expansion
-
-  mainTl.add(countTl, 0);
 
   // Hold at 100% briefly before exit wipe
   mainTl.to({}, { duration: 0.25 });
