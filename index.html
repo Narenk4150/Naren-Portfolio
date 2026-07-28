@@ -211,25 +211,25 @@
 
         <!-- 3-Column Dark-Mode Portfolio UI Layout -->
         <div class="work-history-3col-layout">
-          <!-- Left Column: Large typography stacked vertically with depth/fade effect -->
+          <!-- Left Column: Stacked Clickable Role Titles with Depth/Fade Effect -->
           <div class="work-history-left-col">
-            <h3 class="role-title-bold-white">Team Lead</h3>
-            <h3 class="role-title-faded-mid">UX UI Designer</h3>
-            <h3 class="role-title-faded-low">Project Manager</h3>
+            <button type="button" class="role-title-btn active" data-index="0" aria-label="Team Lead role">Team Lead</button>
+            <button type="button" class="role-title-btn dim-mid" data-index="1" aria-label="UX UI Designer role">UX UI Designer</button>
+            <button type="button" class="role-title-btn dim-low" data-index="2" aria-label="Project Manager role">Project Manager</button>
           </div>
 
           <!-- Center Column: Minimalist timeline -->
           <div class="work-history-center-col">
-            <span class="timeline-date-text">Apr 2023 — Present</span>
+            <span id="work-history-date" class="timeline-date-text">Apr 2023 — Present</span>
           </div>
 
           <!-- Right Column: Company, Top Divider, Bullets, Bottom Divider, Outlined Tag Buttons -->
-          <div class="work-history-right-col">
-            <h4 class="company-italic-title">Pirai Infotech, Coimbatore</h4>
+          <div class="work-history-right-col" id="work-history-content-box">
+            <h4 id="work-history-company" class="company-italic-title">Pirai Infotech, Coimbatore</h4>
 
             <div class="divider-line subtle"></div>
 
-            <ul class="bullet-list">
+            <ul id="work-history-bullets" class="bullet-list">
               <li><span class="bullet-dash">–</span> <span>Led end-to-end UX/UI and solutioning for enterprise SaaS and cloud platforms across web and mobile</span></li>
               <li><span class="bullet-dash">–</span> <span>Partnered with sales and pre-sales to turn client requirements into concepts that supported live deal conversations</span></li>
               <li><span class="bullet-dash">–</span> <span>Managed and mentored a team of 7 designers, raising quality and delivery consistency across projects</span></li>
@@ -239,7 +239,7 @@
 
             <div class="divider-line subtle"></div>
 
-            <div class="rectangular-chips-row">
+            <div id="work-history-tags" class="rectangular-chips-row">
               <span class="rectangular-chip">LEADERSHIP</span>
               <span class="rectangular-chip">ENTERPRISE UX</span>
               <span class="rectangular-chip">PRE-SALES</span>

@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactModal();
   initScrollAnimations();
   initWordSplitScrollAnimation();
-  initStickyRoleStepper();
+  initWorkHistorySwitcher();
   initStackedCardReveal();
 });
 
@@ -451,10 +451,116 @@ const expStateData = [
   }
 ];
 
-function initStickyRoleStepper() {
-  // Clean unpinned standard layout — all 3 roles scroll naturally without pin locks
-  const stepperSection = document.getElementById('experience');
-  if (!stepperSection) return;
+function initWorkHistorySwitcher() {
+  const buttons = document.querySelectorAll('.role-title-btn');
+  const dateEl = document.getElementById('work-history-date');
+  const companyEl = document.getElementById('work-history-company');
+  const bulletsEl = document.getElementById('work-history-bullets');
+  const tagsEl = document.getElementById('work-history-tags');
+  const contentBox = document.getElementById('work-history-content-box');
+
+  if (!buttons.length || !contentBox) return;
+
+  const rolesData = [
+    {
+      title: "Team Lead",
+      date: "Apr 2023 — Present",
+      company: "Pirai Infotech, Coimbatore",
+      bullets: [
+        "Led end-to-end UX/UI and solutioning for enterprise SaaS and cloud platforms across web and mobile",
+        "Partnered with sales and pre-sales to turn client requirements into concepts that supported live deal conversations",
+        "Managed and mentored a team of 7 designers, raising quality and delivery consistency across projects",
+        "Worked with product and engineering to simplify complex workflows into intuitive, user-centric experiences",
+        "Delivered design across enterprise systems, audit platforms, healthcare solutions, and e-commerce"
+      ],
+      tags: ["LEADERSHIP", "ENTERPRISE UX", "PRE-SALES", "DESIGN SYSTEMS"]
+    },
+    {
+      title: "UX UI Designer",
+      date: "Jan 2022 — Jan 2023",
+      company: "KS Smart Solutions Pvt Ltd, Chennai",
+      bullets: [
+        "Designed user-centric web and mobile applications, translating business requirements into intuitive flows",
+        "Built wireframes, prototypes, and high-fidelity UI for cross-functional product teams",
+        "Defined user flows and system interactions in close collaboration with engineering",
+        "Improved developer handoff efficiency with structured, scalable design assets",
+        "Delivered design across enterprise systems, audit platforms, healthcare solutions, and e-commerce"
+      ],
+      tags: ["WIREFRAMING", "PROTOTYPING", "HANDOFF"]
+    },
+    {
+      title: "Project Manager",
+      date: "June 2021 — Jan 2020",
+      company: "KS Smart Solutions Pvt Ltd, Chennai",
+      bullets: [
+        "Designed user-centric web and mobile applications, translating business requirements into intuitive flows",
+        "Built wireframes, prototypes, and high-fidelity UI for cross-functional product teams",
+        "Defined user flows and system interactions in close collaboration with engineering",
+        "Improved developer handoff efficiency with structured, scalable design assets",
+        "Delivered design across enterprise systems, audit platforms, healthcare solutions, and e-commerce"
+      ],
+      tags: ["PROJECT MANAGEMENT", "AGILE", "SCRUM"]
+    }
+  ];
+
+  function setActiveRole(targetIndex) {
+    const data = rolesData[targetIndex];
+    if (!data) return;
+
+    // 1. Update title button depth-fade active states
+    buttons.forEach((btn, idx) => {
+      btn.classList.remove('active', 'dim-mid', 'dim-low');
+      if (idx === targetIndex) {
+        btn.classList.add('active');
+      } else {
+        const distance = Math.abs(idx - targetIndex);
+        if (distance === 1) {
+          btn.classList.add('dim-mid');
+        } else {
+          btn.classList.add('dim-low');
+        }
+      }
+    });
+
+    // 2. Update center timeline date
+    if (dateEl) {
+      gsap.to(dateEl, {
+        opacity: 0,
+        y: -4,
+        duration: 0.12,
+        onComplete: () => {
+          dateEl.innerText = data.date;
+          gsap.to(dateEl, { opacity: 1, y: 0, duration: 0.18 });
+        }
+      });
+    }
+
+    // 3. Update right content box (Company, Bullets, Tags)
+    gsap.to(contentBox, {
+      opacity: 0.35,
+      y: 4,
+      duration: 0.12,
+      onComplete: () => {
+        if (companyEl) companyEl.innerText = data.company;
+        if (bulletsEl) {
+          bulletsEl.innerHTML = data.bullets
+            .map(b => `<li><span class="bullet-dash">–</span> <span>${b}</span></li>`)
+            .join('');
+        }
+        if (tagsEl) {
+          tagsEl.innerHTML = data.tags
+            .map(t => `<span class="rectangular-chip">${t}</span>`)
+            .join('');
+        }
+        gsap.to(contentBox, { opacity: 1, y: 0, duration: 0.22, ease: 'power2.out' });
+      }
+    });
+  }
+
+  // Bind click listeners to role buttons
+  buttons.forEach((btn, idx) => {
+    btn.addEventListener('click', () => setActiveRole(idx));
+  });
 }
 
 // Full-Viewport Brand Transition Section (Parallax Split Reveal with Navbar Logo SVG)
@@ -903,7 +1009,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initRoleSwitchers();
   initScrollAnimations();
   initWordSplitScrollAnimation();
-  initStickyRoleStepper();
+  initWorkHistorySwitcher();
   initStackedCaseStudies3DPaperFold();
   initBrandTransitionWipe();
   initThreeBrandN();

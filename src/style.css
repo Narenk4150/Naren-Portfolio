@@ -609,35 +609,57 @@ body {
   margin-top: 16px;
 }
 
-/* Left Column: Stacked Typography with Depth/Fade Effect */
+/* Left Column: Stacked Clickable Role Titles with Depth/Fade Effect */
 .work-history-left-col {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  align-items: flex-start;
+  gap: 14px;
 }
 
-.role-title-bold-white {
-  font-size: clamp(2rem, 3.5vw, 3.25rem);
+.role-title-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  font-family: var(--font-primary), 'Open Sans', sans-serif;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s cubic-bezier(0.16, 1, 0.3, 1), font-size 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.role-title-btn.active {
+  font-size: clamp(2.25rem, 3.8vw, 3.5rem);
   font-weight: 700;
   color: #FFFFFF;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  opacity: 1;
 }
 
-.role-title-faded-mid {
-  font-size: clamp(1.65rem, 2.8vw, 2.65rem);
+.role-title-btn.dim-mid {
+  font-size: clamp(1.85rem, 3vw, 2.85rem);
   font-weight: 600;
   color: rgba(255, 255, 255, 0.4);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  opacity: 0.85;
 }
 
-.role-title-faded-low {
-  font-size: clamp(1.4rem, 2.3vw, 2.15rem);
+.role-title-btn.dim-mid:hover {
+  color: rgba(255, 255, 255, 0.75);
+  opacity: 1;
+}
+
+.role-title-btn.dim-low {
+  font-size: clamp(1.5rem, 2.5vw, 2.35rem);
   font-weight: 500;
   color: rgba(255, 255, 255, 0.18);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  opacity: 0.65;
+}
+
+.role-title-btn.dim-low:hover {
+  color: rgba(255, 255, 255, 0.5);
+  opacity: 0.9;
 }
 
 /* Center Column: Minimalist Timeline */
