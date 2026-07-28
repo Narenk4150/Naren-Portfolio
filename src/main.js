@@ -453,6 +453,149 @@ const expStateData = [
 
 
 
+// Interactive Work History Controller matching 42%/58% Reference Layout (No Mockup)
+function initWorkHistoryReferenceScroller() {
+  const section = document.getElementById('experience');
+  const buttons = document.querySelectorAll('.role-title-nav-btn');
+  const track = document.getElementById('exp-role-stack-track');
+  const infoTable = document.getElementById('exp-info-table');
+  const overviewVal = document.getElementById('exp-overview-val');
+  const tagsVal = document.getElementById('exp-tags-val');
+  const industryVal = document.getElementById('exp-industry-val');
+  const clientVal = document.getElementById('exp-client-val');
+  const periodText = document.getElementById('exp-period-text');
+
+  if (!section || !buttons.length) return;
+
+  const workHistoryData = [
+    {
+      role: "TEAM LEAD",
+      period: "Apr 2023 — Present",
+      overview: "Led end-to-end UX/UI and solutioning for enterprise SaaS and cloud platforms across web and mobile. Partnered with sales and pre-sales to turn client requirements into concepts that supported live deal conversations. Managed and mentored a team of 7 designers, raising quality and delivery consistency across projects. Worked with product and engineering to simplify complex workflows into intuitive, user-centered experiences. Delivered design across enterprise systems, audit platforms, healthcare solutions, and e-commerce.",
+      tags: ["Leadership", "Enterprise UX", "Pre-Sales", "Design Systems"],
+      industry: "Enterprise SaaS, Cloud Platforms, Healthcare, E-commerce",
+      client: "Pirai Infotech, Coimbatore"
+    },
+    {
+      role: "UX UI DESIGNER",
+      period: "Jan 2022 — Jan 2023",
+      overview: "Designed user-centric web and mobile applications, translating business requirements into intuitive flows. Built wireframes, prototypes, and high-fidelity UI for cross-functional product teams. Defined user flows and system interactions in close collaboration with engineering. Improved developer handoff efficiency with structured, scalable design assets. Delivered design across enterprise systems, audit platforms, healthcare solutions, and e-commerce.",
+      tags: ["Wireframing", "Prototyping", "Handoff"],
+      industry: "Web and Mobile Applications, Enterprise Software",
+      client: "KS Smart Solutions Pvt Ltd, Chennai"
+    },
+    {
+      role: "PROJECT MANAGER",
+      period: "June 2021 — Jan 2020",
+      overview: "Designed user-centric web and mobile applications, translating business requirements into intuitive flows. Built wireframes, prototypes, and high-fidelity UI for cross-functional product teams. Defined user flows and system interactions in close collaboration with engineering. Improved developer handoff efficiency with structured, scalable design assets. Delivered design across enterprise systems, audit platforms, healthcare solutions, and e-commerce.",
+      tags: ["Wireframing", "Prototyping", "Handoff"],
+      industry: "Web and Mobile Applications, Enterprise Software",
+      client: "KS Smart Solutions Pvt Ltd, Chennai"
+    }
+  ];
+
+  let currentIndex = -1;
+
+  function updateActiveRole(targetIndex, force = false) {
+    if (!force && targetIndex === currentIndex) return;
+    currentIndex = targetIndex;
+
+    const data = workHistoryData[targetIndex];
+    if (!data) return;
+
+    // 1. Highlight states: active pure white & bold, inactive dark gray & smaller
+    buttons.forEach((btn, idx) => {
+      btn.classList.remove('active', 'inactive');
+      if (idx === targetIndex) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.add('inactive');
+      }
+    });
+
+    // 2. Right-side role stack shifts vertically so active title aligns with period label
+    if (track && track.parentElement) {
+      const activeBtn = buttons[targetIndex];
+      if (activeBtn) {
+        const btnCenter = activeBtn.offsetTop + (activeBtn.offsetHeight / 2);
+        const viewportCenter = track.parentElement.offsetHeight / 2;
+        const targetY = viewportCenter - btnCenter;
+        gsap.to(track, { y: targetY, duration: 0.45, ease: 'power2.out', overwrite: 'auto' });
+      }
+    }
+
+    // 3. Metadata table cross-fades with 20px upward slide
+    if (infoTable) {
+      gsap.to(infoTable, {
+        opacity: 0,
+        y: 20,
+        duration: 0.18,
+        onComplete: () => {
+          if (overviewVal) overviewVal.innerText = data.overview;
+          if (tagsVal) {
+            tagsVal.innerHTML = data.tags
+              .map(t => `<span class="rectangular-chip">${t}</span>`)
+              .join('');
+          }
+          if (industryVal) industryVal.innerText = data.industry;
+          if (clientVal) clientVal.innerText = data.client;
+          gsap.to(infoTable, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' });
+        }
+      });
+    }
+
+    // 4. Center period date cross-fades and updates
+    if (periodText) {
+      gsap.to(periodText, {
+        opacity: 0,
+        duration: 0.15,
+        onComplete: () => {
+          periodText.innerText = data.period;
+          gsap.to(periodText, { opacity: 1, duration: 0.25 });
+        }
+      });
+    }
+  }
+
+  // Set initial state to TEAM LEAD (index 0)
+  setTimeout(() => updateActiveRole(0, true), 50);
+
+  // GSAP ScrollTrigger pinning & scroll-driven step sequence
+  const numRoles = workHistoryData.length;
+  let trigger = null;
+
+  trigger = ScrollTrigger.create({
+    trigger: section,
+    start: 'top top',
+    end: `+=${numRoles * 75}%`,
+    pin: true,
+    pinSpacing: true,
+    anticipatePin: 1,
+    refreshPriority: 1,
+    onUpdate: (self) => {
+      const step = Math.min(numRoles - 1, Math.max(0, Math.floor(self.progress * (numRoles - 0.001))));
+      updateActiveRole(step);
+    }
+  });
+
+  // Direct click navigation on role title buttons
+  buttons.forEach((btn, idx) => {
+    btn.addEventListener('click', () => {
+      updateActiveRole(idx);
+      if (trigger && trigger.start) {
+        const start = trigger.start;
+        const total = trigger.end - trigger.start;
+        const targetScroll = start + (total * (idx / (numRoles - 1)));
+        gsap.to(window, { scrollTo: targetScroll, duration: 0.6, ease: 'power2.out' });
+      }
+    });
+  });
+
+  return () => {
+    if (trigger) trigger.kill();
+  };
+}
+
 import * as THREE from 'three';
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js';
 
@@ -778,6 +921,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initRoleSwitchers();
   initScrollAnimations();
   initWordSplitScrollAnimation();
+  initWorkHistoryReferenceScroller();
   initBrandTransitionWipe();
   initThreeBrandN();
 
