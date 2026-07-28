@@ -962,6 +962,90 @@ function initAppPreloader() {
   mainTl.to({}, { duration: 0.25 });
 }
 
+// Interactive 3D Spinning & Cursor-Tracking N Logo Mark
+function initInteractiveNLogo() {
+  const logoElem = document.getElementById('toolkit-n-interactive-logo');
+  const brandCol = document.getElementById('toolkit-brand-column');
+  const section = document.getElementById('toolkit');
+  if (!logoElem || !brandCol) return;
+
+  let spinAngle = 0;
+  let mouseTiltX = 0;
+  let mouseTiltY = 0;
+  let targetTiltX = 0;
+  let targetTiltY = 0;
+  let isDragging = false;
+  let startMouseX = 0;
+  let startMouseY = 0;
+  let dragRotX = 0;
+  let dragRotY = 0;
+
+  // 1. Continuous 360-degree Y-axis spinning loop + lerped cursor tilt
+  function renderLoop() {
+    if (!isDragging) {
+      spinAngle = (spinAngle + 0.7) % 360;
+      mouseTiltX += (targetTiltX - mouseTiltX) * 0.08;
+      mouseTiltY += (targetTiltY - mouseTiltY) * 0.08;
+    }
+
+    const currentX = isDragging ? dragRotX : mouseTiltX;
+    const currentY = isDragging ? dragRotY + spinAngle : spinAngle + mouseTiltY;
+
+    logoElem.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg)`;
+    requestAnimationFrame(renderLoop);
+  }
+
+  requestAnimationFrame(renderLoop);
+
+  // 2. Cursor movement tracking across Toolkit section
+  const trackTarget = section || brandCol;
+
+  trackTarget.addEventListener('pointermove', (e) => {
+    if (isDragging) {
+      const deltaX = e.clientX - startMouseX;
+      const deltaY = e.clientY - startMouseY;
+      dragRotY += deltaX * 0.4;
+      dragRotX -= deltaY * 0.4;
+      startMouseX = e.clientX;
+      startMouseY = e.clientY;
+      return;
+    }
+
+    const rect = brandCol.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const normX = (e.clientX - centerX) / (window.innerWidth / 2);
+    const normY = (e.clientY - centerY) / (window.innerHeight / 2);
+
+    targetTiltY = normX * 35; // Rotate Y towards cursor
+    targetTiltX = -normY * 25; // Tilt X towards cursor
+  });
+
+  trackTarget.addEventListener('pointerleave', () => {
+    if (!isDragging) {
+      targetTiltX = 0;
+      targetTiltY = 0;
+    }
+  });
+
+  // 3. Pointer drag controls
+  brandCol.addEventListener('pointerdown', (e) => {
+    isDragging = true;
+    startMouseX = e.clientX;
+    startMouseY = e.clientY;
+    brandCol.style.cursor = 'grabbing';
+  });
+
+  window.addEventListener('pointerup', () => {
+    if (isDragging) {
+      isDragging = false;
+      spinAngle = dragRotY % 360;
+      brandCol.style.cursor = 'grab';
+    }
+  });
+}
+
 // Initialize on DOM Ready
 document.addEventListener('DOMContentLoaded', () => {
   initAppPreloader();
@@ -973,6 +1057,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initWorkHistoryReferenceScroller();
   initBrandTransitionWipe();
   initThreeBrandN();
+  initInteractiveNLogo();
 
   setTimeout(() => {
     ScrollTrigger.refresh();
