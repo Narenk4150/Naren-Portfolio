@@ -602,7 +602,7 @@ body {
   display: grid;
   grid-template-columns: 1fr auto 1.3fr;
   gap: clamp(24px, 4vw, 56px);
-  align-items: center; /* Vertically center aligns left titles, center year timeline, and right content */
+  align-items: flex-start; /* Align top active title, year timeline, and right content header */
   width: 100%;
   position: relative;
   z-index: 2;
@@ -614,7 +614,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
   gap: 14px;
 }
 
@@ -663,25 +662,24 @@ body {
   opacity: 0.9;
 }
 
-/* Center Column: Minimalist Timeline */
+/* Center Column: Minimalist Timeline (Aligned with Active Title Baseline, Glass Effect Removed) */
 .work-history-center-col {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 0;
+  align-items: flex-start;
+  padding-top: clamp(14px, 1.6vw, 22px); /* Precise alignment with active title baseline */
 }
 
 .timeline-date-text {
   font-family: var(--font-primary), 'Open Sans', sans-serif;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 400;
   color: #FFFFFF;
   letter-spacing: 0.04em;
   white-space: nowrap;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 6px 16px;
-  border-radius: 20px;
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 0;
 }
 
 /* Right Column: Company, Bullets & Tags */
