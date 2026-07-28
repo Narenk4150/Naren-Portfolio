@@ -1226,47 +1226,41 @@ body {
   text-align: left;
   align-self: flex-start;
   font-family: var(--font-primary), 'Open Sans', sans-serif;
-  letter-spacing: -0.02em;
+  font-size: clamp(2.5rem, 4.2vw, 3.8rem); /* Identical font size for all titles */
+  font-weight: 700;                       /* Identical bold weight for all titles */
+  letter-spacing: -0.02em;                /* Identical spacing for all titles */
   white-space: nowrap;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.4s ease, color 0.4s ease, -webkit-text-fill-color 0.4s ease; /* No font size / scaling animation */
 }
 
-/* Bright Pure White Active Focal Point */
+/* Crisp Pure White Active Focal Point */
 .role-title-nav-btn.active {
-  font-size: clamp(2.5rem, 4.5vw, 4.25rem);
-  font-weight: 700;
   color: #FFFFFF;
   -webkit-text-fill-color: #FFFFFF;
   opacity: 1;
 }
 
-/* Preceding Role: Fades from soft light gray at top into medium gray as it approaches active title */
+/* Role Immediately Above Active Role: Medium-to-light gray fading darker toward top */
 .role-title-nav-btn.prev-role {
-  font-size: clamp(1.5rem, 2.7vw, 2.35rem);
-  font-weight: 600;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.7) 100%);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.65) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  opacity: 0.85;
+  opacity: 0.8;
 }
 
-/* Succeeding Role: Begins in medium gray and gradually dissolves into near-black toward bottom */
+/* Role Immediately Below Active Role: Medium gray fading darker toward bottom */
 .role-title-nav-btn.next-role {
-  font-size: clamp(1.5rem, 2.7vw, 2.35rem);
-  font-weight: 600;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.12) 100%);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.15) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  opacity: 0.75;
+  opacity: 0.7;
 }
 
-/* Distant Roles: Dissolved into near-black darkness */
+/* Progressive Fade into Near-Black for Earlier/Subsequent Roles */
 .role-title-nav-btn.far-role {
-  font-size: clamp(1.2rem, 2vw, 1.8rem);
-  font-weight: 500;
   color: rgba(255, 255, 255, 0.12);
   -webkit-text-fill-color: rgba(255, 255, 255, 0.12);
-  opacity: 0.25;
+  opacity: 0.2;
 }
 
 .role-title-nav-btn:hover {
