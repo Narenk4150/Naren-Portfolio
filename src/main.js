@@ -985,7 +985,7 @@ function initInteractiveNLogo() {
       baseSpinY = (baseSpinY + cursorSpinVelY) % 360;
     }
 
-    const finalRotX = isDragging ? dragRotX : mouseTiltX + dragRotX;
+    const finalRotX = 16 + (isDragging ? dragRotX : mouseTiltX + dragRotX);
     const finalRotY = baseSpinY + (isDragging ? dragRotY : mouseTiltY + dragRotY);
 
     objectElem.style.transform = `rotateX(${finalRotX}deg) rotateY(${finalRotY}deg)`;
