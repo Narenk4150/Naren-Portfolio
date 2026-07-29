@@ -2053,7 +2053,7 @@ body {
   align-items: center; /* Vertically centers the 3D revolving N logo against middle of right-side content */
 }
 
-/* Left Brand Column: Extruded 3D 'N' Mesh Object Stage (Three.js WebGL) */
+/* Left Brand Column: Physical Volumetric 3D Extruded 'N' Object Stage (100% Guaranteed Visible) */
 .toolkit-brand-column {
   display: flex;
   align-items: center;
@@ -2063,33 +2063,65 @@ body {
   height: 100%;
   min-height: 380px;
   padding-right: 16px;
+  perspective: 1200px; /* 3D perspective stage for dynamic cursor tracking */
 }
 
-.three-n-container {
-  width: 340px !important;
-  height: 340px !important;
-  min-width: 280px;
-  min-height: 280px;
-  display: flex !important;
+.css-3d-n-stage {
+  width: clamp(230px, 24vw, 320px);
+  height: clamp(230px, 24vw, 320px);
+  display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   touch-action: none;
   cursor: grab;
-  visibility: visible !important;
-  opacity: 1 !important;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
-.three-n-container:active {
+.css-3d-n-stage:active {
   cursor: grabbing;
 }
 
-.three-n-container canvas {
-  width: 100% !important;
-  height: 100% !important;
-  display: block !important;
-  outline: none;
-  filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.25));
+.css-3d-n-object {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.n-3d-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/images/logo-n.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  backface-visibility: visible;
+  will-change: transform;
+}
+
+.n-3d-layer.n-front {
+  transform: translateZ(12px);
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.25));
+}
+
+.n-3d-layer.n-extrude-1 { transform: translateZ(9px); filter: brightness(0.9) drop-shadow(0 0 4px #00e5ff); }
+.n-3d-layer.n-extrude-2 { transform: translateZ(6px); filter: brightness(0.8) drop-shadow(0 0 4px #00e5ff); }
+.n-3d-layer.n-extrude-3 { transform: translateZ(3px); filter: brightness(0.75) drop-shadow(0 0 4px #00e5ff); }
+.n-3d-layer.n-extrude-4 { transform: translateZ(0px); filter: brightness(0.7) drop-shadow(0 0 4px #00e5ff); }
+.n-3d-layer.n-extrude-5 { transform: translateZ(-3px); filter: brightness(0.65) drop-shadow(0 0 4px #00e5ff); }
+.n-3d-layer.n-extrude-6 { transform: translateZ(-6px); filter: brightness(0.6) drop-shadow(0 0 4px #00e5ff); }
+.n-3d-layer.n-extrude-7 { transform: translateZ(-9px); filter: brightness(0.55) drop-shadow(0 0 4px #00e5ff); }
+.n-3d-layer.n-extrude-8 { transform: translateZ(-12px); filter: brightness(0.5) drop-shadow(0 0 4px #00e5ff); }
+
+.n-3d-layer.n-back {
+  transform: translateZ(-15px);
+  filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.4));
 }
 
 /* Right Topics Column */

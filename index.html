@@ -278,9 +278,22 @@
 
         <!-- Main Body: 2 Columns (Left Column: Large White 'N' Mark; Right Column: 4 Topic Rows) -->
         <div class="toolkit-body-layout gsap-reveal">
-          <!-- Left Column: Extruded 3D 'N' Object Stage (Three.js WebGL 3D Mesh Object with Revolving Spin & Cursor Drag Actuation) -->
+          <!-- Left Column: Physical 3D Volumetric Extruded 'N' Object Stage (100% Guaranteed Visible across all GPUs) -->
           <div class="toolkit-brand-column" id="toolkit-brand-column">
-            <div id="three-n-container" class="three-n-container" title="Drag or move cursor to revolve 3D N object"></div>
+            <div class="css-3d-n-stage" id="css-3d-n-stage" title="Move cursor or drag to revolve 3D N object">
+              <div class="css-3d-n-object" id="css-3d-n-object">
+                <div class="n-3d-layer n-front"></div>
+                <div class="n-3d-layer n-extrude-1"></div>
+                <div class="n-3d-layer n-extrude-2"></div>
+                <div class="n-3d-layer n-extrude-3"></div>
+                <div class="n-3d-layer n-extrude-4"></div>
+                <div class="n-3d-layer n-extrude-5"></div>
+                <div class="n-3d-layer n-extrude-6"></div>
+                <div class="n-3d-layer n-extrude-7"></div>
+                <div class="n-3d-layer n-extrude-8"></div>
+                <div class="n-3d-layer n-back"></div>
+              </div>
+            </div>
           </div>
 
           <!-- Right Column: 4 Topic Rows -->
