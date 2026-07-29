@@ -1051,6 +1051,7 @@ function initThreeLiquidGlassN() {
 
   // 5. User's State Variables & Formula
   let autoRotateY = 0;
+  let cursorSpinBoost = 0;
   let cursorRotateX = 0;
   let cursorRotateY = 0;
   let targetCursorX = 0;
@@ -1059,19 +1060,21 @@ function initThreeLiquidGlassN() {
   let isDragging = false;
   let startPointerX = 0;
   let startPointerY = 0;
+  let lastPointerX = 0;
   let dragX = 0;
   let dragY = 0;
   let dragVelX = 0;
   let dragVelY = 0;
 
-  const BASELINE_PITCH = 10;
+  const BASELINE_PITCH = 14;
 
   // 6. Continuous requestAnimationFrame Loop
   function animate() {
     requestAnimationFrame(animate);
 
-    // Continuous uninterrupted Y-axis idle spin
-    autoRotateY = (autoRotateY + 0.75) % 360;
+    // Continuous energetic Y-axis auto-rotation (2.2 deg/frame = ~132 deg/sec) + cursor spin boost
+    autoRotateY = (autoRotateY + 2.2 + cursorSpinBoost) % 360;
+    cursorSpinBoost *= 0.94; // Decelerate spin boost smoothly
 
     if (isDragging) {
       cursorRotateX = dragX;
@@ -1117,24 +1120,32 @@ function initThreeLiquidGlassN() {
     isDragging = true;
     startPointerX = e.clientX;
     startPointerY = e.clientY;
+    lastPointerX = e.clientX;
     domElement.style.cursor = 'grabbing';
   };
 
   const onPointerMove = (e) => {
+    const deltaX = e.clientX - (lastPointerX || e.clientX);
+    lastPointerX = e.clientX;
+
     if (isDragging) {
-      const deltaX = e.clientX - startPointerX;
-      const deltaY = e.clientY - startPointerY;
+      const totalDeltaX = e.clientX - startPointerX;
+      const totalDeltaY = e.clientY - startPointerY;
 
-      dragVelY = deltaX * 0.45;
-      dragVelX += deltaY * 0.45;
+      dragVelY = totalDeltaX * 0.45;
+      dragVelX += totalDeltaY * 0.45;
 
-      dragY += deltaX * 0.45;
-      dragX += deltaY * 0.45;
+      dragY += totalDeltaX * 0.45;
+      dragX += totalDeltaY * 0.45;
 
       startPointerX = e.clientX;
       startPointerY = e.clientY;
       return;
     }
+
+    // Cursor movement directly spins and tilts the 3D N in real-time!
+    cursorSpinBoost += deltaX * 0.15;
+    cursorSpinBoost = Math.max(-10, Math.min(10, cursorSpinBoost));
 
     const rect = brandCol ? brandCol.getBoundingClientRect() : domElement.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
