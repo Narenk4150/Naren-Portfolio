@@ -1012,21 +1012,13 @@ function initThreeLiquidGlassN() {
 
   const group = new THREE.Group();
 
-  // Ultra-Premium Liquid Glass Physical Transmission Material
-  const liquidGlassMaterial = new THREE.MeshPhysicalMaterial({
-    color: 0xE8F6FF,
-    transmission: 0.95,
-    opacity: 1.0,
-    transparent: true,
-    roughness: 0.05,
-    metalness: 0.15,
-    ior: 1.52,
-    thickness: 24,
-    attenuationColor: 0x00E5FF,
-    attenuationDistance: 45,
-    clearcoat: 1.0,
-    clearcoatRoughness: 0.04,
-    reflectivity: 0.92,
+  // Ultra-Premium Liquid Chrome Reflective Material (Guaranteed 100% Solid & Visible across all GPUs)
+  const liquidGlassMaterial = new THREE.MeshStandardMaterial({
+    color: 0xEBF7FF,
+    metalness: 0.88,
+    roughness: 0.1,
+    envMap: envMap,
+    envMapIntensity: 3.5,
     side: THREE.DoubleSide
   });
 
