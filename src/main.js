@@ -958,21 +958,28 @@ function initInteractiveNLogo() {
   let targetTiltX = 0;
   let targetTiltY = 0;
   let isDragging = false;
-  let startMouseX = 0;
-  let startMouseY = 0;
+  let previousMouseX = 0;
+  let previousMouseY = 0;
   let dragRotX = 0;
   let dragRotY = 0;
+  let dragVelocityX = 0;
+  let dragVelocityY = 0;
 
-  // 1. Continuous 360-degree Y-axis revolving animation loop + lerped cursor tilt
+  // 1. Continuous 360-degree Y-axis spinning loop + lerped cursor tilt & drag momentum
   function renderLoop() {
     if (!isDragging) {
-      spinAngle = (spinAngle + 1.2) % 360;
+      spinAngle = (spinAngle + 1.2 + dragVelocityY) % 360;
+      dragRotX += dragVelocityX;
+      dragVelocityX *= 0.92;
+      dragVelocityY *= 0.92;
       mouseTiltX += (targetTiltX - mouseTiltX) * 0.08;
       mouseTiltY += (targetTiltY - mouseTiltY) * 0.08;
+    } else {
+      spinAngle = (spinAngle + dragVelocityY) % 360;
     }
 
-    const currentX = isDragging ? dragRotX : mouseTiltX;
-    const currentY = isDragging ? dragRotY + spinAngle : spinAngle + mouseTiltY;
+    const currentX = isDragging ? dragRotX : mouseTiltX + dragRotX;
+    const currentY = spinAngle + (isDragging ? dragRotY : mouseTiltY + dragRotY);
 
     logoElem.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg)`;
     requestAnimationFrame(renderLoop);
@@ -980,17 +987,30 @@ function initInteractiveNLogo() {
 
   requestAnimationFrame(renderLoop);
 
-  // 2. Cursor movement tracking across Toolkit section
+  // 2. Cursor movement tracking & pointer drag control
   const trackTarget = section || brandCol;
 
-  trackTarget.addEventListener('pointermove', (e) => {
+  const onPointerDown = (e) => {
+    isDragging = true;
+    previousMouseX = e.clientX;
+    previousMouseY = e.clientY;
+    brandCol.style.cursor = 'grabbing';
+    logoElem.style.cursor = 'grabbing';
+  };
+
+  const onPointerMove = (e) => {
     if (isDragging) {
-      const deltaX = e.clientX - startMouseX;
-      const deltaY = e.clientY - startMouseY;
-      dragRotY += deltaX * 0.4;
-      dragRotX -= deltaY * 0.4;
-      startMouseX = e.clientX;
-      startMouseY = e.clientY;
+      const deltaX = e.clientX - previousMouseX;
+      const deltaY = e.clientY - previousMouseY;
+
+      dragVelocityY = deltaX * 0.5;
+      dragVelocityX -= deltaY * 0.5;
+
+      dragRotY += deltaX * 0.5;
+      dragRotX -= deltaY * 0.5;
+
+      previousMouseX = e.clientX;
+      previousMouseY = e.clientY;
       return;
     }
 
@@ -1001,32 +1021,22 @@ function initInteractiveNLogo() {
     const normX = (e.clientX - centerX) / (window.innerWidth / 2);
     const normY = (e.clientY - centerY) / (window.innerHeight / 2);
 
-    targetTiltY = normX * 35; // Rotate Y towards cursor
-    targetTiltX = -normY * 25; // Tilt X towards cursor
-  });
+    targetTiltY = normX * 30; // Rotate Y towards cursor
+    targetTiltX = -normY * 20; // Tilt X towards cursor
+  };
 
-  trackTarget.addEventListener('pointerleave', () => {
-    if (!isDragging) {
-      targetTiltX = 0;
-      targetTiltY = 0;
-    }
-  });
-
-  // 3. Pointer drag controls
-  brandCol.addEventListener('pointerdown', (e) => {
-    isDragging = true;
-    startMouseX = e.clientX;
-    startMouseY = e.clientY;
-    brandCol.style.cursor = 'grabbing';
-  });
-
-  window.addEventListener('pointerup', () => {
+  const onPointerUp = () => {
     if (isDragging) {
       isDragging = false;
-      spinAngle = dragRotY % 360;
       brandCol.style.cursor = 'grab';
+      logoElem.style.cursor = 'grab';
     }
-  });
+  };
+
+  brandCol.addEventListener('pointerdown', onPointerDown);
+  logoElem.addEventListener('pointerdown', onPointerDown);
+  window.addEventListener('pointermove', onPointerMove);
+  window.addEventListener('pointerup', onPointerUp);
 }
 
 // Initialize on DOM Ready
