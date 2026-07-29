@@ -486,11 +486,23 @@ body {
   overflow: hidden; /* Prevents horizontal scrollbar when words start off-screen */
 }
 
+/* Edge-to-Edge Divider Line Separating Section 2 and Section 3 */
+.section-separator-line {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
 /* Banner Section (Section 3 — Increased top spacing between Section 2 and Section 3) */
 .banner-section {
   position: relative;
   width: 100%;
-  padding: clamp(120px, 15vh, 220px) 0 clamp(40px, 6vh, 60px) 0;
+  padding: clamp(80px, 10vh, 140px) 0 clamp(40px, 6vh, 60px) 0;
 }
 
 .about-statement {
