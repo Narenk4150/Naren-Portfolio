@@ -301,14 +301,15 @@ body {
   padding-bottom: clamp(160px, 18vh, 240px); /* Increased spacing between hero and about section */
 }
 
-/* Hero Intro Top Grid — 4-Column Layout Equally Distributed */
+/* Hero Intro Top Grid — Grouped Meta Badges & Left-Aligned Layout */
 .hero-top-grid {
-  display: grid;
-  grid-template-columns: minmax(320px, 1.8fr) repeat(3, minmax(140px, 1fr));
-  align-items: flex-end; /* Paragraph and Role/Based in/Experience share common bottom baseline */
-  column-gap: clamp(32px, 4vw, 80px); /* Equally distributed gap across all 4 columns */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: clamp(32px, 4vw, 64px);
   width: 100%;
   margin-bottom: 40px;
+  flex-wrap: wrap;
 }
 
 .hero-bio-summary {
@@ -328,18 +329,30 @@ body {
   text-indent: 0 !important;
 }
 
+.hero-name-highlight {
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.hero-meta-group {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(32px, 4vw, 64px);
+  flex-wrap: wrap;
+}
+
 .meta-badge {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  text-align: left; /* Left-justified text */
+  text-align: left;
   flex-shrink: 0;
 }
 
 .meta-label {
   font-size: 0.85rem;
   color: var(--text-muted);
-  text-transform: none; /* Sentence case, no uppercase per Figma spec */
+  text-transform: none;
   letter-spacing: normal;
   text-align: left;
 }
