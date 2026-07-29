@@ -947,7 +947,7 @@ function initAppPreloader() {
 
 // Interactive 3D Spinning & Cursor-Tracking N Logo Mark
 function initInteractiveNLogo() {
-  const logoElem = document.getElementById('toolkit-n-interactive-logo');
+  const logoElem = document.getElementById('toolkit-n-revolving-logo') || document.getElementById('toolkit-n-interactive-logo');
   const brandCol = document.getElementById('toolkit-brand-column');
   const section = document.getElementById('toolkit');
   if (!logoElem || !brandCol) return;
