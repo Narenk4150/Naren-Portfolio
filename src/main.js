@@ -945,78 +945,82 @@ function initAppPreloader() {
 }
 
 // Interactive 3D Spinning & Cursor-Tracking N Logo Mark (Exact Commit 218e387)
+// Interactive Physical 3D Extruded N Object Controller (Natural Continuous Spin & Cursor Movement Control)
 function initInteractiveNLogo() {
-  const logoElem = document.getElementById('toolkit-n-shape-logo') || document.getElementById('toolkit-n-revolving-logo');
+  const stageElem = document.getElementById('css-3d-n-stage');
+  const objectElem = document.getElementById('css-3d-n-object');
   const brandCol = document.getElementById('toolkit-brand-column');
   const section = document.getElementById('toolkit');
-  if (!logoElem || !brandCol) return;
+  if (!stageElem || !objectElem || !brandCol) return;
 
-  let spinAngle = 0;
+  let baseSpinY = 0;
+  let cursorSpinVelY = 0;
+  let cursorTiltVelX = 0;
   let mouseTiltX = 0;
   let mouseTiltY = 0;
   let targetTiltX = 0;
   let targetTiltY = 0;
-  let cursorBoostSpeed = 0;
+
   let isDragging = false;
   let previousMouseX = 0;
   let previousMouseY = 0;
   let dragRotX = 0;
   let dragRotY = 0;
-  let dragVelocityX = 0;
-  let dragVelocityY = 0;
 
-  // 1. Continuous 360-degree Y-axis spinning loop + cursor actuated spin speed boost & tilt
+  // 1. Render loop: Natural Continuous 360 Spin + Cursor Movement Acceleration & Trackball Tilt
   function renderLoop() {
-    // Base spin (1.8deg/frame) + cursor movement boost + drag velocity
-    const currentSpinIncrement = 1.8 + cursorBoostSpeed + dragVelocityY;
-
     if (!isDragging) {
-      spinAngle = (spinAngle + currentSpinIncrement) % 360;
-      dragRotX += dragVelocityX;
-      dragVelocityX *= 0.92;
-      dragVelocityY *= 0.92;
-      cursorBoostSpeed *= 0.92; // Smoothly decelerate cursor speed boost
+      // Natural continuous Y-axis rotation (0.9 deg per frame) + cursor movement spin boost
+      baseSpinY = (baseSpinY + 0.9 + cursorSpinVelY) % 360;
 
-      mouseTiltX += (targetTiltX - mouseTiltX) * 0.1;
-      mouseTiltY += (targetTiltY - mouseTiltY) * 0.1;
+      // Friction deceleration for cursor movement spin & pointer drag
+      dragRotX += cursorTiltVelX;
+      cursorSpinVelY *= 0.93;
+      cursorTiltVelX *= 0.93;
+
+      // Smooth trackball tilt towards cursor position
+      mouseTiltX += (targetTiltX - mouseTiltX) * 0.08;
+      mouseTiltY += (targetTiltY - mouseTiltY) * 0.08;
     } else {
-      spinAngle = (spinAngle + dragVelocityY) % 360;
+      baseSpinY = (baseSpinY + cursorSpinVelY) % 360;
     }
 
-    const currentX = 14 + (isDragging ? dragRotX : mouseTiltX + dragRotX);
-    const currentY = spinAngle + (isDragging ? dragRotY : mouseTiltY + dragRotY);
+    const finalRotX = 16 + (isDragging ? dragRotX : mouseTiltX + dragRotX);
+    const finalRotY = baseSpinY + (isDragging ? dragRotY : mouseTiltY + dragRotY);
 
-    logoElem.style.transform = `rotateX(${currentX.toFixed(2)}deg) rotateY(${currentY.toFixed(2)}deg)`;
+    objectElem.style.transform = `rotateX(${finalRotX.toFixed(2)}deg) rotateY(${finalRotY.toFixed(2)}deg)`;
     requestAnimationFrame(renderLoop);
   }
 
   requestAnimationFrame(renderLoop);
 
-  // 2. Cursor movement tracking & pointer drag spin actuation
+  // 2. Cursor Movement Tracking & Pointer Drag Rotation
   const trackTarget = section || brandCol;
 
   const onPointerDown = (e) => {
     isDragging = true;
     previousMouseX = e.clientX;
     previousMouseY = e.clientY;
-    brandCol.style.cursor = 'grabbing';
-    logoElem.style.cursor = 'grabbing';
+    stageElem.style.cursor = 'grabbing';
+    objectElem.style.cursor = 'grabbing';
   };
 
   const onPointerMove = (e) => {
     if (previousMouseX !== 0 && previousMouseY !== 0) {
       const deltaX = e.clientX - previousMouseX;
       const deltaY = e.clientY - previousMouseY;
-      const dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
       if (isDragging) {
-        dragVelocityY = deltaX * 0.55;
-        dragVelocityX -= deltaY * 0.55;
-        dragRotY += deltaX * 0.55;
-        dragRotX -= deltaY * 0.55;
+        cursorSpinVelY = deltaX * 0.5;
+        cursorTiltVelX -= deltaY * 0.5;
+        dragRotY += deltaX * 0.5;
+        dragRotX -= deltaY * 0.5;
       } else {
-        // Cursor movement directly actuates and accelerates spin speed!
-        cursorBoostSpeed = Math.min(dist * 0.18, 10.0);
+        // Cursor movement directly accelerates and rotates 3D N in cursor direction!
+        cursorSpinVelY += deltaX * 0.08;
+        cursorTiltVelX -= deltaY * 0.04;
+        cursorSpinVelY = Math.max(-6, Math.min(6, cursorSpinVelY));
+        cursorTiltVelX = Math.max(-4, Math.min(4, cursorTiltVelX));
       }
     }
 
@@ -1031,7 +1035,7 @@ function initInteractiveNLogo() {
       const normX = (e.clientX - centerX) / (window.innerWidth / 2);
       const normY = (e.clientY - centerY) / (window.innerHeight / 2);
 
-      targetTiltY = normX * 35; // Rotate Y towards cursor
+      targetTiltY = normX * 30; // Tilt Y towards cursor
       targetTiltX = -normY * 25; // Tilt X towards cursor
     }
   };
@@ -1046,13 +1050,13 @@ function initInteractiveNLogo() {
   const onPointerUp = () => {
     if (isDragging) {
       isDragging = false;
-      brandCol.style.cursor = 'grab';
-      logoElem.style.cursor = 'grab';
+      stageElem.style.cursor = 'grab';
+      objectElem.style.cursor = 'grab';
     }
   };
 
-  brandCol.addEventListener('pointerdown', onPointerDown);
-  logoElem.addEventListener('pointerdown', onPointerDown);
+  stageElem.addEventListener('pointerdown', onPointerDown);
+  objectElem.addEventListener('pointerdown', onPointerDown);
   trackTarget.addEventListener('pointermove', onPointerMove);
   trackTarget.addEventListener('pointerleave', onPointerLeave);
   window.addEventListener('pointerup', onPointerUp);
