@@ -465,16 +465,15 @@ body {
   background-color: rgba(255, 255, 255, 0.75);
 }
 
-/* About Section (Section 2) — Sticky Pinned Word Reveal Section */
+/* About Section (Section 2) — Tight Responsive Padding */
 .about-section {
-  min-height: 100vh;
+  min-height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: clamp(60px, 8vh, 100px) 0;
+  padding: clamp(60px, 8vh, 100px) 0 clamp(20px, 3vh, 40px) 0;
   position: relative;
-  box-sizing: border-box;
 }
 
 .about-quote-box {
@@ -484,6 +483,7 @@ body {
   text-align: left;
   margin-left: 0;
   padding-left: 0;
+  overflow: hidden; /* Prevents horizontal scrollbar when words start off-screen */
 }
 
 /* Banner Section (Section 3 — Follows continuously with tight bottom spacing before Work History) */
@@ -494,20 +494,24 @@ body {
 }
 
 .about-statement {
-  font-size: clamp(1.75rem, 3vw, 2.75rem);
-  line-height: 1.35;
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem); /* Reduced font size ~24px–36px */
+  line-height: 1.4;
   font-weight: 600;
   color: #FFFFFF;
   text-align: left;
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.3em;
+  row-gap: 0.25em;
 }
 
 .split-word {
-  display: inline;
-  will-change: color, opacity;
-  color: rgba(255, 255, 255, 0.18);
-  opacity: 0.25;
-  transition: color 0.1s ease, opacity 0.1s ease;
+  display: inline-block;
+  will-change: transform, opacity;
+  white-space: nowrap;
+  opacity: 0; /* Invisible before scroll */
+  transform: translateX(80vw); /* Outside the screen on the right */
 }
 
 /* Hero Visual Banner Frame — Responsive Widescreen 1680px Frame */
