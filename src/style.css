@@ -486,11 +486,17 @@ body {
   padding-left: 0;
 }
 
-/* Banner Section (Section 3 — Follows continuously with tight bottom spacing before Work History) */
+/* Banner Section (Section 3 — Increased top spacing after Section 2 & brief sticky pin) */
 .banner-section {
   position: relative;
   width: 100%;
-  padding: clamp(20px, 3vh, 40px) 0 clamp(40px, 6vh, 60px) 0;
+  padding: clamp(140px, 16vh, 220px) 0 clamp(60px, 8vh, 100px) 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .about-statement {
@@ -515,7 +521,7 @@ body {
   position: relative;
   width: 100%;
   max-width: 100%;
-  margin: clamp(40px, 5vh, 80px) auto 0 auto; /* Tight top spacing after quote box */
+  margin: 0 auto;
   min-height: 720px;
   border-radius: var(--radius-md);
   overflow: hidden;
