@@ -2053,7 +2053,7 @@ body {
   align-items: center; /* Vertically centers the 3D revolving N logo against middle of right-side content */
 }
 
-/* Left Brand Column: Liquid Glass Chrome 3D 'N' Sculpture Stage */
+/* Left Brand Column: Physical Volumetric 3D Extruded 'N' Object Stage */
 .toolkit-brand-column {
   display: flex;
   align-items: center;
@@ -2066,51 +2066,21 @@ body {
   perspective: 1000px;
 }
 
-.three-liquid-n-container {
-  width: 320px !important;
-  height: 360px !important;
-  min-width: 280px;
-  min-height: 320px;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  touch-action: none;
-  cursor: grab;
-  visibility: visible !important;
-  opacity: 1 !important;
-  perspective: 1000px;
-}
-
-.three-liquid-n-container:active {
-  cursor: grabbing;
-}
-
-.three-liquid-n-container canvas {
-  width: 100% !important;
-  height: 100% !important;
-  display: block !important;
-  outline: none;
-  position: relative;
-  z-index: 2;
-  filter: drop-shadow(0 0 35px rgba(0, 229, 255, 0.35)) drop-shadow(0 0 70px rgba(255, 255, 255, 0.25));
-}
-
 .css-3d-n-stage {
-  width: 300px;
-  height: 300px;
+  width: clamp(240px, 25vw, 340px);
+  height: clamp(240px, 25vw, 340px);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   touch-action: none;
   cursor: grab;
   transform-style: preserve-3d;
   will-change: transform;
-  z-index: 1;
+}
+
+.css-3d-n-stage:active {
+  cursor: grabbing;
 }
 
 .css-3d-n-object {

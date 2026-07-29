@@ -945,246 +945,116 @@ function initAppPreloader() {
 }
 
 // Liquid Glass Chromatic 3D 'N' Sculpture (Three.js WebGL + Physical Refractive Glass Material)
-function initThreeLiquidGlassN() {
-  const container = document.getElementById('three-liquid-n-container');
-  if (!container) return;
-
-  container.innerHTML = '';
-
-  let width = Math.max(container.clientWidth || 0, 320);
-  let height = Math.max(container.clientHeight || 0, 360);
-
-  // 1. Scene & Camera Setup
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-  camera.position.set(0, 0, 150);
-
-  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-  renderer.setSize(width, height);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.25;
-  container.appendChild(renderer.domElement);
-
-  // 2. Dynamic Procedural Environment Map for Metallic Glass Specular Reflections
-  const pmremGenerator = new THREE.PMREMGenerator(renderer);
-  pmremGenerator.compileEquirectangularShader();
-
-  const envCanvas = document.createElement('canvas');
-  envCanvas.width = 512;
-  envCanvas.height = 256;
-  const ctx = envCanvas.getContext('2d');
-  const gradient = ctx.createLinearGradient(0, 0, 512, 256);
-  gradient.addColorStop(0, '#001528');
-  gradient.addColorStop(0.3, '#004080');
-  gradient.addColorStop(0.5, '#ffffff');
-  gradient.addColorStop(0.75, '#00d5ff');
-  gradient.addColorStop(1, '#050a14');
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, 512, 256);
-
-  const envTexture = new THREE.CanvasTexture(envCanvas);
-  envTexture.mapping = THREE.EquirectangularReflectionMapping;
-  const envMap = pmremGenerator.fromEquirectangular(envTexture).texture;
-  scene.environment = envMap;
-
-  // 3. Cinematic Lights
-  const ambientLight = new THREE.AmbientLight(0xffffff, 2.0);
-  scene.add(ambientLight);
-
-  const keyLight = new THREE.DirectionalLight(0xffffff, 4.5);
-  keyLight.position.set(120, 180, 200);
-  scene.add(keyLight);
-
-  const rimLight = new THREE.DirectionalLight(0x00E5FF, 3.5);
-  rimLight.position.set(-150, -120, -100);
-  scene.add(rimLight);
-
-  const frontHighlight = new THREE.PointLight(0xffffff, 3.0, 500);
-  frontHighlight.position.set(0, 40, 160);
-  scene.add(frontHighlight);
-
-  // 4. SVG Path Data for N Brand Mark
-  const svgPathData = `M93.9004 106C88.112 106 84.0387 104.389 81.6805 101.167C79.3223 97.7305 78.1432 93.5421 78.1432 88.6018C78.1432 76.1439 82.4308 62.8267 91.0062 48.6505L111.587 15.1429C97.009 25.8825 82.538 39.307 68.1743 55.4164C64.3154 59.7123 59.9205 64.7599 54.9896 70.5593C50.2732 76.3587 45.0207 83.0172 39.2324 90.535C31.5145 100.63 26.9053 105.678 25.4046 105.678C22.4032 105.678 19.9378 104.389 18.0083 101.812C16.0788 99.0192 15.1141 96.5491 15.1141 94.4012C15.1141 92.6829 15.6501 89.5684 16.722 85.0578C17.7939 80.3323 19.0802 76.2513 20.5809 72.8146C22.0816 69.1631 23.5823 65.619 25.083 62.1824C26.7981 58.5309 28.4059 54.9868 29.9066 51.5502L10.612 71.848C10.1833 72.2776 8.89696 73.5664 6.75311 75.7143C4.60927 77.8622 2.89419 78.9362 1.60788 78.9362C0.535961 78.9362 0 78.1844 0 76.6809C0 76.2513 0.214385 75.7143 0.643154 75.0699C0.857538 74.2107 1.50069 73.2442 2.57261 72.1702C5.78838 68.9483 9.11134 65.5117 12.5415 61.8602C15.9716 58.2087 19.509 54.0203 23.1535 49.2948C25.083 46.9321 27.9772 43.388 31.8361 38.6626C35.695 33.7224 39.8755 28.46 44.3776 22.8754C49.0941 17.2908 53.4889 12.1358 57.5622 7.41033C58.6342 5.90679 59.8133 4.94022 61.0996 4.51064C62.3859 3.86626 63.2434 3.54408 63.6722 3.54408C69.4606 3.54408 72.3548 5.79939 72.3548 10.31C72.3548 11.5988 72.0332 12.8875 71.39 14.1763C52.0954 40.8105 40.5187 61.1084 36.6598 75.0699C61.5284 50.154 81.4661 31.4671 96.473 19.0091C111.694 6.33637 122.521 0 128.952 0C132.382 0 134.955 0.53698 136.67 1.61094C138.6 2.68491 139.564 4.72544 139.564 7.73253C139.564 8.80649 139.457 9.66566 139.243 10.31C138.6 11.8136 134.205 17.8278 126.058 28.3526C121.127 34.3668 116.732 39.844 112.873 44.7842C109.229 49.7244 106.228 54.0203 103.869 57.6717C100.01 63.6859 97.1162 69.3779 95.1867 74.7477C93.2573 79.9027 92.2925 84.306 92.2925 87.9575C92.2925 89.461 92.5069 91.2867 93.9357 93.4347C93.3644 95.5826 94.6508 96.6565 96.7946 96.6565C101.725 96.6565 109.443 92.3607 119.948 83.769C124.879 79.4732 129.488 75.1773 133.776 70.8815C138.064 66.3708 142.137 61.9676 145.996 57.6717C146.853 56.8126 148.247 55.2016 150.176 52.8389C152.106 50.2614 153.285 48.9726 153.714 48.9726C154.571 48.9726 155 49.8318 155 51.5502C155 52.4093 154.464 53.9129 153.392 56.0608C152.535 57.9939 151.57 59.4975 150.498 60.5714C148.14 63.3637 144.602 67.23 139.886 72.1702C135.384 77.1104 130.239 82.1581 124.45 87.3131C118.876 92.4681 113.409 96.8713 108.05 100.523C102.69 104.174 97.9737 106 93.9004 106Z`;
-
-  const loader = new SVGLoader();
-  const svgData = loader.parse(`<svg><path d="${svgPathData}"/></svg>`);
-
-  const group = new THREE.Group();
-
-  // Ultra-Premium Liquid Chrome Reflective Material (Guaranteed 100% Solid & Visible across all GPUs)
-  const liquidGlassMaterial = new THREE.MeshStandardMaterial({
-    color: 0xEBF7FF,
-    metalness: 0.88,
-    roughness: 0.1,
-    envMap: envMap,
-    envMapIntensity: 3.5,
-    side: THREE.DoubleSide
-  });
-
-  // Rounded 3D Liquid Glass Extrusion Settings
-  const extrudeSettings = {
-    depth: 24,
-    bevelEnabled: true,
-    bevelSegments: 16,
-    steps: 6,
-    bevelSize: 7.0,
-    bevelThickness: 7.0,
-    curveSegments: 32
-  };
-
-  const cssFallbackObject = document.getElementById('css-3d-n-object');
-
-  svgData.paths.forEach((path) => {
-    const shapes = SVGLoader.createShapes(path);
-    shapes.forEach((shape) => {
-      const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
-      geometry.center();
-      geometry.rotateX(Math.PI); // Flips SVG Y-axis correctly without inverting normals or face winding
-      const mesh = new THREE.Mesh(geometry, liquidGlassMaterial);
-      group.add(mesh);
-    });
-  });
-
-  group.scale.set(1.15, 1.15, 1.15); // Positive scale guarantees normal vector integrity
-  scene.add(group);
-
-  // 5. User's State Variables & Formula
-  let autoRotateY = 0;
-  let cursorSpinBoost = 0;
-  let cursorRotateX = 0;
-  let cursorRotateY = 0;
-  let targetCursorX = 0;
-  let targetCursorY = 0;
-
-  let isDragging = false;
-  let startPointerX = 0;
-  let startPointerY = 0;
-  let lastPointerX = 0;
-  let dragX = 0;
-  let dragY = 0;
-  let dragVelX = 0;
-  let dragVelY = 0;
-
-  const BASELINE_PITCH = 14;
-
-  // 6. Continuous requestAnimationFrame Loop
-  function animate() {
-    requestAnimationFrame(animate);
-
-    // Continuous energetic Y-axis auto-rotation (2.2 deg/frame = ~132 deg/sec) + cursor spin boost
-    autoRotateY = (autoRotateY + 2.2 + cursorSpinBoost) % 360;
-    cursorSpinBoost *= 0.94; // Decelerate spin boost smoothly
-
-    if (isDragging) {
-      cursorRotateX = dragX;
-      cursorRotateY = dragY;
-    } else {
-      dragX += dragVelX;
-      dragY += dragVelY;
-      dragVelX *= 0.92;
-      dragVelY *= 0.92;
-
-      cursorRotateX += (targetCursorX + dragX - cursorRotateX) * 0.08;
-      cursorRotateY += (targetCursorY + dragY - cursorRotateY) * 0.08;
-    }
-
-    // Apply exact formula requested by user:
-    // rotateX(BASELINE + cursorRotateX) rotateY(autoRotateY + cursorRotateY)
-    const finalRotXdeg = BASELINE_PITCH + cursorRotateX;
-    const finalRotYdeg = autoRotateY + cursorRotateY;
-
-    const finalRotXrad = finalRotXdeg * (Math.PI / 180);
-    const finalRotYrad = finalRotYdeg * (Math.PI / 180);
-
-    group.rotation.x = finalRotXrad;
-    group.rotation.y = finalRotYrad;
-
-    // Dual Sync: Drive CSS 3D fallback object simultaneously for 100% visibility guarantee
-    if (cssFallbackObject) {
-      cssFallbackObject.style.transform = `rotateX(${finalRotXdeg.toFixed(2)}deg) rotateY(${finalRotYdeg.toFixed(2)}deg)`;
-    }
-
-    renderer.render(scene, camera);
-  }
-
-  animate();
-
-  // 7. Pointer & Drag Interaction Handlers
-  const domElement = renderer.domElement;
+// Interactive 3D Volumetric Extruded 'N' Logo Controller (Continuous Y-Axis Spin & Cursor/Drag Interaction)
+function initInteractiveNLogo() {
+  const stageElem = document.getElementById('css-3d-n-stage');
+  const objectElem = document.getElementById('css-3d-n-object');
   const brandCol = document.getElementById('toolkit-brand-column');
   const section = document.getElementById('toolkit');
-  const trackTarget = section || brandCol || domElement;
+  if (!stageElem || !objectElem || !brandCol) return;
+
+  let baseSpinY = 0;
+  let cursorSpinVelY = 0;
+  let cursorTiltVelX = 0;
+  let mouseTiltX = 0;
+  let mouseTiltY = 0;
+  let targetTiltX = 0;
+  let targetTiltY = 0;
+
+  let isDragging = false;
+  let previousMouseX = 0;
+  let previousMouseY = 0;
+  let dragRotX = 0;
+  let dragRotY = 0;
+
+  function renderLoop() {
+    if (!isDragging) {
+      // Natural continuous Y-axis rotation (1.2 deg per frame) + cursor spin acceleration
+      baseSpinY = (baseSpinY + 1.2 + cursorSpinVelY) % 360;
+
+      dragRotX += cursorTiltVelX;
+      cursorSpinVelY *= 0.93;
+      cursorTiltVelX *= 0.93;
+
+      mouseTiltX += (targetTiltX - mouseTiltX) * 0.08;
+      mouseTiltY += (targetTiltY - mouseTiltY) * 0.08;
+    } else {
+      baseSpinY = (baseSpinY + cursorSpinVelY) % 360;
+    }
+
+    const finalRotX = 14 + (isDragging ? dragRotX : mouseTiltX + dragRotX);
+    const finalRotY = baseSpinY + (isDragging ? dragRotY : mouseTiltY + dragRotY);
+
+    objectElem.style.transform = `rotateX(${finalRotX.toFixed(2)}deg) rotateY(${finalRotY.toFixed(2)}deg)`;
+    requestAnimationFrame(renderLoop);
+  }
+
+  requestAnimationFrame(renderLoop);
+
+  const trackTarget = section || brandCol;
 
   const onPointerDown = (e) => {
     isDragging = true;
-    startPointerX = e.clientX;
-    startPointerY = e.clientY;
-    lastPointerX = e.clientX;
-    domElement.style.cursor = 'grabbing';
+    previousMouseX = e.clientX;
+    previousMouseY = e.clientY;
+    stageElem.style.cursor = 'grabbing';
+    objectElem.style.cursor = 'grabbing';
   };
 
   const onPointerMove = (e) => {
-    const deltaX = e.clientX - (lastPointerX || e.clientX);
-    lastPointerX = e.clientX;
+    if (previousMouseX !== 0 && previousMouseY !== 0) {
+      const deltaX = e.clientX - previousMouseX;
+      const deltaY = e.clientY - previousMouseY;
 
-    if (isDragging) {
-      const totalDeltaX = e.clientX - startPointerX;
-      const totalDeltaY = e.clientY - startPointerY;
-
-      dragVelY = totalDeltaX * 0.45;
-      dragVelX += totalDeltaY * 0.45;
-
-      dragY += totalDeltaX * 0.45;
-      dragX += totalDeltaY * 0.45;
-
-      startPointerX = e.clientX;
-      startPointerY = e.clientY;
-      return;
+      if (isDragging) {
+        cursorSpinVelY = deltaX * 0.5;
+        cursorTiltVelX -= deltaY * 0.5;
+        dragRotY += deltaX * 0.5;
+        dragRotX -= deltaY * 0.5;
+      } else {
+        cursorSpinVelY += deltaX * 0.08;
+        cursorTiltVelX -= deltaY * 0.04;
+        cursorSpinVelY = Math.max(-8, Math.min(8, cursorSpinVelY));
+        cursorTiltVelX = Math.max(-5, Math.min(5, cursorTiltVelX));
+      }
     }
 
-    // Cursor movement directly spins and tilts the 3D N in real-time!
-    cursorSpinBoost += deltaX * 0.15;
-    cursorSpinBoost = Math.max(-10, Math.min(10, cursorSpinBoost));
+    previousMouseX = e.clientX;
+    previousMouseY = e.clientY;
 
-    const rect = brandCol ? brandCol.getBoundingClientRect() : domElement.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
+    if (!isDragging) {
+      const rect = brandCol.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
 
-    const normX = (e.clientX - centerX) / (window.innerWidth / 2);
-    const normY = (e.clientY - centerY) / (window.innerHeight / 2);
+      const normX = (e.clientX - centerX) / (window.innerWidth / 2);
+      const normY = (e.clientY - centerY) / (window.innerHeight / 2);
 
-    targetCursorY = normX * 45;
-    targetCursorX = normY * 30;
+      targetTiltY = normX * 35;
+      targetTiltX = -normY * 25;
+    }
   };
 
   const onPointerLeave = () => {
     if (!isDragging) {
-      targetCursorX = 0;
-      targetCursorY = 0;
+      targetTiltX = 0;
+      targetTiltY = 0;
     }
   };
 
   const onPointerUp = () => {
     if (isDragging) {
       isDragging = false;
-      domElement.style.cursor = 'grab';
+      stageElem.style.cursor = 'grab';
+      objectElem.style.cursor = 'grab';
     }
   };
 
-  domElement.addEventListener('pointerdown', onPointerDown);
+  stageElem.addEventListener('pointerdown', onPointerDown);
+  objectElem.addEventListener('pointerdown', onPointerDown);
   trackTarget.addEventListener('pointermove', onPointerMove);
   trackTarget.addEventListener('pointerleave', onPointerLeave);
   window.addEventListener('pointerup', onPointerUp);
-
-  // Resize Listener
-  window.addEventListener('resize', () => {
-    const w = container.clientWidth || 320;
-    const h = container.clientHeight || 360;
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-    renderer.setSize(w, h);
-  });
 }
 
 // Initialize on DOM Ready
@@ -1197,7 +1067,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initWordSplitScrollAnimation();
   initWorkHistoryReferenceScroller();
   initBrandTransitionWipe();
-  initThreeLiquidGlassN();
+  initInteractiveNLogo();
 
   setTimeout(() => {
     ScrollTrigger.refresh();
