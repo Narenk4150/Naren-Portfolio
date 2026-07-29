@@ -2053,7 +2053,7 @@ body {
   align-items: center; /* Vertically centers the 3D revolving N logo against middle of right-side content */
 }
 
-/* Left Brand Column: N Shape Logo Mark (3D Continuous Revolving Spin & Dynamic Cursor Tracking) */
+/* Left Brand Column: Extruded 3D 'N' Mesh Object Stage (Three.js WebGL) */
 .toolkit-brand-column {
   display: flex;
   align-items: center;
@@ -2063,42 +2063,33 @@ body {
   height: 100%;
   min-height: 380px;
   padding-right: 16px;
-  perspective: 1200px; /* 3D perspective stage for dynamic cursor tracking */
-  transform-style: preserve-3d;
-  will-change: transform;
 }
 
-.toolkit-n-revolving-logo {
-  width: clamp(230px, 24vw, 320px);
-  height: auto;
-  opacity: 0.95;
-  display: block;
-  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.18));
-  transform-style: preserve-3d;
-  will-change: transform;
-  animation: nLogo3DSpin 6s linear infinite !important;
-  cursor: grab;
+.three-n-container {
+  width: 340px !important;
+  height: 340px !important;
+  min-width: 280px;
+  min-height: 280px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  position: relative;
   touch-action: none;
+  cursor: grab;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
-.toolkit-n-revolving-logo:active {
+.three-n-container:active {
   cursor: grabbing;
 }
 
-.toolkit-n-revolving-logo:hover {
-  opacity: 1;
-}
-
-@keyframes nLogo3DSpin {
-  0% {
-    transform: rotateY(0deg) rotateX(6deg);
-  }
-  50% {
-    transform: rotateY(180deg) rotateX(-6deg);
-  }
-  100% {
-    transform: rotateY(360deg) rotateX(6deg);
-  }
+.three-n-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  outline: none;
+  filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.25));
 }
 
 /* Right Topics Column */
