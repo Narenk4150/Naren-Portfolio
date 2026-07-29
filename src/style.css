@@ -486,11 +486,11 @@ body {
   overflow: hidden; /* Prevents horizontal scrollbar when words start off-screen */
 }
 
-/* Banner Section (Section 3 — Follows continuously with tight bottom spacing before Work History) */
+/* Banner Section (Section 3 — Increased top spacing between Section 2 and Section 3) */
 .banner-section {
   position: relative;
   width: 100%;
-  padding: clamp(20px, 3vh, 40px) 0 clamp(40px, 6vh, 60px) 0;
+  padding: clamp(120px, 15vh, 220px) 0 clamp(40px, 6vh, 60px) 0;
 }
 
 .about-statement {
@@ -519,7 +519,7 @@ body {
   position: relative;
   width: 100%;
   max-width: 100%;
-  margin: clamp(40px, 5vh, 80px) auto 0 auto; /* Tight top spacing after quote box */
+  margin: clamp(60px, 8vh, 120px) auto 0 auto; /* Generous top spacing */
   min-height: 720px;
   border-radius: var(--radius-md);
   overflow: hidden;
