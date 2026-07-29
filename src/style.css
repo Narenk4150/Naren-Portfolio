@@ -412,12 +412,18 @@ body {
   text-align: left;
 }
 
+.hero-resume-download-wrap {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
 .hero-resume-download-link {
   font-size: 1.05rem; /* Primary button text size (~17px) */
   font-weight: 600;   /* Primary button text weight (Semi-bold) */
   color: #FFFFFF;     /* Bright-white call-to-action */
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  text-decoration: none; /* No text underline */
   line-height: 1.4;
   letter-spacing: 0.01em;
   transition: opacity 0.2s ease;
@@ -436,10 +442,14 @@ body {
 }
 
 .hero-resume-divider {
-  width: 100%;
+  width: 100%; /* Matches exact width of "Download my resume" text */
   height: 1px;
-  background-color: rgba(255, 255, 255, 0.18); /* Thin light-gray horizontal divider */
-  margin-top: 16px;
+  background-color: rgba(255, 255, 255, 0.4); /* Thin light-gray divider */
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.hero-resume-download-wrap:hover .hero-resume-divider {
+  background-color: rgba(255, 255, 255, 0.75);
 }
 
 /* About Section (Section 2) — Tight Responsive Padding */
