@@ -2053,7 +2053,7 @@ body {
   align-items: center; /* Vertically centers the 3D revolving N logo against middle of right-side content */
 }
 
-/* Left Brand Column: N Shape Logo Mark (3D Revolving Spin & Dynamic Cursor Movement) */
+/* Left Brand Column: Single 3D 'N' Shape WebGL Revolving Canvas Stage 100% Vertically Centered */
 .toolkit-brand-column {
   display: flex;
   align-items: center;
@@ -2062,36 +2062,23 @@ body {
   width: 100%;
   height: 100%;
   min-height: 380px;
-  padding-right: 16px;
-  perspective: 1200px; /* 3D perspective stage for dynamic cursor tracking */
-}
-
-.toolkit-n-interactive-logo {
-  width: clamp(230px, 24vw, 320px);
-  height: auto;
-  opacity: 0.95;
-  display: block;
-  filter: drop-shadow(0 0 35px rgba(255, 255, 255, 0.35)) drop-shadow(0 0 70px rgba(0, 210, 255, 0.28));
-  transform-style: preserve-3d;
-  will-change: transform;
-  transition: filter 0.3s ease;
-  cursor: pointer;
-}
-
-.toolkit-n-interactive-logo:hover {
-  opacity: 1;
-  filter: drop-shadow(0 0 50px rgba(255, 255, 255, 0.55)) drop-shadow(0 0 95px rgba(0, 210, 255, 0.45));
+  padding-right: 12px;
 }
 
 .three-n-container {
   width: 100%;
-  max-width: 240px;
-  height: 240px;
+  max-width: 360px;
+  height: 360px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   touch-action: none;
+  cursor: grab;
+}
+
+.three-n-container:active {
+  cursor: grabbing;
 }
 
 .three-n-container canvas {

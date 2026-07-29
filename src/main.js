@@ -657,35 +657,24 @@ function initThreeBrandN() {
 
   const group = new THREE.Group();
 
-  // Ultra-vivid 3D Metallic Glass Shader with High Specular Highlights & Luminescent Glow
-  const glassMaterial = new THREE.MeshPhysicalMaterial({
+  // Ultra-bright Solid Metallic 3D Material with Cyan Ambient Glow & Bevel Highlights
+  const solid3DMaterial = new THREE.MeshStandardMaterial({
     color: 0xFFFFFF,
-    emissive: 0x004466,
-    emissiveIntensity: 0.45,
-    transmission: 0.35,
-    opacity: 0.95,
-    transparent: true,
+    emissive: 0x002244,
+    emissiveIntensity: 0.35,
     roughness: 0.15,
-    metalness: 0.35,
-    ior: 1.5,
-    thickness: 15.0,
-    attenuationColor: 0x00E5FF,
-    attenuationDistance: 30.0,
-    specularIntensity: 3.0,
-    specularColor: 0xffffff,
-    clearcoat: 1.0,
-    clearcoatRoughness: 0.05,
+    metalness: 0.75,
     side: THREE.DoubleSide
   });
 
-  // Smooth, thick, rounded extrusion settings for melted organic glass form
+  // Smooth, thick 3D extrusion settings for bold physical 'N' shape geometry
   const extrudeSettings = {
-    depth: 14,
+    depth: 18,
     bevelEnabled: true,
-    bevelSegments: 10,
+    bevelSegments: 12,
     steps: 4,
-    bevelSize: 3.5,
-    bevelThickness: 3.5,
+    bevelSize: 4.0,
+    bevelThickness: 4.0,
     curveSegments: 24
   };
 
@@ -694,13 +683,13 @@ function initThreeBrandN() {
     shapes.forEach((shape) => {
       const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
       geometry.center();
-      const mesh = new THREE.Mesh(geometry, glassMaterial);
+      const mesh = new THREE.Mesh(geometry, solid3DMaterial);
       group.add(mesh);
     });
   });
 
-  // Scale and center 3D N glass sculpture
-  group.scale.set(1.2, -1.2, 1.2);
+  // Scale and center 3D N geometry
+  group.scale.set(1.3, -1.3, 1.3);
   group.rotation.x = Math.PI * 0.04;
   scene.add(group);
 
