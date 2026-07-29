@@ -301,18 +301,19 @@ body {
   padding-bottom: clamp(160px, 18vh, 240px); /* Increased spacing between hero and about section */
 }
 
-/* Hero Intro Top Grid — Flush Left-Aligned Layout */
+/* Hero Intro Top Grid — Grouped Meta Badges & Left-Aligned Layout */
 .hero-top-grid {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 32px;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: clamp(32px, 4vw, 64px);
   width: 100%;
   margin-bottom: 40px;
+  flex-wrap: wrap;
 }
 
 .hero-bio-summary {
-  max-width: 640px;
+  max-width: 520px;
   margin: 0 !important;
   padding: 0 !important;
   text-align: left !important;
@@ -335,10 +336,9 @@ body {
 
 .hero-meta-group {
   display: flex;
-  align-items: flex-start;
-  gap: clamp(32px, 5vw, 72px);
+  align-items: flex-end;
+  gap: clamp(32px, 4vw, 64px);
   flex-wrap: wrap;
-  width: 100%;
 }
 
 .meta-badge {
