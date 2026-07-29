@@ -945,7 +945,7 @@ function initAppPreloader() {
   mainTl.to({}, { duration: 0.25 });
 }
 
-// Interactive Physical 3D Extruded N Object Controller (Natural Continuous Spin & Cursor Movement Control)
+// Interactive 3D 'N' Object Controller (Uninterrupted Y-Axis Auto-Rotation + Smooth Cursor & Drag 3D Interaction)
 function initInteractiveNLogo() {
   const stageElem = document.getElementById('css-3d-n-stage');
   const objectElem = document.getElementById('css-3d-n-object');
@@ -953,90 +953,104 @@ function initInteractiveNLogo() {
   const section = document.getElementById('toolkit');
   if (!stageElem || !objectElem || !brandCol) return;
 
-  let baseSpinY = 0;
-  let cursorSpinVelY = 0;
-  let cursorTiltVelX = 0;
-  let mouseTiltX = 0;
-  let mouseTiltY = 0;
-  let targetTiltX = 0;
-  let targetTiltY = 0;
+  // 1. Separate State Variables:
+  // autoRotateY: Uninterrupted continuous Y-axis idle spin
+  let autoRotateY = 0;
 
+  // cursorRotateX & cursorRotateY: Smooth lerped rotation from hover / drag
+  let cursorRotateX = 0;
+  let cursorRotateY = 0;
+  let targetCursorX = 0;
+  let targetCursorY = 0;
+
+  // Drag Controller Variables
   let isDragging = false;
-  let previousMouseX = 0;
-  let previousMouseY = 0;
-  let dragRotX = 0;
-  let dragRotY = 0;
+  let startPointerX = 0;
+  let startPointerY = 0;
+  let dragX = 0;
+  let dragY = 0;
+  let dragVelX = 0;
+  let dragVelY = 0;
 
-  // 1. Render loop: Natural Continuous 360 Spin + Cursor Movement Acceleration & Trackball Tilt
+  // Baseline 3D pitch tilt so top/depth is always visible
+  const BASELINE_PITCH = 14;
+
+  // 2. Continuous requestAnimationFrame Rendering Loop
   function renderLoop() {
-    if (!isDragging) {
-      // Natural continuous Y-axis rotation (0.9 deg per frame) + cursor movement spin boost
-      baseSpinY = (baseSpinY + 0.9 + cursorSpinVelY) % 360;
+    // Idle auto-rotation around Y axis runs continuously & uninterrupted
+    autoRotateY = (autoRotateY + 0.75) % 360;
 
-      // Friction deceleration for cursor movement spin & pointer drag
-      dragRotX += cursorTiltVelX;
-      cursorSpinVelY *= 0.93;
-      cursorTiltVelX *= 0.93;
-
-      // Smooth trackball tilt towards cursor position
-      mouseTiltX += (targetTiltX - mouseTiltX) * 0.08;
-      mouseTiltY += (targetTiltY - mouseTiltY) * 0.08;
+    if (isDragging) {
+      // User has full free 3D drag control
+      cursorRotateX = dragX;
+      cursorRotateY = dragY;
     } else {
-      baseSpinY = (baseSpinY + cursorSpinVelY) % 360;
+      // Apply friction momentum to drag offset
+      dragX += dragVelX;
+      dragY += dragVelY;
+      dragVelX *= 0.92;
+      dragVelY *= 0.92;
+
+      // Smooth interpolation / lerp towards target cursor rotation (or back to 0 on leave)
+      cursorRotateX += (targetCursorX + dragX - cursorRotateX) * 0.08;
+      cursorRotateY += (targetCursorY + dragY - cursorRotateY) * 0.08;
     }
 
-    const finalRotX = 16 + (isDragging ? dragRotX : mouseTiltX + dragRotX);
-    const finalRotY = baseSpinY + (isDragging ? dragRotY : mouseTiltY + dragRotY);
+    // Apply combined 3D transform formula:
+    // rotateX(BASELINE + cursorRotateX) rotateY(autoRotateY + cursorRotateY)
+    const finalRotX = BASELINE_PITCH + cursorRotateX;
+    const finalRotY = autoRotateY + cursorRotateY;
 
-    objectElem.style.transform = `rotateX(${finalRotX}deg) rotateY(${finalRotY}deg)`;
+    objectElem.style.transform = `rotateX(${finalRotX.toFixed(2)}deg) rotateY(${finalRotY.toFixed(2)}deg)`;
     requestAnimationFrame(renderLoop);
   }
 
   requestAnimationFrame(renderLoop);
 
-  // 2. Cursor Movement Tracking & Pointer Drag Rotation
+  // 3. Pointer & Drag Interaction Handlers
   const trackTarget = section || brandCol;
 
   const onPointerDown = (e) => {
     isDragging = true;
-    previousMouseX = e.clientX;
-    previousMouseY = e.clientY;
+    startPointerX = e.clientX;
+    startPointerY = e.clientY;
     stageElem.style.cursor = 'grabbing';
     objectElem.style.cursor = 'grabbing';
   };
 
   const onPointerMove = (e) => {
-    if (previousMouseX !== 0 && previousMouseY !== 0) {
-      const deltaX = e.clientX - previousMouseX;
-      const deltaY = e.clientY - previousMouseY;
+    if (isDragging) {
+      const deltaX = e.clientX - startPointerX;
+      const deltaY = e.clientY - startPointerY;
 
-      if (isDragging) {
-        cursorSpinVelY = deltaX * 0.5;
-        cursorTiltVelX -= deltaY * 0.5;
-        dragRotY += deltaX * 0.5;
-        dragRotX -= deltaY * 0.5;
-      } else {
-        // Cursor movement directly accelerates and rotates 3D N in cursor direction!
-        cursorSpinVelY += deltaX * 0.08;
-        cursorTiltVelX -= deltaY * 0.04;
-        cursorSpinVelY = Math.max(-6, Math.min(6, cursorSpinVelY));
-        cursorTiltVelX = Math.max(-4, Math.min(4, cursorTiltVelX));
-      }
+      dragVelY = deltaX * 0.45;
+      dragVelX -= deltaY * 0.45;
+
+      dragY += deltaX * 0.45;
+      dragX -= deltaY * 0.45;
+
+      startPointerX = e.clientX;
+      startPointerY = e.clientY;
+      return;
     }
 
-    previousMouseX = e.clientX;
-    previousMouseY = e.clientY;
+    // Measure cursor position across stage for smooth tilt & spin response
+    const rect = brandCol.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
 
+    const normX = (e.clientX - centerX) / (window.innerWidth / 2);
+    const normY = (e.clientY - centerY) / (window.innerHeight / 2);
+
+    targetCursorY = normX * 45; // Rotate Y up to ±45deg towards cursor
+    targetCursorX = -normY * 30; // Tilt X up to ±30deg towards cursor
+  };
+
+  const onPointerLeave = () => {
     if (!isDragging) {
-      const rect = brandCol.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-
-      const normX = (e.clientX - centerX) / (window.innerWidth / 2);
-      const normY = (e.clientY - centerY) / (window.innerHeight / 2);
-
-      targetTiltY = normX * 30; // Tilt Y towards cursor
-      targetTiltX = -normY * 25; // Tilt X towards cursor
+      // Gently ease cursor rotation back to neutral while auto-rotation continues
+      targetCursorX = 0;
+      targetCursorY = 0;
     }
   };
 
@@ -1050,7 +1064,8 @@ function initInteractiveNLogo() {
 
   stageElem.addEventListener('pointerdown', onPointerDown);
   objectElem.addEventListener('pointerdown', onPointerDown);
-  window.addEventListener('pointermove', onPointerMove);
+  trackTarget.addEventListener('pointermove', onPointerMove);
+  trackTarget.addEventListener('pointerleave', onPointerLeave);
   window.addEventListener('pointerup', onPointerUp);
 }
 

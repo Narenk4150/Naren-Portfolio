@@ -2105,32 +2105,32 @@ body {
   will-change: transform;
 }
 
-/* Front Face: Pure White */
+/* Front Face: Pure White Handwritten N Logo with Soft Highlights */
 .n-3d-layer.n-front {
-  transform: translateZ(40px);
-  filter: brightness(1.2);
+  transform: translateZ(36px);
+  filter: brightness(1.25) drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
 }
 
-/* 14 Dense Intermediate Extrusion Slices (80px Total Physical 3D Depth) */
-.n-3d-layer.n-extrude-1  { transform: translateZ(35px); filter: brightness(0.85); }
-.n-3d-layer.n-extrude-2  { transform: translateZ(30px); filter: brightness(0.8); }
-.n-3d-layer.n-extrude-3  { transform: translateZ(25px); filter: brightness(0.75); }
-.n-3d-layer.n-extrude-4  { transform: translateZ(20px); filter: brightness(0.7); }
-.n-3d-layer.n-extrude-5  { transform: translateZ(15px); filter: brightness(0.65); }
-.n-3d-layer.n-extrude-6  { transform: translateZ(10px); filter: brightness(0.6); }
-.n-3d-layer.n-extrude-7  { transform: translateZ(5px);  filter: brightness(0.55); }
-.n-3d-layer.n-extrude-8  { transform: translateZ(0px);  filter: brightness(0.5); }
-.n-3d-layer.n-extrude-9  { transform: translateZ(-5px); filter: brightness(0.45); }
-.n-3d-layer.n-extrude-10 { transform: translateZ(-10px); filter: brightness(0.4); }
-.n-3d-layer.n-extrude-11 { transform: translateZ(-15px); filter: brightness(0.35); }
-.n-3d-layer.n-extrude-12 { transform: translateZ(-20px); filter: brightness(0.3); }
-.n-3d-layer.n-extrude-13 { transform: translateZ(-25px); filter: brightness(0.28); }
-.n-3d-layer.n-extrude-14 { transform: translateZ(-30px); filter: brightness(0.25); }
+/* 14 Dense Intermediate Extrusion Slices for Smooth Rounded Shading */
+.n-3d-layer.n-extrude-1  { transform: translateZ(31px); filter: brightness(0.92); }
+.n-3d-layer.n-extrude-2  { transform: translateZ(26px); filter: brightness(0.85); }
+.n-3d-layer.n-extrude-3  { transform: translateZ(21px); filter: brightness(0.78); }
+.n-3d-layer.n-extrude-4  { transform: translateZ(16px); filter: brightness(0.72); }
+.n-3d-layer.n-extrude-5  { transform: translateZ(11px); filter: brightness(0.66); }
+.n-3d-layer.n-extrude-6  { transform: translateZ(6px);  filter: brightness(0.60); }
+.n-3d-layer.n-extrude-7  { transform: translateZ(1px);  filter: brightness(0.55); }
+.n-3d-layer.n-extrude-8  { transform: translateZ(-4px); filter: brightness(0.50); }
+.n-3d-layer.n-extrude-9  { transform: translateZ(-9px); filter: brightness(0.45); }
+.n-3d-layer.n-extrude-10 { transform: translateZ(-14px); filter: brightness(0.40); }
+.n-3d-layer.n-extrude-11 { transform: translateZ(-19px); filter: brightness(0.35); }
+.n-3d-layer.n-extrude-12 { transform: translateZ(-24px); filter: brightness(0.30); }
+.n-3d-layer.n-extrude-13 { transform: translateZ(-29px); filter: brightness(0.26); }
+.n-3d-layer.n-extrude-14 { transform: translateZ(-33px); filter: brightness(0.22); }
 
 /* Back Face */
 .n-3d-layer.n-back {
-  transform: translateZ(-40px);
-  filter: brightness(0.2);
+  transform: translateZ(-36px);
+  filter: brightness(0.18);
 }
 
 /* Right Topics Column */
