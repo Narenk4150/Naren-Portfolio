@@ -2053,7 +2053,7 @@ body {
   align-items: center; /* Vertically centers the 3D revolving N logo against middle of right-side content */
 }
 
-/* Left Brand Column: Physical Volumetric 3D Extruded 'N' Object Stage */
+/* Left Brand Column: Signature 'N' Shape Logo Mark Stage */
 .toolkit-brand-column {
   display: flex;
   align-items: center;
@@ -2063,74 +2063,25 @@ body {
   height: 100%;
   min-height: 380px;
   padding-right: 16px;
-  perspective: 1000px;
+  perspective: 1000px; /* Enable 3D perspective depth */
 }
 
-.css-3d-n-stage {
-  width: clamp(240px, 25vw, 340px);
-  height: clamp(240px, 25vw, 340px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+.toolkit-n-shape-logo {
+  width: clamp(230px, 24vw, 320px);
+  height: auto;
+  opacity: 0.98;
+  display: block;
+  user-select: none;
   touch-action: none;
   cursor: grab;
   transform-style: preserve-3d;
   will-change: transform;
+  filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.25)) drop-shadow(0 0 55px rgba(0, 229, 255, 0.22));
+  transition: filter 0.3s ease;
 }
 
-.css-3d-n-stage:active {
+.toolkit-n-shape-logo:active {
   cursor: grabbing;
-}
-
-.css-3d-n-object {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  will-change: transform;
-}
-
-.n-3d-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("/images/logo-n.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  backface-visibility: visible;
-  will-change: transform;
-}
-
-/* Front Face: Bright Metallic Pure White Handwritten N Logo */
-.n-3d-layer.n-front {
-  transform: translateZ(36px);
-  filter: brightness(1.3) drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
-}
-
-/* 14 Dense Intermediate Extrusion Slices for Solid Physical 3D Depth */
-.n-3d-layer.n-extrude-1  { transform: translateZ(31px); filter: brightness(0.95); }
-.n-3d-layer.n-extrude-2  { transform: translateZ(26px); filter: brightness(0.88); }
-.n-3d-layer.n-extrude-3  { transform: translateZ(21px); filter: brightness(0.82); }
-.n-3d-layer.n-extrude-4  { transform: translateZ(16px); filter: brightness(0.75); }
-.n-3d-layer.n-extrude-5  { transform: translateZ(11px); filter: brightness(0.68); }
-.n-3d-layer.n-extrude-6  { transform: translateZ(6px);  filter: brightness(0.62); }
-.n-3d-layer.n-extrude-7  { transform: translateZ(1px);  filter: brightness(0.56); }
-.n-3d-layer.n-extrude-8  { transform: translateZ(-4px); filter: brightness(0.50); }
-.n-3d-layer.n-extrude-9  { transform: translateZ(-9px); filter: brightness(0.44); }
-.n-3d-layer.n-extrude-10 { transform: translateZ(-14px); filter: brightness(0.38); }
-.n-3d-layer.n-extrude-11 { transform: translateZ(-19px); filter: brightness(0.32); }
-.n-3d-layer.n-extrude-12 { transform: translateZ(-24px); filter: brightness(0.28); }
-.n-3d-layer.n-extrude-13 { transform: translateZ(-29px); filter: brightness(0.24); }
-.n-3d-layer.n-extrude-14 { transform: translateZ(-33px); filter: brightness(0.20); }
-
-/* Back Face */
-.n-3d-layer.n-back {
-  transform: translateZ(-36px);
-  filter: brightness(0.16);
 }
 
 /* Right Topics Column */

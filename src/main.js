@@ -944,14 +944,12 @@ function initAppPreloader() {
   mainTl.to({}, { duration: 0.25 });
 }
 
-// Liquid Glass Chromatic 3D 'N' Sculpture (Three.js WebGL + Physical Refractive Glass Material)
-// Interactive 3D Volumetric Extruded 'N' Logo Controller (Continuous Y-Axis Spin & Cursor/Drag Interaction)
+// Interactive Handwritten 'N' Logo Controller (Continuous Y-Axis Spin & Cursor/Drag Interaction)
 function initInteractiveNLogo() {
-  const stageElem = document.getElementById('css-3d-n-stage');
-  const objectElem = document.getElementById('css-3d-n-object');
   const brandCol = document.getElementById('toolkit-brand-column');
+  const logoElem = document.getElementById('toolkit-n-shape-logo');
   const section = document.getElementById('toolkit');
-  if (!stageElem || !objectElem || !brandCol) return;
+  if (!brandCol || !logoElem) return;
 
   let baseSpinY = 0;
   let cursorSpinVelY = 0;
@@ -969,7 +967,7 @@ function initInteractiveNLogo() {
 
   function renderLoop() {
     if (!isDragging) {
-      // Natural continuous Y-axis rotation (1.2 deg per frame) + cursor spin acceleration
+      // Natural continuous Y-axis rotation (1.2 deg per frame = 72 deg/sec) + cursor spin boost
       baseSpinY = (baseSpinY + 1.2 + cursorSpinVelY) % 360;
 
       dragRotX += cursorTiltVelX;
@@ -982,10 +980,10 @@ function initInteractiveNLogo() {
       baseSpinY = (baseSpinY + cursorSpinVelY) % 360;
     }
 
-    const finalRotX = 14 + (isDragging ? dragRotX : mouseTiltX + dragRotX);
+    const finalRotX = 12 + (isDragging ? dragRotX : mouseTiltX + dragRotX);
     const finalRotY = baseSpinY + (isDragging ? dragRotY : mouseTiltY + dragRotY);
 
-    objectElem.style.transform = `rotateX(${finalRotX.toFixed(2)}deg) rotateY(${finalRotY.toFixed(2)}deg)`;
+    logoElem.style.transform = `rotateX(${finalRotX.toFixed(2)}deg) rotateY(${finalRotY.toFixed(2)}deg)`;
     requestAnimationFrame(renderLoop);
   }
 
@@ -997,8 +995,8 @@ function initInteractiveNLogo() {
     isDragging = true;
     previousMouseX = e.clientX;
     previousMouseY = e.clientY;
-    stageElem.style.cursor = 'grabbing';
-    objectElem.style.cursor = 'grabbing';
+    logoElem.style.cursor = 'grabbing';
+    brandCol.style.cursor = 'grabbing';
   };
 
   const onPointerMove = (e) => {
@@ -1045,13 +1043,13 @@ function initInteractiveNLogo() {
   const onPointerUp = () => {
     if (isDragging) {
       isDragging = false;
-      stageElem.style.cursor = 'grab';
-      objectElem.style.cursor = 'grab';
+      logoElem.style.cursor = 'grab';
+      brandCol.style.cursor = 'grab';
     }
   };
 
-  stageElem.addEventListener('pointerdown', onPointerDown);
-  objectElem.addEventListener('pointerdown', onPointerDown);
+  brandCol.addEventListener('pointerdown', onPointerDown);
+  logoElem.addEventListener('pointerdown', onPointerDown);
   trackTarget.addEventListener('pointermove', onPointerMove);
   trackTarget.addEventListener('pointerleave', onPointerLeave);
   window.addEventListener('pointerup', onPointerUp);
