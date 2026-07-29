@@ -396,16 +396,16 @@ body {
 
 /* Minimalist Dark-Mode Resume Download Section Below Hero Headline */
 .hero-resume-section {
-  margin-top: clamp(36px, 5vh, 56px);
+  margin-top: clamp(28px, 4vh, 44px);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 14px;
+  gap: 10px;
   width: 100%;
 }
 
 .hero-resume-muted-label {
-  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
   color: #9A9A96; /* Subtle warm-gray text */
   font-weight: 400;
   letter-spacing: 0.01em;
@@ -413,12 +413,13 @@ body {
 }
 
 .hero-resume-download-link {
-  font-size: clamp(2rem, 4.5vw, 3.75rem);
-  font-weight: 700;
-  color: #FFFFFF; /* Bright-white call-to-action */
-  text-decoration: none;
-  line-height: 1.1;
-  letter-spacing: -0.025em;
+  font-size: 1.05rem; /* Primary button text size (~17px) */
+  font-weight: 600;   /* Primary button text weight (Semi-bold) */
+  color: #FFFFFF;     /* Bright-white call-to-action */
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
   transition: opacity 0.2s ease;
   display: inline-block;
   text-align: left;
@@ -438,7 +439,7 @@ body {
   width: 100%;
   height: 1px;
   background-color: rgba(255, 255, 255, 0.18); /* Thin light-gray horizontal divider */
-  margin-top: 14px;
+  margin-top: 16px;
 }
 
 /* About Section (Section 2) — Tight Responsive Padding */
