@@ -2089,6 +2089,19 @@ body {
   position: relative;
   transform-style: preserve-3d;
   will-change: transform;
+  animation: n3DObjectSpin 8s linear infinite !important;
+}
+
+@keyframes n3DObjectSpin {
+  0% {
+    transform: rotateY(0deg) rotateX(6deg);
+  }
+  50% {
+    transform: rotateY(180deg) rotateX(-6deg);
+  }
+  100% {
+    transform: rotateY(360deg) rotateX(6deg);
+  }
 }
 
 .n-3d-layer {
