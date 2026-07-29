@@ -1033,17 +1033,20 @@ function initThreeLiquidGlassN() {
     curveSegments: 32
   };
 
+  const cssFallbackObject = document.getElementById('css-3d-n-object');
+
   svgData.paths.forEach((path) => {
     const shapes = SVGLoader.createShapes(path);
     shapes.forEach((shape) => {
       const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
       geometry.center();
+      geometry.rotateX(Math.PI); // Flips SVG Y-axis correctly without inverting normals or face winding
       const mesh = new THREE.Mesh(geometry, liquidGlassMaterial);
       group.add(mesh);
     });
   });
 
-  group.scale.set(1.4, -1.4, 1.4);
+  group.scale.set(1.15, 1.15, 1.15); // Positive scale guarantees normal vector integrity
   scene.add(group);
 
   // 5. User's State Variables & Formula
@@ -1085,11 +1088,19 @@ function initThreeLiquidGlassN() {
 
     // Apply exact formula requested by user:
     // rotateX(BASELINE + cursorRotateX) rotateY(autoRotateY + cursorRotateY)
-    const finalRotX = (BASELINE_PITCH + cursorRotateX) * (Math.PI / 180);
-    const finalRotY = (autoRotateY + cursorRotateY) * (Math.PI / 180);
+    const finalRotXdeg = BASELINE_PITCH + cursorRotateX;
+    const finalRotYdeg = autoRotateY + cursorRotateY;
 
-    group.rotation.x = finalRotX;
-    group.rotation.y = finalRotY;
+    const finalRotXrad = finalRotXdeg * (Math.PI / 180);
+    const finalRotYrad = finalRotYdeg * (Math.PI / 180);
+
+    group.rotation.x = finalRotXrad;
+    group.rotation.y = finalRotYrad;
+
+    // Dual Sync: Drive CSS 3D fallback object simultaneously for 100% visibility guarantee
+    if (cssFallbackObject) {
+      cssFallbackObject.style.transform = `rotateX(${finalRotXdeg.toFixed(2)}deg) rotateY(${finalRotYdeg.toFixed(2)}deg)`;
+    }
 
     renderer.render(scene, camera);
   }
