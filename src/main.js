@@ -945,7 +945,7 @@ function initAppPreloader() {
 }
 
 // Interactive 3D Spinning & Cursor-Tracking N Logo Mark (Exact Commit 218e387)
-// Interactive Signature Handwritten 'N' Logo Mark (Continuous 360 Spin & Cursor Motion Control)
+// Interactive Signature Handwritten 'N' Logo Mark (Continuous 360 Spin & Real-Time Cursor Motion Control)
 function initInteractiveNLogo() {
   const logoElem = document.getElementById('toolkit-n-shape-logo') || document.querySelector('.toolkit-n-shape-logo');
   const brandCol = document.getElementById('toolkit-brand-column') || document.querySelector('.toolkit-brand-column');
@@ -967,20 +967,24 @@ function initInteractiveNLogo() {
   let dragVelocityX = 0;
   let dragVelocityY = 0;
 
+  // 60fps continuous rendering loop
   function renderLoop() {
-    const currentSpinIncrement = 1.4 + cursorBoostSpeed + dragVelocityY;
-
     if (!isDragging) {
-      spinAngle = (spinAngle + currentSpinIncrement) % 360;
+      // Continuous 360-degree Y-axis rotation (1.8 deg per frame = 108 deg/sec) + cursor speed boost
+      spinAngle = (spinAngle + 1.8 + cursorBoostSpeed + dragVelocityY) % 360;
+
       dragRotX += dragVelocityX;
+      dragRotY += dragVelocityY;
       dragVelocityX *= 0.92;
       dragVelocityY *= 0.92;
       cursorBoostSpeed *= 0.92;
 
-      mouseTiltX += (targetTiltX - mouseTiltX) * 0.08;
-      mouseTiltY += (targetTiltY - mouseTiltY) * 0.08;
+      mouseTiltX += (targetTiltX - mouseTiltX) * 0.1;
+      mouseTiltY += (targetTiltY - mouseTiltY) * 0.1;
     } else {
       spinAngle = (spinAngle + dragVelocityY) % 360;
+      dragRotX += dragVelocityX;
+      dragRotY += dragVelocityY;
     }
 
     const currentX = 14 + (isDragging ? dragRotX : mouseTiltX + dragRotX);
@@ -1007,12 +1011,12 @@ function initInteractiveNLogo() {
       const dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
       if (isDragging) {
-        dragVelocityY = deltaX * 0.55;
-        dragVelocityX -= deltaY * 0.55;
-        dragRotY += deltaX * 0.55;
-        dragRotX -= deltaY * 0.55;
+        dragVelocityY = deltaX * 0.6;
+        dragVelocityX -= deltaY * 0.6;
+        dragRotY += deltaX * 0.6;
+        dragRotX -= deltaY * 0.6;
       } else {
-        cursorBoostSpeed = Math.min(dist * 0.15, 8.0);
+        cursorBoostSpeed = Math.min(dist * 0.2, 12.0);
       }
     }
 
@@ -1027,8 +1031,8 @@ function initInteractiveNLogo() {
       const normX = (e.clientX - centerX) / (window.innerWidth / 2);
       const normY = (e.clientY - centerY) / (window.innerHeight / 2);
 
-      targetTiltY = normX * 35;
-      targetTiltX = -normY * 25;
+      targetTiltY = normX * 45;
+      targetTiltX = -normY * 30;
     }
   };
 
