@@ -1060,75 +1060,6 @@ function initInteractiveNLogo() {
   window.addEventListener('pointerup', onPointerUp);
 }
 
-// Pinned, Stacked 3D Paper-Fold Receding Card-Reveal Controller (Exact Reference Motion)
-function initStackedCardReveal() {
-  const section = document.getElementById('projects');
-  const cards = document.querySelectorAll('#projects .case-study-card');
-
-  if (!section || cards.length < 2) return;
-
-  // Set initial stacked Z-Index & 3D Positions
-  cards.forEach((card, idx) => {
-    gsap.set(card, {
-      zIndex: idx + 1,
-      yPercent: idx === 0 ? 0 : 100,
-      scale: 1,
-      rotationX: 0,
-      opacity: 1,
-      transformOrigin: 'center top',
-      transformPerspective: 1200
-    });
-  });
-
-  const numTransitions = cards.length - 1; // 2 transitions for 3 cards
-  const holdDuration = 1.0; // 1 full viewport length of scroll hold on Card 03 before unpinning into Toolkit
-  const totalScrollDistance = numTransitions + holdDuration; // 3.0 total units (300% scroll distance)
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: section,
-      start: 'top top',
-      end: `+=${totalScrollDistance * 100}%`,
-      pin: true,
-      scrub: 1,
-      anticipatePin: 1,
-      refreshPriority: 1
-    }
-  });
-
-  // Loop over transitions
-  for (let i = 0; i < numTransitions; i++) {
-    const outgoingCard = cards[i];
-    const incomingCard = cards[i + 1];
-
-    // Incoming card slides up flat from bottom (yPercent 100 -> 0)
-    tl.to(incomingCard, {
-      yPercent: 0,
-      ease: 'none'
-    }, i);
-
-    // Outgoing card tilts backward in 3D (rotationX 0 -> -14deg), scales down (1 -> 0.92), and shifts up (-6%)
-    tl.to(outgoingCard, {
-      scale: 0.92,
-      rotationX: -14,
-      yPercent: -6,
-      ease: 'none'
-    }, i);
-  }
-
-  // Hold Card 03 in full view for 1 unit of scroll hold before unpinning into Toolkit
-  tl.to(cards[cards.length - 1], {
-    yPercent: 0,
-    duration: holdDuration,
-    ease: 'none'
-  }, numTransitions);
-
-  return () => {
-    if (tl.scrollTrigger) tl.scrollTrigger.kill();
-    tl.kill();
-  };
-}
-
 // Initialize on DOM Ready
 document.addEventListener('DOMContentLoaded', () => {
   initAppPreloader();
@@ -1138,7 +1069,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initWordSplitScrollAnimation();
   initWorkHistoryReferenceScroller();
-  initStackedCardReveal();
   initBrandTransitionWipe();
   initInteractiveNLogo();
 
