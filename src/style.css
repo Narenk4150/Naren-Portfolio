@@ -2252,7 +2252,7 @@ body {
 /* Site Footer (Matching reference screenshot design) */
 .site-footer {
   background-color: #0A0A0A;
-  padding: clamp(140px, 16vh, 220px) 0 80px 0;
+  padding: clamp(80px, 10vh, 140px) 0 80px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
   overflow: hidden;
@@ -2264,7 +2264,46 @@ body {
   padding: 0 var(--container-padding);
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  gap: 60px;
+}
+
+/* Footer Resume Download CTA Block */
+.footer-resume-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.footer-cta-muted-label {
+  font-size: 1rem;
+  color: #888888;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.footer-cta-download-btn {
+  font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+  font-weight: 600;
+  color: #FFFFFF;
+  text-decoration: none;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
+}
+
+.footer-cta-download-btn:hover {
+  color: #FFFFFF;
+  opacity: 0.8;
+  transform: translateY(-2px);
+}
+
+.footer-cta-divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.15);
+  margin-top: -20px;
 }
 
 /* Top 3-Column Grid */
