@@ -1060,6 +1060,170 @@ function initInteractiveNLogo() {
   window.addEventListener('pointerup', onPointerUp);
 }
 
+// Interactive Hybrid 3D Display & Client Navigation Stack Controller (#projects)
+const caseStudiesData = [
+  {
+    client: "SmartPlan AI",
+    year: "2024",
+    image: "/images/image_8.png",
+    overview: "An AI-driven project planning suite built to streamline milestone prediction and resource allocation across cross-functional enterprise teams.",
+    tags: "AI Product Design, UX Solutioning, Enterprise SaaS",
+    industry: "Artificial Intelligence / Enterprise Software"
+  },
+  {
+    client: "ALTHEA",
+    year: "2024",
+    image: "/images/image_8.png",
+    overview: "A premium website for ALTHEA delivering user-centric audit workflows and high-concurrency cloud dashboard platforms.",
+    tags: "Web Design, UI/UX, Enterprise Systems",
+    industry: "Healthcare / SaaS"
+  },
+  {
+    client: "Creative HUB",
+    year: "2023",
+    image: "/images/image_8.png",
+    overview: "A collaborative digital workspace enabling creative agencies to manage digital asset libraries and client review loops in real time.",
+    tags: "Product Architecture, Design Systems, Design Strategy",
+    industry: "Digital Media / Agency Tools"
+  },
+  {
+    client: "Mischka",
+    year: "2022",
+    image: "/images/image_8.png",
+    overview: "An e-commerce brand experience for Mischka, focusing on high-conversion checkout flows and rich interactive product showcases.",
+    tags: "E-Commerce UX, Mobile-First Design, Brand Identity",
+    industry: "Luxury E-Commerce / Retail"
+  },
+  {
+    client: "Mayerfeld",
+    year: "2021",
+    image: "/images/image_8.png",
+    overview: "An enterprise financial risk assessment portal designed for high-density data visualizations and automated compliance reporting.",
+    tags: "FinTech UX, Data Visualization, Complex Systems",
+    industry: "Financial Services / Risk Management"
+  }
+];
+
+function initHybridCaseStudiesScroller() {
+  const section = document.getElementById('projects');
+  const buttons = document.querySelectorAll('.client-nav-btn');
+  const track = document.getElementById('client-list-track');
+  const screenImg = document.getElementById('laptop-screen-img');
+  const detailsTable = document.getElementById('project-details-table');
+  const overviewVal = document.getElementById('proj-overview-val');
+  const tagsVal = document.getElementById('proj-tags-val');
+  const industryVal = document.getElementById('proj-industry-val');
+  const clientVal = document.getElementById('proj-client-val');
+  const yearText = document.getElementById('proj-timeline-year');
+
+  if (!section || !buttons.length || !track) return;
+
+  let activeIdx = 1; // Default to ALTHEA
+
+  function updateActiveCaseStudy(idx, immediate = false) {
+    if (idx < 0 || idx >= caseStudiesData.length) return;
+    activeIdx = idx;
+    const data = caseStudiesData[idx];
+
+    // 1. Update Buttons Active State & Vertical Track Position
+    buttons.forEach((btn, i) => {
+      if (i === idx) {
+        btn.classList.add('active');
+        btn.classList.remove('inactive');
+      } else {
+        btn.classList.remove('active');
+        btn.classList.add('inactive');
+      }
+    });
+
+    // Translate client list track so active client stays centered over timeline anchor
+    const itemHeight = 72; // Center spacing between navigation buttons
+    const trackY = -idx * itemHeight;
+
+    if (immediate) {
+      gsap.set(track, { y: trackY });
+    } else {
+      gsap.to(track, { y: trackY, duration: 0.5, ease: 'power2.out', overwrite: 'auto' });
+    }
+
+    // 2. Cross-fade Screen Image & Details Table Text
+    if (screenImg) {
+      if (immediate) {
+        screenImg.src = data.image;
+        screenImg.style.opacity = '1';
+      } else {
+        gsap.to(screenImg, {
+          opacity: 0,
+          scale: 0.96,
+          duration: 0.2,
+          onComplete: () => {
+            screenImg.src = data.image;
+            gsap.to(screenImg, { opacity: 1, scale: 1, duration: 0.35, ease: 'power2.out' });
+          }
+        });
+      }
+    }
+
+    if (detailsTable && overviewVal && tagsVal && industryVal && clientVal) {
+      if (immediate) {
+        overviewVal.textContent = data.overview;
+        tagsVal.textContent = data.tags;
+        industryVal.textContent = data.industry;
+        clientVal.textContent = data.client;
+        if (yearText) yearText.textContent = data.year;
+      } else {
+        gsap.to([detailsTable, yearText], {
+          opacity: 0,
+          y: 8,
+          duration: 0.15,
+          onComplete: () => {
+            overviewVal.textContent = data.overview;
+            tagsVal.textContent = data.tags;
+            industryVal.textContent = data.industry;
+            clientVal.textContent = data.client;
+            if (yearText) yearText.textContent = data.year;
+            gsap.to([detailsTable, yearText], { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' });
+          }
+        });
+      }
+    }
+  }
+
+  // Set initial state
+  setTimeout(() => updateActiveCaseStudy(1, true), 50);
+
+  // GSAP ScrollTrigger pinning & scroll-driven step sequence
+  const numProjects = caseStudiesData.length;
+  let trigger = null;
+
+  trigger = ScrollTrigger.create({
+    trigger: section,
+    start: 'top top',
+    end: `+=${numProjects * 75}%`,
+    pin: true,
+    pinSpacing: true,
+    anticipatePin: 1,
+    refreshPriority: 1,
+    onUpdate: (self) => {
+      const step = Math.min(numProjects - 1, Math.max(0, Math.floor(self.progress * (numProjects - 0.001))));
+      updateActiveCaseStudy(step);
+    }
+  });
+
+  // Direct click navigation on client list buttons
+  buttons.forEach((btn, idx) => {
+    btn.addEventListener('click', () => {
+      updateActiveCaseStudy(idx);
+      if (trigger && trigger.start) {
+        const start = trigger.start;
+        const total = trigger.end - trigger.start;
+        const targetScroll = start + (total * (idx / (numProjects - 1)));
+        gsap.to(window, { scrollTo: targetScroll, duration: 0.6, ease: 'power2.out' });
+      }
+    });
+  });
+}
+
 // Initialize on DOM Ready
 document.addEventListener('DOMContentLoaded', () => {
   initAppPreloader();
@@ -1069,6 +1233,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initWordSplitScrollAnimation();
   initWorkHistoryReferenceScroller();
+  initHybridCaseStudiesScroller();
   initBrandTransitionWipe();
   initInteractiveNLogo();
 
