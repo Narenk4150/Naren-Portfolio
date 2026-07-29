@@ -2074,9 +2074,9 @@ body {
   filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.15));
   transform-style: preserve-3d;
   will-change: transform;
-  animation: nLogo3DSpin 8s linear infinite;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, filter 0.3s ease;
   cursor: grab;
+  touch-action: none;
 }
 
 .toolkit-n-revolving-logo:active {
@@ -2085,18 +2085,6 @@ body {
 
 .toolkit-n-revolving-logo:hover {
   opacity: 1;
-}
-
-@keyframes nLogo3DSpin {
-  0% {
-    transform: rotateY(0deg) rotateX(4deg);
-  }
-  50% {
-    transform: rotateY(180deg) rotateX(-4deg);
-  }
-  100% {
-    transform: rotateY(360deg) rotateX(4deg);
-  }
 }
 
 /* Right Topics Column */
