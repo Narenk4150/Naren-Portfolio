@@ -52,8 +52,8 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-html, body {
-  overflow-x: clip;
+body {
+  overflow-x: hidden;
   position: relative;
   min-height: 100vh;
   line-height: 1.6;
@@ -364,9 +364,14 @@ html, body {
   text-align: left;
 }
 
-/* Hero Section Divider Line */
+/* Full-Screen Edge-to-Edge Divider Line */
 .hero-section .divider-line {
-  width: 100%;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   height: 1px;
   background-color: var(--border-subtle);
   margin-top: 40px;
@@ -460,20 +465,15 @@ html, body {
   background-color: rgba(255, 255, 255, 0.75);
 }
 
-/* Section 2: Profile Summary / Content Section — Sticky Top Positioning */
+/* About Section (Section 2) — Tight Responsive Padding */
 .about-section {
-  position: sticky;
-  top: 80px; /* Offset below sticky site header navigation */
-  z-index: 10; /* Keep Section 2 above Section 3 (z-index: 5) & Section 4 (z-index: 1) */
-  background-color: #0A0A0A; /* Solid dark background prevents Section 3 bleeding through */
   min-height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: clamp(60px, 8vh, 100px) 0;
-  width: 100%;
-  box-sizing: border-box;
+  padding: clamp(60px, 8vh, 100px) 0 clamp(20px, 3vh, 40px) 0;
+  position: relative;
 }
 
 .about-quote-box {
@@ -483,52 +483,56 @@ html, body {
   text-align: left;
   margin-left: 0;
   padding-left: 0;
-  /* Removed overflow: hidden; to prevent breaking CSS position: sticky */
+  overflow: hidden; /* Prevents horizontal scrollbar when words start off-screen */
 }
 
-/* Section Separator Divider Line */
+/* Edge-to-Edge Divider Line Separating Section 2 and Section 3 */
 .section-separator-line {
-  width: 100%;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   height: 1px;
   background-color: rgba(255, 255, 255, 0.12);
-  margin: 0;
-  border: none;
 }
 
-/* Section 3: Profile Image & Qualifications Section — Normal Flow Below Section 2 */
+/* Banner Section (Section 3 — Increased top spacing between Section 2 and Section 3) */
 .banner-section {
   position: relative;
-  z-index: 5; /* Lower stacking context than Section 2 (z-index: 10) so Section 3 scrolls under Section 2 */
-  background-color: #0A0A0A; /* Solid dark background */
   width: 100%;
-  padding: clamp(60px, 8vh, 100px) 0;
-  box-sizing: border-box;
+  padding: clamp(80px, 10vh, 140px) 0 clamp(40px, 6vh, 60px) 0;
 }
 
 .about-statement {
-  font-size: clamp(1.75rem, 3vw, 2.75rem);
-  line-height: 1.35;
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem); /* Reduced font size ~24px–36px */
+  line-height: 1.4;
   font-weight: 600;
   color: #FFFFFF;
   text-align: left;
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.3em;
+  row-gap: 0.25em;
 }
 
 .split-word {
-  display: inline;
-  will-change: opacity, color;
-  color: rgba(255, 255, 255, 0.2);
-  opacity: 0.3;
-  transition: color 0.15s ease, opacity 0.15s ease;
+  display: inline-block;
+  will-change: transform, opacity;
+  white-space: nowrap;
+  opacity: 0; /* Invisible before scroll */
+  transform: translateX(80vw); /* Outside the screen on the right */
 }
 
-/* Hero Visual Banner Frame — Responsive Widescreen Frame */
+/* Hero Visual Banner Frame — Responsive Widescreen 1680px Frame */
 .hero-banner-wrap {
   position: relative;
   width: 100%;
   max-width: 100%;
-  margin: 0 auto;
-  min-height: 540px;
+  margin: clamp(60px, 8vh, 120px) auto 0 auto; /* Generous top spacing */
+  min-height: 720px;
   border-radius: var(--radius-md);
   overflow: hidden;
   border: none;

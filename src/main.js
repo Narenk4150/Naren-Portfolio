@@ -362,12 +362,13 @@ function initScrollAnimations() {
   });
 }
 
-// Scroll-Scrubbed Word Reveal Animation for Section 2 (In-flow illumination without transforms)
+// Scroll-Scrubbed Word-Stacking Animation (Continuous Smooth Scroll Reveal from Content to Image Section)
 function initWordSplitScrollAnimation() {
   const statement = document.getElementById('about-statement-text');
-  if (!statement) return;
+  const quoteBox = statement ? statement.parentElement : null;
+  if (!statement || !quoteBox) return;
 
-  // Split paragraph into individual word spans while preserving layout
+  // Split paragraph into individual word spans while preserving flex-wrap layout
   const originalText = statement.innerText.trim();
   const words = originalText.split(/\s+/);
 
@@ -377,23 +378,27 @@ function initWordSplitScrollAnimation() {
 
   const wordSpans = statement.querySelectorAll('.split-word');
 
-  gsap.fromTo(
+  // Continuous ScrollTrigger scrub timeline: Words reveal & align naturally as you scroll down
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: quoteBox,
+      start: 'top 80%',
+      end: 'bottom 20%',
+      scrub: 0.4
+    }
+  });
+
+  tl.fromTo(
     wordSpans,
     {
-      color: 'rgba(255, 255, 255, 0.2)',
-      opacity: 0.3
+      opacity: 0, /* Invisible before scroll */
+      x: (index) => Math.max(window.innerWidth * 0.5, 450) + (index % 6) * 20 /* Starts outside screen right */
     },
     {
-      color: '#FFFFFF',
-      opacity: 1,
+      opacity: 1, /* Reveals & aligns as you scroll naturally */
+      x: 0,
       stagger: 0.03,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '#about',
-        start: 'top 75%',
-        end: 'bottom 35%',
-        scrub: 0.4
-      }
+      ease: 'none'
     }
   );
 }
