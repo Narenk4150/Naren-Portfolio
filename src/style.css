@@ -2064,6 +2064,8 @@ body {
   min-height: 380px;
   padding-right: 16px;
   perspective: 1200px; /* 3D perspective stage for dynamic cursor tracking */
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .toolkit-n-revolving-logo {
@@ -2071,10 +2073,10 @@ body {
   height: auto;
   opacity: 0.95;
   display: block;
-  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.15));
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.18));
   transform-style: preserve-3d;
   will-change: transform;
-  transition: opacity 0.3s ease, filter 0.3s ease;
+  animation: nLogo3DSpin 6s linear infinite !important;
   cursor: grab;
   touch-action: none;
 }
@@ -2085,6 +2087,18 @@ body {
 
 .toolkit-n-revolving-logo:hover {
   opacity: 1;
+}
+
+@keyframes nLogo3DSpin {
+  0% {
+    transform: rotateY(0deg) rotateX(6deg);
+  }
+  50% {
+    transform: rotateY(180deg) rotateX(-6deg);
+  }
+  100% {
+    transform: rotateY(360deg) rotateX(6deg);
+  }
 }
 
 /* Right Topics Column */

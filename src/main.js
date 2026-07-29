@@ -966,28 +966,22 @@ function initInteractiveNLogo() {
   let dragVelocityX = 0;
   let dragVelocityY = 0;
 
-  // 1. Continuous 360-degree Y-axis spinning loop + cursor actuated spin speed boost & tilt
+  // 1. Smooth 3D Cursor Tilting & Drag Rotation Controller
   function renderLoop() {
-    // Base spin (1.4deg/frame) + cursor movement boost + drag velocity
-    const currentSpinIncrement = 1.4 + cursorBoostSpeed + dragVelocityY;
-
     if (!isDragging) {
-      spinAngle = (spinAngle + currentSpinIncrement) % 360;
       dragRotX += dragVelocityX;
+      dragRotY += dragVelocityY;
       dragVelocityX *= 0.92;
       dragVelocityY *= 0.92;
-      cursorBoostSpeed *= 0.92; // Smoothly decelerate cursor speed boost
 
       mouseTiltX += (targetTiltX - mouseTiltX) * 0.1;
       mouseTiltY += (targetTiltY - mouseTiltY) * 0.1;
-    } else {
-      spinAngle = (spinAngle + dragVelocityY) % 360;
     }
 
     const currentX = isDragging ? dragRotX : mouseTiltX + dragRotX;
-    const currentY = spinAngle + (isDragging ? dragRotY : mouseTiltY + dragRotY);
+    const currentY = isDragging ? dragRotY : mouseTiltY + dragRotY;
 
-    logoElem.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg)`;
+    brandCol.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg)`;
     requestAnimationFrame(renderLoop);
   }
 
