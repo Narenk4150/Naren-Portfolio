@@ -657,24 +657,18 @@ function initThreeBrandN() {
 
   const group = new THREE.Group();
 
-  // Ultra-bright Solid Metallic 3D Material with Cyan Ambient Glow & Bevel Highlights
-  const solid3DMaterial = new THREE.MeshStandardMaterial({
-    color: 0xFFFFFF,
-    emissive: 0x002244,
-    emissiveIntensity: 0.35,
-    roughness: 0.15,
-    metalness: 0.75,
-    side: THREE.DoubleSide
-  });
+  // Dual-color 3D materials: Pure White Front + Vivid Cyan 3D Sides (Lighting-Proof & 100% Visible)
+  const frontMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
+  const sideMaterial = new THREE.MeshBasicMaterial({ color: 0x00e5ff, side: THREE.DoubleSide });
 
   // Smooth, thick 3D extrusion settings for bold physical 'N' shape geometry
   const extrudeSettings = {
-    depth: 18,
+    depth: 22,
     bevelEnabled: true,
     bevelSegments: 12,
     steps: 4,
-    bevelSize: 4.0,
-    bevelThickness: 4.0,
+    bevelSize: 4.5,
+    bevelThickness: 4.5,
     curveSegments: 24
   };
 
@@ -683,14 +677,14 @@ function initThreeBrandN() {
     shapes.forEach((shape) => {
       const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
       geometry.center();
-      const mesh = new THREE.Mesh(geometry, solid3DMaterial);
+      const mesh = new THREE.Mesh(geometry, [frontMaterial, sideMaterial]);
       group.add(mesh);
     });
   });
 
   // Scale and center 3D N geometry
-  group.scale.set(1.3, -1.3, 1.3);
-  group.rotation.x = Math.PI * 0.04;
+  group.scale.set(1.35, -1.35, 1.35);
+  group.rotation.x = Math.PI * 0.05;
   scene.add(group);
 
   // Drag Controller for Cursor Rotation
