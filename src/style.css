@@ -409,11 +409,11 @@ body {
 
 /* Minimalist Dark-Mode Resume Download Section Below Hero Headline */
 .hero-resume-section {
-  margin-top: clamp(28px, 4vh, 44px);
+  margin-top: 12px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
+  gap: 8px;
   width: 100%;
 }
 
@@ -3158,11 +3158,11 @@ body {
   will-change: transform, opacity;
 }
 
-/* Bottom-Left 3-Digit Mechanical Odometer Counter (Highest Stacking Layer) */
+/* Bottom-Left 3-Digit Mechanical Odometer Counter (Placed in extreme bottom left corner) */
 .preloader-counter-wrap {
   position: absolute;
-  bottom: clamp(24px, 4vw, 48px);
-  left: clamp(24px, 4vw, 48px);
+  bottom: 0;
+  left: 0;
   display: flex;
   align-items: center;
   user-select: none;
