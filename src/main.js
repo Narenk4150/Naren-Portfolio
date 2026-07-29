@@ -963,10 +963,10 @@ function initInteractiveNLogo() {
   let dragRotX = 0;
   let dragRotY = 0;
 
-  // 1. Continuous 360-degree Y-axis spinning loop + lerped cursor tilt
+  // 1. Continuous 360-degree Y-axis revolving animation loop + lerped cursor tilt
   function renderLoop() {
     if (!isDragging) {
-      spinAngle = (spinAngle + 0.7) % 360;
+      spinAngle = (spinAngle + 1.2) % 360;
       mouseTiltX += (targetTiltX - mouseTiltX) * 0.08;
       mouseTiltY += (targetTiltY - mouseTiltY) * 0.08;
     }
