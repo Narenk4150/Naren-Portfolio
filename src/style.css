@@ -394,6 +394,47 @@ body {
   text-align: left;
 }
 
+.hero-resume-wrap {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.hero-resume-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  letter-spacing: 0.2px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+.hero-resume-btn:hover {
+  background-color: #FFFFFF;
+  color: #0E0E0E;
+  border-color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.25);
+}
+
+.hero-resume-btn .download-icon {
+  transition: transform 0.3s ease;
+}
+
+.hero-resume-btn:hover .download-icon {
+  transform: translateY(2px);
+  stroke: #0E0E0E;
+}
+
 /* About Section (Section 2) — Tight Responsive Padding */
 .about-section {
   min-height: auto;
