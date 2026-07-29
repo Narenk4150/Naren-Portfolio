@@ -405,20 +405,6 @@ function initWordSplitScrollAnimation() {
   );
 }
 
-// Brief Sticky Pin for Hero Photo Banner Section (Section 3 — "Sticky for a millisecond and scroll")
-function initHeroBannerStickyPin() {
-  const bannerSection = document.getElementById('hero-banner-section');
-  if (!bannerSection) return;
-
-  ScrollTrigger.create({
-    trigger: bannerSection,
-    start: 'top top',
-    end: '+=450', /* Brief sticky pin threshold */
-    pin: true,
-    anticipatePin: 1
-  });
-}
-
 // Sticky Stepper Role Switcher Data & Controller
 const expStateData = [
   {
@@ -1074,7 +1060,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initRoleSwitchers();
   initScrollAnimations();
   initWordSplitScrollAnimation();
-  initHeroBannerStickyPin();
   initWorkHistoryReferenceScroller();
   initBrandTransitionWipe();
   initInteractiveNLogo();
