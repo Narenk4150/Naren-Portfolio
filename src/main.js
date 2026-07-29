@@ -610,13 +610,13 @@ function initThreeBrandN() {
 
   container.innerHTML = '';
 
-  let width = container.clientWidth || 320;
-  let height = container.clientHeight || 320;
+  let width = Math.max(container.clientWidth || 0, 320);
+  let height = Math.max(container.clientHeight || 0, 320);
 
   // 3D Scene setup
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-  camera.position.set(0, 0, 160);
+  camera.position.set(0, 0, 140);
 
   const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
   renderer.setSize(width, height);
@@ -625,8 +625,8 @@ function initThreeBrandN() {
 
   // ResizeObserver for dynamic responsiveness
   const resizeObserver = new ResizeObserver(() => {
-    const w = container.clientWidth || 320;
-    const h = container.clientHeight || 320;
+    const w = Math.max(container.clientWidth || 0, 320);
+    const h = Math.max(container.clientHeight || 0, 320);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     renderer.setSize(w, h);

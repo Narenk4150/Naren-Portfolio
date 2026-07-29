@@ -2066,15 +2066,18 @@ body {
 }
 
 .three-n-container {
-  width: 100%;
-  max-width: 360px;
-  height: 360px;
-  display: flex;
+  width: 320px !important;
+  height: 320px !important;
+  min-width: 280px;
+  min-height: 280px;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   position: relative;
   touch-action: none;
   cursor: grab;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .three-n-container:active {
@@ -2084,8 +2087,9 @@ body {
 .three-n-container canvas {
   width: 100% !important;
   height: 100% !important;
-  display: block;
+  display: block !important;
   outline: none;
+  filter: drop-shadow(0 0 35px rgba(0, 229, 255, 0.3));
 }
 
 /* Right Topics Column */
