@@ -957,6 +957,7 @@ function initInteractiveNLogo() {
   let mouseTiltY = 0;
   let targetTiltX = 0;
   let targetTiltY = 0;
+  let cursorBoostSpeed = 0;
   let isDragging = false;
   let previousMouseX = 0;
   let previousMouseY = 0;
@@ -965,15 +966,20 @@ function initInteractiveNLogo() {
   let dragVelocityX = 0;
   let dragVelocityY = 0;
 
-  // 1. Continuous 360-degree Y-axis spinning loop + lerped cursor tilt & drag momentum
+  // 1. Continuous 360-degree Y-axis spinning loop + cursor actuated spin speed boost & tilt
   function renderLoop() {
+    // Base spin (1.4deg/frame) + cursor movement boost + drag velocity
+    const currentSpinIncrement = 1.4 + cursorBoostSpeed + dragVelocityY;
+
     if (!isDragging) {
-      spinAngle = (spinAngle + 1.2 + dragVelocityY) % 360;
+      spinAngle = (spinAngle + currentSpinIncrement) % 360;
       dragRotX += dragVelocityX;
       dragVelocityX *= 0.92;
       dragVelocityY *= 0.92;
-      mouseTiltX += (targetTiltX - mouseTiltX) * 0.08;
-      mouseTiltY += (targetTiltY - mouseTiltY) * 0.08;
+      cursorBoostSpeed *= 0.92; // Smoothly decelerate cursor speed boost
+
+      mouseTiltX += (targetTiltX - mouseTiltX) * 0.1;
+      mouseTiltY += (targetTiltY - mouseTiltY) * 0.1;
     } else {
       spinAngle = (spinAngle + dragVelocityY) % 360;
     }
@@ -987,7 +993,7 @@ function initInteractiveNLogo() {
 
   requestAnimationFrame(renderLoop);
 
-  // 2. Cursor movement tracking & pointer drag control
+  // 2. Cursor movement tracking & pointer drag spin actuation
   const trackTarget = section || brandCol;
 
   const onPointerDown = (e) => {
@@ -999,30 +1005,36 @@ function initInteractiveNLogo() {
   };
 
   const onPointerMove = (e) => {
-    if (isDragging) {
+    if (previousMouseX !== 0 && previousMouseY !== 0) {
       const deltaX = e.clientX - previousMouseX;
       const deltaY = e.clientY - previousMouseY;
+      const dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
-      dragVelocityY = deltaX * 0.5;
-      dragVelocityX -= deltaY * 0.5;
-
-      dragRotY += deltaX * 0.5;
-      dragRotX -= deltaY * 0.5;
-
-      previousMouseX = e.clientX;
-      previousMouseY = e.clientY;
-      return;
+      if (isDragging) {
+        dragVelocityY = deltaX * 0.55;
+        dragVelocityX -= deltaY * 0.55;
+        dragRotY += deltaX * 0.55;
+        dragRotX -= deltaY * 0.55;
+      } else {
+        // Cursor movement directly actuates and accelerates spin speed!
+        cursorBoostSpeed = Math.min(dist * 0.15, 8.0);
+      }
     }
 
-    const rect = brandCol.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
+    previousMouseX = e.clientX;
+    previousMouseY = e.clientY;
 
-    const normX = (e.clientX - centerX) / (window.innerWidth / 2);
-    const normY = (e.clientY - centerY) / (window.innerHeight / 2);
+    if (!isDragging) {
+      const rect = brandCol.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
 
-    targetTiltY = normX * 30; // Rotate Y towards cursor
-    targetTiltX = -normY * 20; // Tilt X towards cursor
+      const normX = (e.clientX - centerX) / (window.innerWidth / 2);
+      const normY = (e.clientY - centerY) / (window.innerHeight / 2);
+
+      targetTiltY = normX * 35; // Rotate Y towards cursor
+      targetTiltX = -normY * 25; // Tilt X towards cursor
+    }
   };
 
   const onPointerUp = () => {
