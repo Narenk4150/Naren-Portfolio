@@ -944,76 +944,79 @@ function initAppPreloader() {
   mainTl.to({}, { duration: 0.25 });
 }
 
-// Interactive Handwritten 'N' Logo Controller (Continuous Y-Axis Spin & Cursor/Drag Interaction)
+// Interactive 3D Spinning & Cursor-Tracking N Logo Mark (Exact Commit 218e387)
 function initInteractiveNLogo() {
+  const logoElem = document.getElementById('toolkit-n-shape-logo') || document.getElementById('toolkit-n-revolving-logo');
   const brandCol = document.getElementById('toolkit-brand-column');
-  const logoElem = document.getElementById('toolkit-n-shape-logo');
   const section = document.getElementById('toolkit');
-  if (!brandCol || !logoElem) return;
+  if (!logoElem || !brandCol) return;
 
-  let baseSpinY = 0;
-  let cursorSpinVelY = 0;
-  let cursorTiltVelX = 0;
+  let spinAngle = 0;
   let mouseTiltX = 0;
   let mouseTiltY = 0;
   let targetTiltX = 0;
   let targetTiltY = 0;
-
+  let cursorBoostSpeed = 0;
   let isDragging = false;
   let previousMouseX = 0;
   let previousMouseY = 0;
   let dragRotX = 0;
   let dragRotY = 0;
+  let dragVelocityX = 0;
+  let dragVelocityY = 0;
 
+  // 1. Continuous 360-degree Y-axis spinning loop + cursor actuated spin speed boost & tilt
   function renderLoop() {
+    // Base spin (1.8deg/frame) + cursor movement boost + drag velocity
+    const currentSpinIncrement = 1.8 + cursorBoostSpeed + dragVelocityY;
+
     if (!isDragging) {
-      // Natural continuous Y-axis rotation (1.2 deg per frame = 72 deg/sec) + cursor spin boost
-      baseSpinY = (baseSpinY + 1.2 + cursorSpinVelY) % 360;
+      spinAngle = (spinAngle + currentSpinIncrement) % 360;
+      dragRotX += dragVelocityX;
+      dragVelocityX *= 0.92;
+      dragVelocityY *= 0.92;
+      cursorBoostSpeed *= 0.92; // Smoothly decelerate cursor speed boost
 
-      dragRotX += cursorTiltVelX;
-      cursorSpinVelY *= 0.93;
-      cursorTiltVelX *= 0.93;
-
-      mouseTiltX += (targetTiltX - mouseTiltX) * 0.08;
-      mouseTiltY += (targetTiltY - mouseTiltY) * 0.08;
+      mouseTiltX += (targetTiltX - mouseTiltX) * 0.1;
+      mouseTiltY += (targetTiltY - mouseTiltY) * 0.1;
     } else {
-      baseSpinY = (baseSpinY + cursorSpinVelY) % 360;
+      spinAngle = (spinAngle + dragVelocityY) % 360;
     }
 
-    const finalRotX = 12 + (isDragging ? dragRotX : mouseTiltX + dragRotX);
-    const finalRotY = baseSpinY + (isDragging ? dragRotY : mouseTiltY + dragRotY);
+    const currentX = 14 + (isDragging ? dragRotX : mouseTiltX + dragRotX);
+    const currentY = spinAngle + (isDragging ? dragRotY : mouseTiltY + dragRotY);
 
-    logoElem.style.transform = `rotateX(${finalRotX.toFixed(2)}deg) rotateY(${finalRotY.toFixed(2)}deg)`;
+    logoElem.style.transform = `rotateX(${currentX.toFixed(2)}deg) rotateY(${currentY.toFixed(2)}deg)`;
     requestAnimationFrame(renderLoop);
   }
 
   requestAnimationFrame(renderLoop);
 
+  // 2. Cursor movement tracking & pointer drag spin actuation
   const trackTarget = section || brandCol;
 
   const onPointerDown = (e) => {
     isDragging = true;
     previousMouseX = e.clientX;
     previousMouseY = e.clientY;
-    logoElem.style.cursor = 'grabbing';
     brandCol.style.cursor = 'grabbing';
+    logoElem.style.cursor = 'grabbing';
   };
 
   const onPointerMove = (e) => {
     if (previousMouseX !== 0 && previousMouseY !== 0) {
       const deltaX = e.clientX - previousMouseX;
       const deltaY = e.clientY - previousMouseY;
+      const dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
       if (isDragging) {
-        cursorSpinVelY = deltaX * 0.5;
-        cursorTiltVelX -= deltaY * 0.5;
-        dragRotY += deltaX * 0.5;
-        dragRotX -= deltaY * 0.5;
+        dragVelocityY = deltaX * 0.55;
+        dragVelocityX -= deltaY * 0.55;
+        dragRotY += deltaX * 0.55;
+        dragRotX -= deltaY * 0.55;
       } else {
-        cursorSpinVelY += deltaX * 0.08;
-        cursorTiltVelX -= deltaY * 0.04;
-        cursorSpinVelY = Math.max(-8, Math.min(8, cursorSpinVelY));
-        cursorTiltVelX = Math.max(-5, Math.min(5, cursorTiltVelX));
+        // Cursor movement directly actuates and accelerates spin speed!
+        cursorBoostSpeed = Math.min(dist * 0.18, 10.0);
       }
     }
 
@@ -1028,8 +1031,8 @@ function initInteractiveNLogo() {
       const normX = (e.clientX - centerX) / (window.innerWidth / 2);
       const normY = (e.clientY - centerY) / (window.innerHeight / 2);
 
-      targetTiltY = normX * 35;
-      targetTiltX = -normY * 25;
+      targetTiltY = normX * 35; // Rotate Y towards cursor
+      targetTiltX = -normY * 25; // Tilt X towards cursor
     }
   };
 
@@ -1043,8 +1046,8 @@ function initInteractiveNLogo() {
   const onPointerUp = () => {
     if (isDragging) {
       isDragging = false;
-      logoElem.style.cursor = 'grab';
       brandCol.style.cursor = 'grab';
+      logoElem.style.cursor = 'grab';
     }
   };
 
